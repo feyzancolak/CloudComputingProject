@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="combiner-letter-frequency" />
         <module name="Combiner" />
+        <module name="inMapper" />
       </profile>
     </annotationProcessing>
   </component>
