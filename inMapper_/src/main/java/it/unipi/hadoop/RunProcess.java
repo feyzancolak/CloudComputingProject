@@ -1,4 +1,4 @@
-package hadoop;
+package it.unipi.hadoop;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
-public class WorkFlowManager {
+public class RunProcess {
     public static void main(String[] args) throws Exception {
         // Check if the correct number of arguments are provided
         if (args.length < 5) {
@@ -52,7 +52,7 @@ public class WorkFlowManager {
 
         // Configure the MapReduce job for counting letters
         Job job = Job.getInstance(conf, "letter count");
-        job.setJarByClass(WorkFlowManager.class);
+        job.setJarByClass(RunProcess.class);
         job.setMapperClass(LetterCount.LetterCountMapper.class);
         job.setReducerClass(LetterCount.LetterCountReducer.class);
         job.setOutputKeyClass(Text.class);
@@ -90,7 +90,7 @@ public class WorkFlowManager {
 
         // Configure the MapReduce job for calculating letter frequency
         Job job = Job.getInstance(conf, "letter frequency");
-        job.setJarByClass(WorkFlowManager.class);
+        job.setJarByClass(RunProcess.class);
         job.setMapperClass(LetterFrequency.LetterFrequencyMapper.class);
         job.setReducerClass(LetterFrequency.LetterFrequencyReducer.class);
         job.setOutputKeyClass(Text.class);
@@ -125,5 +125,3 @@ public class WorkFlowManager {
         return textLength;
     }
 }
-
-
