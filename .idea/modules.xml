@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/CloudComputingProject.iml" filepath="$PROJECT_DIR$/.idea/CloudComputingProject.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Combiner.iml" filepath="$PROJECT_DIR$/Combiner.iml" />
     </modules>
   </component>
 </project>

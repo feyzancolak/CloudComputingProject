@@ -1,4 +1,4 @@
-package it.unipi.dsmt;
+package it.unipi.hadoop;
 
 import java.io.IOException;
 import java.util.Map;

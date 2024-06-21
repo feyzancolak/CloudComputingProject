@@ -1,4 +1,4 @@
-package it.unipi.dsmt;
+package it.unipi.hadoop;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,7 +21,7 @@ public class RunProcess {
     public static Map<String, String> parsing(String[] args) {
         Map<String, String> argMap = new HashMap<>(); //to store the parsed arguments as key-value pairs
         for (String arg : args) {
-            if (arg.startsWith("it.unipi.dsmt")) {
+            if (arg.startsWith("it.unipi.hadoop")) {
                 //If an argument starts with "it.unipi.dsmt", it is ignored and the loop continues to the next argument.
                 continue;
             }
