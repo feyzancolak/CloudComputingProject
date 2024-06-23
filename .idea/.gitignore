@@ -2,3 +2,5 @@ compiler.xml
 encodings.xml
 jarRepositories.xml
 workspace.xml
+# GitHub Copilot persisted chat sessions
+/copilot/chatSessions
