@@ -103,7 +103,7 @@ public class LetterFrequency {
 
 
 
-    public static Job getJob(Configuration conf, Map<String,String> argMap, long textLength, int numReducerTasks) throws IOException {
+    public static Job getJob(Configuration conf, String[] args, long textLength) throws IOException {
         Job letterFrequencyJob = Job.getInstance(conf, "LetterFrequency");
 
         // Set the configuration
@@ -118,11 +118,12 @@ public class LetterFrequency {
         letterFrequencyJob.setCombinerClass(CombinerFrequency.class);
 
         // Set number of reducers
-        if (argMap.containsKey("numReducers")) {
-            letterFrequencyJob.setNumReduceTasks(Integer.parseInt(argMap.get("numReducers")));
-        } else {
-            letterFrequencyJob.setNumReduceTasks(numReducerTasks);
+        if (args[3] != null) {
+            letterFrequencyJob.setNumReduceTasks(Integer.parseInt(args[3]));
+        }else {
+            letterFrequencyJob.setNumReduceTasks(RunProcess.DEFAULT_NUM_REDUCERS);
         }
+
 
         // Set the output key and value classes for the mapper
         letterFrequencyJob.setMapOutputKeyClass(Text.class);
@@ -133,8 +134,8 @@ public class LetterFrequency {
         letterFrequencyJob.setOutputValueClass(DoubleWritable.class);
 
         // Set the input and output paths
-        FileInputFormat.addInputPath(letterFrequencyJob, new Path(argMap.get("input")));
-        FileOutputFormat.setOutputPath(letterFrequencyJob, new Path(argMap.get("letterFrequencyOutput")));
+        FileInputFormat.addInputPath(letterFrequencyJob, new Path(args[0]));
+        FileOutputFormat.setOutputPath(letterFrequencyJob, new Path(args[2]));
 
         // Set the input and output formats
         letterFrequencyJob.setInputFormatClass(TextInputFormat.class);

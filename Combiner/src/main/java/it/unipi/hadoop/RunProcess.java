@@ -1,128 +1,76 @@
 package it.unipi.hadoop;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.hadoop.fs.FSDataInputStream;
-import org.apache.hadoop.fs.FileStatus;
-import org.apache.hadoop.fs.FileSystem;
-import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.util.GenericOptionsParser;
 
 public class RunProcess {
     // Default values
     final static int DEFAULT_NUM_REDUCERS  = 1;
 
+    /*
+        The main method is the entry point of the application. It parses the command line arguments,
+        creates and configures the jobs, and submits them to the Hadoop cluster.
+        @param args  The command line arguments:
+        args[0] = input file (ex. data/input/filename.txt)
+        args[1] = language e.g. "en", "it", "tr"
+        args[2] = output file (ex. data/output/001/frequency/filename.txt)
+        args[3] = number of reducer tasks (optional) es. 1, 2 and 3
+    */
     public static void main(String[] args) throws Exception {
-
-        //check if the correct number of arguments are provided
-        if(args.length < 4) {
-            System.err.println("Usage: LetterFrequency input=<input> letterCountOutput=<output> letterFrequencyOutput=<output> [numReducers=<num of reducer tasks>]");
-            System.exit(2); //indicates incorrect usage or invalid arguments
+        if (args.length < 3) {
+            System.err.println("Usage: <input path> <language> <output path> [<num reducers>]");
+            System.exit(-1);
         }
-        // Configuration of the job
+
+        String inputPath = args[0];
+        String language = args[1];
+        String outputPath = args[2];
+        int numReducers = args.length > 3 ? Integer.parseInt(args[3]) : DEFAULT_NUM_REDUCERS;
+
+        System.out.println("Input Path: " + inputPath);
+        System.out.println("Language: " + language);
+        System.out.println("Output Path: " + outputPath);
+        System.out.println("Number of Reducers: " + numReducers);
+
+        // Create configuration and set the language
         Configuration conf = new Configuration();
+        conf.set("language", language);
 
-        //It parses these arguments and separates Hadoop-specific arguments from the user-defined ones.
-        //The getRemainingArgs() method returns an array of the user-defined arguments after Hadoop-specific arguments have been processed and removed.
-        String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
 
-        // Parse the arguments to get a map of the arguments
-        Map<String, String> argMap = parsing(args);
+        // Create and configure the Letter Count job
+        Job letterCountJob = LetterCount.getJob(conf, args);
+        System.out.println("Letter Count job configured");
 
-        // Create a letter count job
-        Job letterCountJob = LetterCount.getJob(conf, argMap, DEFAULT_NUM_REDUCERS );
-        // Wait for the first job to complete and exists if it fails
+        // Wait for the Letter Count job to complete
         if (!letterCountJob.waitForCompletion(true)) {
+            System.err.println("Letter Count job failed");
             System.exit(1);
         }
 
-        // Read the text length to get the total text length from the first job's output
-        long textLength = getTextLength(conf, argMap.get("letterCountOutput"));
+        System.out.println("Letter Count job completed successfully");
 
-        // Create a letter frequency job
-        Job letterFrequencyJob = LetterFrequency.getJob(conf, argMap, textLength, DEFAULT_NUM_REDUCERS );
-        // Wait for the second job to complete
-        System.exit(letterFrequencyJob.waitForCompletion(true) ? 0 : 1);
-    }
+        // Get the total count of characters from the Letter Count job output
+        //.getCounter() retrieves Counter object associated with the job that tracks and reports the progress
+        //.findCounter() searches for specific counters by group and name
+        //"org.apache.hadoop.mapreduce.TaskCounter" is the group name for built-in counters related to tasks in Hadoop MapReduce jobs
+        //"MAP_OUTPUT_RECORDS" is the name of the counter that tracks the number of records output by the mappers
+        //.getValue() retrieves the value of the counter found by findCounter()
+        long textLength = letterCountJob.getCounters().findCounter("org.apache.hadoop.mapreduce.TaskCounter", "MAP_OUTPUT_RECORDS").getValue();
+        System.out.println("Total number of characters: " + textLength);
 
-    //parses the command line arguments and ensures that requires arguments are provided (input, letterCountOutput, letterFrequencyOutput)
-    public static Map<String, String> parsing(String[] args) {
-        Map<String, String> argMap = new HashMap<>(); //to store the parsed arguments as key-value pairs
-        for (String arg : args) {
-            if (arg.startsWith("it.unipi.hadoop")) {
-                //If an argument starts with "it.unipi.dsmt", it is ignored and the loop continues to the next argument.
-                continue;
-            }
-            //each argument string is split into two parts using the = delimiter. This results in
-            //an array 'parts' where 'parts[0]' is the key and 'parts[1]' is the value.
-            String[] parts = arg.split("=");
-            //check if the split resulted in two parts correctly otherwise give an error
-            if (parts.length == 2) {
-                argMap.put(parts[0], parts[1]);
-            } else {
-                System.err.println("Invalid argument: " + arg);
-                System.exit(1);
-            }
-        }
+        // Create and configure the Letter Frequency job
+        Job letterFrequencyJob = LetterFrequency.getJob(conf, args, textLength);
+        System.out.println("Letter Frequency job configured");
 
-        //check if the required arguments are provided
-        if (!argMap.containsKey("input") || !argMap.containsKey("letterCountOutput") || !argMap.containsKey("letterFrequencyOutput")) {
-            System.err.println("Usage: LetterFrequency input=<input> letterCountOutput=<output> letterFrequencyOutput=<output> [numReducers=<num of reducer tasks>]");
+        // Wait for the Letter Frequency job to complete
+        if (!letterFrequencyJob.waitForCompletion(true)) {
+            System.err.println("Letter Frequency job failed");
             System.exit(1);
         }
 
-        System.out.println("args[0]: <input>="  + argMap.get("input"));
-        System.out.println("args[1]: <letterCountOutput>=" + argMap.get("letterCountOutput"));
-        System.out.println("args[2]: <letterFrequencyOutput>=" + argMap.get("letterFrequencyOutput"));
+        System.out.println("Letter Frequency job completed successfully");
 
-        return argMap;
+        System.exit(0);
     }
-
-    //Reads the total length of the text from the output files of the 'LetterCount' job. It iterates over
-    //the output files, ignoring the '_success' file , reads the first line to get the text length and sums up the lengths
-    public static long getTextLength(Configuration conf, String outputDirectory) throws IOException {
-        // Read the output of the first job
-        FileSystem fs = FileSystem.get(conf);
-        Path outputDirPath = new Path(outputDirectory);
-
-        // Initialize the total text length
-        long totalTextLength = 0;
-
-        // Get a list of all files in the output directory
-        FileStatus[] status = fs.listStatus(outputDirPath);
-        for (FileStatus fileStatus : status) {
-            String fileName = fileStatus.getPath().getName();
-
-            // Ignore the _SUCCESS file
-            if (!fileName.equals("_SUCCESS")) {
-                // Open the file
-                FSDataInputStream inputStream = fs.open(fileStatus.getPath());
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-
-                // The result is on the first line of the output
-                String firstLine = bufferedReader.readLine();
-                if (firstLine != null) {
-                    long textLength = Long.parseLong(firstLine);
-                    totalTextLength += textLength;
-                }
-
-                // Close the input stream
-                bufferedReader.close();
-                inputStream.close();
-            }
-        }
-
-        // Display the total text length
-        System.out.println("Letter Count - Total text length: " + totalTextLength);
-
-        return totalTextLength;
-    }
-
 }
 
