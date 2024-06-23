@@ -1,0 +1,17 @@
+HELP.md
+Combiner/target
+inMapper/target
+
+### IntelliJ IDEA ###
+/.idea/
+
+
+### LATEX ###
+documentation/documentation.toc
+documentation/documentation.synctex.gz
+documentation/documentation.log
+documentation/documentation.fls
+documentation/documentation.fdb_latexmk
+documentation/documentation.aux
+documentation/documentation.out
+documentation/documentation.pdf
