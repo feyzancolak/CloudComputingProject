@@ -12,10 +12,44 @@ import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.util.GenericOptionsParser;
 
 public class RunProcess {
     // Default values
-    final static int DEFAULT_NUM_REDUCERS = 1;
+    final static int DEFAULT_NUM_REDUCERS  = 1;
+
+    public static void main(String[] args) throws Exception {
+
+        //check if the correct number of arguments are provided
+        if(args.length < 4) {
+            System.err.println("Usage: LetterFrequency input=<input> letterCountOutput=<output> letterFrequencyOutput=<output> [numReducers=<num of reducer tasks>]");
+            System.exit(2); //indicates incorrect usage or invalid arguments
+        }
+        // Configuration of the job
+        Configuration conf = new Configuration();
+
+        //It parses these arguments and separates Hadoop-specific arguments from the user-defined ones.
+        //The getRemainingArgs() method returns an array of the user-defined arguments after Hadoop-specific arguments have been processed and removed.
+        String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
+
+        // Parse the arguments to get a map of the arguments
+        Map<String, String> argMap = parsing(args);
+
+        // Create a letter count job
+        Job letterCountJob = LetterCount.getJob(conf, argMap, DEFAULT_NUM_REDUCERS );
+        // Wait for the first job to complete and exists if it fails
+        if (!letterCountJob.waitForCompletion(true)) {
+            System.exit(1);
+        }
+
+        // Read the text length to get the total text length from the first job's output
+        long textLength = getTextLength(conf, argMap.get("letterCountOutput"));
+
+        // Create a letter frequency job
+        Job letterFrequencyJob = LetterFrequency.getJob(conf, argMap, textLength, DEFAULT_NUM_REDUCERS );
+        // Wait for the second job to complete
+        System.exit(letterFrequencyJob.waitForCompletion(true) ? 0 : 1);
+    }
 
     //parses the command line arguments and ensures that requires arguments are provided (input, letterCountOutput, letterFrequencyOutput)
     public static Map<String, String> parsing(String[] args) {
@@ -90,30 +124,5 @@ public class RunProcess {
         return totalTextLength;
     }
 
-
-
-    public static void main(String[] args) throws Exception {
-
-        // Configuration of the job
-        Configuration conf = new Configuration();
-
-        // Parse the arguments to get a map of the arguments
-        Map<String, String> argMap = parsing(args);
-
-        // Create a letter count job
-        Job letterCountJob = LetterCount.getJob(conf, argMap, DEFAULT_NUM_REDUCERS);
-        // Wait for the first job to complete and exists if it fails
-        if (!letterCountJob.waitForCompletion(true)) {
-            System.exit(1);
-        }
-
-        // Read the text length to get the total text length from the first job's output
-        long textLength = getTextLength(conf, argMap.get("letterCountOutput"));
-
-        // Create a letter frequency job
-        Job letterFrequencyJob = LetterFrequency.getJob(conf, argMap, textLength, DEFAULT_NUM_REDUCERS);
-        // Wait for the second job to complete
-        System.exit(letterFrequencyJob.waitForCompletion(true) ? 0 : 1);
-    }
 }
 
