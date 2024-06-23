@@ -6,6 +6,7 @@
       <list>
         <option value="$PROJECT_DIR$/Combiner/pom.xml" />
         <option value="$PROJECT_DIR$/inMapper_/pom.xml" />
+        <option value="$PROJECT_DIR$/inMapper/pom.xml" />
       </list>
     </option>
   </component>

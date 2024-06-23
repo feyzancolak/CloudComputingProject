@@ -125,9 +125,58 @@
       <workItem from="1718975586919" duration="339000" />
       <workItem from="1718975978530" duration="9117000" />
     </task>
+    <task id="LOCAL-00001" summary="new inMapper">
+      <option name="closed" value="true" />
+      <created>1718977198825</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1718977198825</updated>
+    </task>
+    <task id="LOCAL-00002" summary="gitignore">
+      <option name="closed" value="true" />
+      <created>1718977362634</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1718977362635</updated>
+    </task>
+    <task id="LOCAL-00003" summary="gitignore">
+      <option name="closed" value="true" />
+      <created>1718977446875</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1718977446875</updated>
+    </task>
+    <task id="LOCAL-00004" summary="gitignore">
+      <option name="closed" value="true" />
+      <created>1718977496609</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1718977496609</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="new inMapper" />
+    <MESSAGE value="gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="gitignore" />
   </component>
 </project>
