@@ -4,18 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79f428db-0e7f-4788-9f7e-4577f768c58e" name="Changes" comment="gitignore">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+    <list default="true" id="79f428db-0e7f-4788-9f7e-4577f768c58e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Combiner_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Combiner/src/main/java/it/unipi/hadoop/LanguageNormalizer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inMapper_/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inMapper/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inMapper_/src/main/java/it/unipi/hadoop/LanguageNormalizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/inMapper/src/main/java/it/unipi/hadoop/LanguageNormalizer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inMapper_/src/main/java/it/unipi/hadoop/LetterCount.java" beforeDir="false" afterPath="$PROJECT_DIR$/inMapper/src/main/java/it/unipi/hadoop/LetterCount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inMapper_/src/main/java/it/unipi/hadoop/LetterFrequency.java" beforeDir="false" afterPath="$PROJECT_DIR$/inMapper/src/main/java/it/unipi/hadoop/LetterFrequency.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inMapper_/src/main/java/it/unipi/hadoop/RunProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/inMapper/src/main/java/it/unipi/hadoop/RunProcess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inMapper_/src/test/java/it/unipi/hadoop/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/inMapper/src/test/java/it/unipi/hadoop/AppTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Combiner/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Combiner/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Combiner/src/main/java/it/unipi/hadoop/LetterCount.java" beforeDir="false" afterPath="$PROJECT_DIR$/Combiner/src/main/java/it/unipi/hadoop/LetterCount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Combiner/src/main/java/it/unipi/hadoop/LetterFrequency.java" beforeDir="false" afterPath="$PROJECT_DIR$/Combiner/src/main/java/it/unipi/hadoop/LetterFrequency.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,8 +29,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
+  <component name="MavenRunner">
+    <option name="delegateBuildToMaven" value="true" />
+    <option name="jreName" value="21 (2)" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -44,23 +42,69 @@
     <option name="showLibraryContents" value="true" />
     <option name="showVisibilityIcons" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;jdk21&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
+    "Maven.RunProcess (1).executor": "Run",
+    "Maven.RunProcess.executor": "Run",
+    "Maven.combiner-letter-frequency [install...].executor": "Run",
+    "Maven.inMapper [install,--non-recursive].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.runner",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="it.unipi.hadoop" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.RunProcess (1)">
+    <configuration name="RunProcess (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="it.unipi.hadoop.RunProcess" />
+      <module name="inMapper" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.unipi.hadoop.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunProcess" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="it.unipi.hadoop.RunProcess" />
+      <module name="Combiner" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.unipi.hadoop.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.RunProcess (1)" />
+        <item itemvalue="Application.RunProcess" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -79,12 +123,8 @@
       <updated>1718975479002</updated>
       <workItem from="1718975481091" duration="7000" />
       <workItem from="1718975566675" duration="3000" />
-      <workItem from="1718975966974" duration="45000" />
-      <workItem from="1718976051732" duration="3708000" />
-      <workItem from="1719050160848" duration="613000" />
-      <workItem from="1719062206024" duration="22000" />
-      <workItem from="1719064162677" duration="1208000" />
-      <workItem from="1719086470558" duration="601000" />
+      <workItem from="1718975586919" duration="339000" />
+      <workItem from="1718975978530" duration="9117000" />
     </task>
     <task id="LOCAL-00001" summary="new inMapper">
       <option name="closed" value="true" />

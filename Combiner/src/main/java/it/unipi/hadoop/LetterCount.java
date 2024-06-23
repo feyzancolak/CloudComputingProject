@@ -29,12 +29,14 @@ public class LetterCount{
     public static class MapperCounter extends Mapper<Object, Text,Text, LongWritable>{
 
         private final static LongWritable one = new LongWritable(1); //A constant longwrirable object with value 1 for each letter found
-        private final static Pattern CHARACTER_PATTERN = Pattern.compile("[a-z]", Pattern.CASE_INSENSITIVE); //regex pattern to match letters with case insensitive
+        private final static Pattern CHARACTER_PATTERN = Pattern.compile("[a-zğüşıöç]", Pattern.CASE_INSENSITIVE); //regex pattern to match letters with case insensitive
         private Text character = new Text(); //hadoop text object to hold single character
 
         @Override
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException{
-            String line = value.toString().toLowerCase(); //convert the line to lowercase
+            String language = context.getConfiguration().get("language");
+
+            String line = LanguageNormalizer.normalize(value.toString().toLowerCase(),language); //convert the line to lowercase
             for(char ch: line.toCharArray()){ //iterate through each character in the line
                 if(CHARACTER_PATTERN.matcher(String.valueOf(ch)).matches()){  //use regex to check if the character is a letter
                     character.set(String.valueOf(ch)); //set the character as the key

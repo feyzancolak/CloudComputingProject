@@ -24,15 +24,15 @@ public class LetterFrequency {
     public static class MapperFrequency extends Mapper<Object, Text, Text, LongWritable> {
         private Text reducerKey = new Text();
         private final static LongWritable reducerValue = new LongWritable(1);
-        private final static Pattern CHARACTER_PATTERN = Pattern.compile("[a-z]", Pattern.CASE_INSENSITIVE);
+        private final static Pattern CHARACTER_PATTERN = Pattern.compile("[a-zğüşıöç]", Pattern.CASE_INSENSITIVE);
 
         @Override
         protected void map(Object key, Text value, Context context) throws IOException, InterruptedException {
+            String language = context.getConfiguration().get("language");
             // Convert the line to lower case and remove accents
-            String line = StringUtils.stripAccents(value.toString()).toLowerCase();
+            String line = LanguageNormalizer.normalize((value.toString()).toLowerCase(),language);
 
             //Emits each letter found in the input text with a count of 1
-
             for (char ch : line.toCharArray()) {
                 // Check if the character is a letter
                 if (CHARACTER_PATTERN.matcher(String.valueOf(ch)).matches()) {
