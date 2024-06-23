@@ -1,6 +1,6 @@
 HELP.md
-Combiner/target
-inMapper/target
+/Combiner/target
+/inMapper/target
 
 ### IntelliJ IDEA ###
 /.idea/
