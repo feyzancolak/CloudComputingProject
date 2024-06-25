@@ -12,7 +12,6 @@ import java.io.InputStreamReader;
 
 public class RunProcess {
 
-
     /*
         The main method is the entry point of the application. It parses the command line arguments,
         creates and configures the jobs, and submits them to the Hadoop cluster.
@@ -23,11 +22,13 @@ public class RunProcess {
         args[3] = number of reducer tasks (optional) es. 1, 2 and 3
     */
     public static void main(String[] args) throws Exception {
+        //argument parsing - checks if arguments are passed correctly
         if (args.length < 3) {
             System.err.println("Usage: <input path> <language> <output path> [<num reducers>]");
             System.exit(2);
         }
 
+        //extracts the input file path, language, output file path and number of reducers from the arguments
         String inputFile = args[0];
         String language = args[1];
         String outputFile = args[2];
@@ -38,15 +39,15 @@ public class RunProcess {
         System.out.println("Output file: " + outputFile);
         System.out.println("Number of reducers: " + numReducers);
 
-        // Create configuration and set the language
+        // Create configuration and set the language abd number of reducers
         Configuration conf = new Configuration();
         conf.set("language", language);
         conf.setInt("numReducers", numReducers);
 
-        //Temp output file to write letterCount result
+        //Define Temp output file to write letterCount result
         String tempOutputFile = outputFile + "_temp";
 
-        // Clean output directory before running letter count job
+        // Clean output directory before running letter count job to ensure they are empty
         clearFileContent(outputFile, conf);
         clearFileContent(tempOutputFile, conf);
 
@@ -84,6 +85,13 @@ public class RunProcess {
         System.exit(0);
     }
 
+    /*
+        getTotalLetterCount method reads the total letter count from the output of the Letter Count job.
+
+        @param tempOutputFile  The path of the output directory of the Letter Count job.
+        @param conf  The configuration object.
+        @return  The total letter count.
+     */
     private static long getTotalLetterCount(String tempOutputFile, Configuration conf) throws IOException {
         FileSystem fs = FileSystem.get(conf);
         Path outputPath = new Path(tempOutputFile);
@@ -100,6 +108,13 @@ public class RunProcess {
         return totalLetterCount;
     }
 
+    /*
+        appendLetterCountToFile method appends the total letter count to the final output file.
+
+        @param totalLetterCount  The total letter count.
+        @param outputFile  The path of the final output file.
+        @param conf  The configuration object.
+     */
     private static void appendLetterCountToFile(long totalLetterCount, String outputFile, Configuration conf) throws IOException {
         FileSystem fs = FileSystem.get(conf);
         Path outputPath = new Path(outputFile);
@@ -115,6 +130,12 @@ public class RunProcess {
         }
     }
 
+    /*
+        deleteFileOrDirectory method deletes the specified file or directory if it exists
+
+        @param path  The path of the file or directory to delete.
+        @param conf  The configuration object.
+     */
     private static void deleteFileOrDirectory(String path, Configuration conf) throws IOException {
         FileSystem fs = FileSystem.get(conf);
         Path targetPath = new Path(path);
@@ -124,6 +145,12 @@ public class RunProcess {
         }
     }
 
+    /*
+        Clears the contents of the specified file by overwriting it with an empty file.
+
+        @param filePath  The path of the file to clear.
+        @param conf  The configuration object.
+     */
     private static void clearFileContent(String filePath, Configuration conf) throws IOException {
         FileSystem fs = FileSystem.get(conf);
         Path targetPath = new Path(filePath);
