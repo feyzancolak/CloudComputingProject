@@ -1,8 +1,23 @@
 package it.unipi.hadoop;
 
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.FileStatus;
+
+import org.apache.hadoop.fs.FSDataOutputStream;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+
+import java.io.*;
+import java.util.Arrays;
+
+import java.io.BufferedReader;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+
+
 import org.apache.hadoop.fs.FileSystem;
+
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.IntWritable;
@@ -10,47 +25,57 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import org.apache.hadoop.util.GenericOptionsParser;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
 
 public class RunProcess {
+
     public static void main(String[] args) throws Exception {
-        // Check if the correct number of arguments are provided
-        if (args.length < 5) {
-            System.err.println("Usage: WorkflowManager <count|frequency> <in> [<in>...] <temp> <out> <language>");
+        if (args.length < 3 || args.length > 4) {
+            System.err.println("Usage: RunProcess <inputfile> <language> <outputfile> [<numReducers>]");
             System.exit(2);
         }
 
-        String jobType = args[0];
+        String inputFile = args[0];
+        String language = args[1];
+        String outputFile = args[2];
+        int numReducers = (args.length == 4) ? Integer.parseInt(args[3]) : 1;
+
+        System.out.println("Input file: " + inputFile);
+        System.out.println("Language: " + language);
+        System.out.println("Output file: " + outputFile);
+        System.out.println("Number of reducers: " + numReducers);
+
         Configuration conf = new Configuration();
-        // Parse the command line arguments
-        String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
+        conf.set("language", language);
+        conf.setInt("numReducers", numReducers);
 
-        // Check the job type and run the corresponding job
-        if (jobType.equals("count")) {
-            runLetterCountJob(otherArgs, conf);
-        } else if (jobType.equals("frequency")) {
-            runLetterFrequencyJob(otherArgs, conf);
-        } else {
-            System.err.println("Invalid job type. Use 'count' or 'frequency'.");
-            System.exit(2);
-        }
+        //Temp output file to write letterCount result
+        String tempOutputFile = outputFile + "_temp";
+
+
+        // Clean output directory before running letter count job
+        clearFileContent(outputFile, conf);
+        clearFileContent(tempOutputFile, conf);
+
+        // Step 1: Run Letter Count Job
+        runLetterCountJob(inputFile, tempOutputFile, conf);
+
+        // Step 2: Read total letter count from the output of Letter Count job
+        long totalLetterCount = getTotalLetterCount(tempOutputFile, conf);
+
+        // Step 3: Run Letter Frequency Job and append results to the output file
+        runLetterFrequencyJob(tempOutputFile, totalLetterCount, outputFile, conf);
+
+        // Step 4: Append the output of Letter Count job to the final output file
+        appendLetterCountToFile(tempOutputFile, outputFile, conf);
+
+        // Step 5: Delete the temporary output directory
+        deleteFileOrDirectory(tempOutputFile, conf);
+
+
+        System.exit(0);
     }
 
-    private static void runLetterCountJob(String[] args, Configuration conf) throws Exception {
-        // Extract input paths, output path, and language from the arguments
-        String[] countArgs = Arrays.copyOfRange(args, 1, args.length - 2);
-        String outputPath = args[args.length - 2];
-        String language = args[args.length - 1];
-
-        // Set the language in the configuration
-        conf.set("language", language);
-
-        // Configure the MapReduce job for counting letters
+    private static void runLetterCountJob(String inputFile, String tempOutputFile, Configuration conf) throws Exception {
         Job job = Job.getInstance(conf, "letter count");
         job.setJarByClass(RunProcess.class);
         job.setMapperClass(LetterCount.LetterCountMapper.class);
@@ -58,37 +83,36 @@ public class RunProcess {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
 
-        // Set a custom partitioner and number of reducers
         job.setPartitionerClass(LetterCount.CounterPartitioner.class);
-        job.setNumReduceTasks(3); // Example: Set number of reducers
+        job.setNumReduceTasks(conf.getInt("numReducers", 1));
 
-        // Add input paths to the job
-        for (String inputPath : countArgs) {
-            FileInputFormat.addInputPath(job, new Path(inputPath));
+        FileInputFormat.addInputPath(job, new Path(inputFile));
+        FileOutputFormat.setOutputPath(job, new Path(tempOutputFile));
+
+        if (!job.waitForCompletion(true)) {
+            System.exit(1);
         }
-        // Set the output path for the job
-        FileOutputFormat.setOutputPath(job, new Path(outputPath));
-
-        // Wait for the job to complete
-        job.waitForCompletion(true);
     }
 
-    private static void runLetterFrequencyJob(String[] args, Configuration conf) throws Exception {
-        // Extract paths and language from the arguments
-        String countOutputPath = args[args.length - 3];
-        String frequencyOutputPath = args[args.length - 2];
-        String language = args[args.length - 1];
+    private static long getTotalLetterCount(String tempOutputFile, Configuration conf) throws IOException {
+        FileSystem fs = FileSystem.get(conf);
+        Path outputPath = new Path(tempOutputFile);
+        long totalLetterCount = 0;
 
-        // Set the language in the configuration
-        conf.set("language", language);
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(fs.open(new Path(outputPath, "part-r-00000"))))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("\\s+");
+                totalLetterCount += Long.parseLong(parts[1]);
+            }
+        }
 
-        // Get the total length of the text from the output of the LetterCount job
-        long textLength = getTextLength(conf, countOutputPath);
+        return totalLetterCount;
+    }
 
-        // Set the text length in the configuration
-        conf.setLong("textLength", textLength);
+    private static void runLetterFrequencyJob(String tempOutputFile, long totalLetterCount, String outputFile, Configuration conf) throws Exception {
+        conf.setLong("totalLetterCount", totalLetterCount);
 
-        // Configure the MapReduce job for calculating letter frequency
         Job job = Job.getInstance(conf, "letter frequency");
         job.setJarByClass(RunProcess.class);
         job.setMapperClass(LetterFrequency.LetterFrequencyMapper.class);
@@ -96,32 +120,54 @@ public class RunProcess {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(DoubleWritable.class);
 
-        // Set the input and output paths for the job
-        FileInputFormat.addInputPath(job, new Path(countOutputPath));
-        FileOutputFormat.setOutputPath(job, new Path(frequencyOutputPath));
+        // Use the temp output file as input and output as output for letter frequency job
+        FileInputFormat.addInputPath(job, new Path(tempOutputFile));
+        FileOutputFormat.setOutputPath(job, new Path(outputFile));
 
-        // Wait for the job to complete
-        job.waitForCompletion(true);
+        if (!job.waitForCompletion(true)) {
+            System.exit(1);
+        }
     }
 
-    private static long getTextLength(Configuration conf, String countOutputPath) throws IOException {
-        // Create the path for the output file from the LetterCount job
-        Path outputPath = new Path(countOutputPath + "/part-r-00000"); // Assuming default output name
+    private static void appendLetterCountToFile(String tempOutputFile, String outputFile, Configuration conf) throws IOException {
         FileSystem fs = FileSystem.get(conf);
-        long textLength = 0;
-        // Iterate over all output files in the output directory
-        for (FileStatus status : fs.listStatus(outputPath.getParent())) {
-            if (status.getPath().getName().startsWith("part-")) {
-                // Read each file and sum the counts of letters
-                try (BufferedReader br = new BufferedReader(new InputStreamReader(fs.open(status.getPath())))) {
-                    String line;
-                    while ((line = br.readLine()) != null) {
-                        String[] parts = line.split("\\s+");
-                        textLength += Long.parseLong(parts[1]);
-                    }
-                }
+        Path outputPath = new Path(outputFile);
+        Path tempOutputPath = new Path(tempOutputFile);
+
+        // Ensure the output file exists, otherwise create it
+        if (!fs.exists(outputPath)) {
+            fs.create(outputPath).close();
+        }
+
+        // Read the contents of the temporary output file and append it to the final output file
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(fs.open(new Path(tempOutputPath, "part-r-00000"))));
+             FSDataOutputStream out = fs.append(new Path(outputPath, "part-r-00000"), 4096)) {
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                out.writeBytes(line + "\n");
             }
         }
-        return textLength;
+    }
+
+
+    private static void deleteFileOrDirectory(String path, Configuration conf) throws IOException {
+        FileSystem fs = FileSystem.get(conf);
+        Path targetPath = new Path(path);
+
+        if (fs.exists(targetPath)) {
+            fs.delete(targetPath, true);
+        }
+    }
+
+    private static void clearFileContent(String filePath, Configuration conf) throws IOException {
+        FileSystem fs = FileSystem.get(conf);
+        Path targetPath = new Path(filePath);
+
+        if (fs.exists(targetPath)) {
+            FSDataOutputStream out = fs.create(targetPath, true); // Overwrites the existing file
+            out.close();
+        }
     }
 }
+

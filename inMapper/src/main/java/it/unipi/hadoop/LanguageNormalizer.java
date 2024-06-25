@@ -26,11 +26,11 @@ public class LanguageNormalizer {
         input = input.toLowerCase();
 
         switch (language.toLowerCase()) {
-            case "english":
+            case "en":
                 return normalizeEnglish(input);
-            case "italian":
+            case "it":
                 return normalizeItalian(input);
-            case "turkish":
+            case "tr":
                 return normalizeTurkish(input);
             default:
                 throw new IllegalArgumentException("Unsupported language: " + language);
