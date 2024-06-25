@@ -44,7 +44,7 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>hadoop.WorkFlow</mainClass>
+              <mainClass>it.unipi.hadoop.RunProcess</mainClass>
             </manifest>
           </archive>
         </configuration>

@@ -1,6 +1,13 @@
 \chapter{Algorithms}
 
 
+The goal of the project is to explore the core algorithms implemented for analyzing letter frequency across different languages using Hadoop MapReduce. 
+The project focuses on processing text documents to extract insights into the occurrence of standard alphabet characters within specific languages, namely Italian, English, and Turkish. 
+To be able to distinguish the different alphabets, a class languageNormalizer was implemented. 
+Furthermore, the input texts also have different dimensions, ranging from small to large datasets.
+In this way we can test the performance of the algorithms with different input sizes.
+The project has two types of implementations: Combiner and InMapper. Both techniques share the goal of improving MapReduce efficiency by reducing network traffic and enhancing processing speed through partial aggregation. They also both use the partitioner functionality, which provides an even distribution of data among the reducers, rather than a random distribution. However, they differ in execution stage and scope: the Combiner aggregates data after Mapper tasks and before Reducers, while the InMapper integrates aggregation within each Mapper task, thereby potentially minimizing resource overhead and optimizing memory usage. 
+
 \section{Combiner}
 \subsection{LetterCount}
 \subsection{LetterFrequency}
