@@ -1,6 +1,7 @@
 package it.unipi.hadoop;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -79,7 +80,7 @@ public class LetterCount{
         }
     }
 
-    public static Job getJob(Configuration conf, Map<String,String> argMap, int numReducerTask) throws IOException{
+    public static Job getJob(Configuration conf, String[] args) throws IOException{
         Job letterCountJob = Job.getInstance(conf, "Letter Count");
 
         //Set the main classes
@@ -92,11 +93,10 @@ public class LetterCount{
         letterCountJob.setPartitionerClass(PartitionerCounter.class);
 
         //set the number of reducers
-        if (argMap.containsKey("numReducers")){
-            letterCountJob.setNumReduceTasks(Integer.parseInt(argMap.get("numReducers")));
-        }
-        else{
-            letterCountJob.setNumReduceTasks(numReducerTask);
+        if (args[3]!=null){
+            letterCountJob.setNumReduceTasks(Integer.parseInt(args[3]));
+        }else {
+            letterCountJob.setNumReduceTasks(RunProcess.DEFAULT_NUM_REDUCERS);
         }
 
         // Set the output key and value classes for the mapper
@@ -108,8 +108,8 @@ public class LetterCount{
         letterCountJob.setOutputValueClass(LongWritable.class);
 
         // Set the input and output paths
-        FileInputFormat.addInputPath(letterCountJob, new Path(argMap.get("input")));
-        FileOutputFormat.setOutputPath(letterCountJob, new Path(argMap.get("letterCountOutput")));
+        FileInputFormat.addInputPath(letterCountJob, new Path(args[0]));
+        FileOutputFormat.setOutputPath(letterCountJob, new Path(args[2]));
 
         // Set the input and output formats
         letterCountJob.setInputFormatClass(TextInputFormat.class);
