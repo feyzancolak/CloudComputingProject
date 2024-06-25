@@ -85,39 +85,4 @@ public class LetterCount {
         }
     }
 
-    // Job configurator class to set up and run the letter count job
-    public static class LetterCountJobConfigurator {
-        public static void main(String[] args) throws Exception {
-            Configuration conf = new Configuration();
-            String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
-            if (otherArgs.length < 3) {
-                System.err.println("Usage: lettercount <in> [<in>...] <out> <language>");
-                System.exit(2);
-            }
-
-            // Set the language in the configuration
-            conf.set("language", otherArgs[otherArgs.length - 1]);
-
-            // Configure the MapReduce job
-            Job job = Job.getInstance(conf, "letter count");
-            job.setJarByClass(LetterCountJobConfigurator.class);
-            job.setMapperClass(LetterCount.LetterCountMapper.class);
-            job.setReducerClass(LetterCountReducer.class);
-            job.setOutputKeyClass(Text.class);
-            job.setOutputValueClass(IntWritable.class);
-
-            job.setPartitionerClass(CounterPartitioner.class); // Set custom partitioner
-            job.setNumReduceTasks(3); // Example: Set number of reducers
-
-            // Add input paths to the job
-            for (int i = 0; i < otherArgs.length - 2; ++i) {
-                FileInputFormat.addInputPath(job, new Path(otherArgs[i]));
-            }
-            // Set the output path for the job
-            FileOutputFormat.setOutputPath(job, new Path(otherArgs[otherArgs.length - 2]));
-
-            // Exit after job completion
-            System.exit(job.waitForCompletion(true) ? 0 : 1);
-        }
     }
-}
