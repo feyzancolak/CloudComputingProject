@@ -7,11 +7,64 @@ To be able to distinguish the different alphabets, a class languageNormalizer wa
 Furthermore, the input texts also have different dimensions, ranging from small to large datasets.
 In this way we can test the performance of the algorithms with different input sizes.
 The project has two types of implementations: Combiner and InMapper. Both techniques share the goal of improving MapReduce efficiency by reducing network traffic and enhancing processing speed through partial aggregation. They also both use the partitioner functionality, which provides an even distribution of data among the reducers, rather than a random distribution. However, they differ in execution stage and scope: the Combiner aggregates data after Mapper tasks and before Reducers, while the InMapper integrates aggregation within each Mapper task, thereby potentially minimizing resource overhead and optimizing memory usage. 
+The execution of the classes is managed by the RunProcess utility, which orchestrates the input file processing, language selection, output path management, and configurable parameters such as the number of Reducers employed. The input file is first used by the letterCount class to count the number of letters in the text. This information is stored in a temporary file, which is taken as input from the letterFrequency class that then calculates the frequency of each letter in the text. The output of the letterFrequency class is the final result of the analysis, and to this it is also added the result of the letterCount.
 
 \section{Combiner}
 \subsection{LetterCount}
 \subsection{LetterFrequency}
 
 \section{InMapper}
+The InMapper combining technique ensures efficiency by performing aggregation within each Mapper task itself. This approach reduces the amount of data shuffled across the network and further optimizes the processing of letter frequency analysis.
+
+
 \subsection{LetterCount}
+
+The LetterCount algorithm is implemented using Hadoop's MapReduce framework to count occurrences of standard alphabet characters within text documents. Here’s a schematic overview:
+
+Mapper Class (LetterCountMapper):
+
+Setup:
+Initializes a character count map (charCountMap) and a pattern (charPattern) to match valid characters based on the specified language.
+Map:
+Processes each line of text, normalizing it to lowercase and filtering based on language-specific characters using LanguageNormalizer.
+Iterates over each character in the line, updating charCountMap with counts of valid characters.
+Cleanup:
+Emits key-value pairs where keys are individual characters and values are their corresponding counts to the context.
+Partitioner Class (CounterPartitioner):
+
+Custom Partitioning:
+Distributes key-value pairs across Reducers based on a simple hash-based partitioning scheme.
+Reducer Class (LetterCountReducer):
+
+Reduce:
+Aggregates counts for each character by summing values associated with each key across multiple Mapper outputs.
+Outputs final character counts.
+
 \subsection{LetterFrequency}
+The LetterFrequency algorithm calculates the frequency of standard alphabet characters within text documents using Hadoop's MapReduce framework.
+
+LetterFrequencyMapper
+Setup:
+
+Initializes a character frequency map (charFrequencyMap) to store counts of characters.
+Defines a pattern (charPattern) to match valid characters based on the specified language.
+
+Map:
+
+Processes each line of text, normalizing it to lowercase and filtering based on language-specific characters using LanguageNormalizer.
+Iterates over each character in the line, updating charFrequencyMap with counts of valid characters.
+
+Cleanup:
+
+Emits key-value pairs where keys are individual characters and values are their corresponding frequencies to the context.
+
+LetterFrequencyReducer
+Setup:
+
+Retrieves the total number of letters (totalLetterCount) from the context configuration.
+
+Reduce:
+
+Aggregates counts for each character by summing values associated with each key across multiple Mapper outputs.
+Calculates the frequency of each character as a ratio of its count to totalLetterCount.
+Outputs the calculated frequencies.
