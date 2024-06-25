@@ -1,6 +1,7 @@
 package it.unipi.hadoop;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -30,8 +31,17 @@ public class LetterCount{
     public static class MapperCounter extends Mapper<Object, Text,Text, LongWritable>{
 
         private final static LongWritable one = new LongWritable(1); //A constant longwrirable object with value 1 for each letter found
-        private final static Pattern CHARACTER_PATTERN = Pattern.compile("[a-zğüşıöç]", Pattern.CASE_INSENSITIVE); //regex pattern to match letters with case insensitive
-        private Text character = new Text(); //hadoop text object to hold single character
+        private static Pattern CHARACTER_PATTERN = null;
+        private Text character;
+        private Map<String, Long> characterCounts;
+
+        @Override
+        protected void setup(Context context)throws IOException, InterruptedException {
+            //initialize the character count map and pattern for valid characters
+            CHARACTER_PATTERN = Pattern.compile("[a-zğüşıöç]", Pattern.CASE_INSENSITIVE); //regex pattern to match letters with case insensitive
+            character = new Text(); //hadoop text object to hold single character
+            characterCounts = new HashMap<>(); // Initialize the map to store character counts
+        }
 
         @Override
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException{
@@ -42,7 +52,19 @@ public class LetterCount{
                 if(CHARACTER_PATTERN.matcher(String.valueOf(ch)).matches()){  //use regex to check if the character is a letter
                     character.set(String.valueOf(ch)); //set the character as the key
                     context.write(character, one); //write the key-value pair to the context with value of '1'
+
+                    String charStr = String.valueOf(ch);
+                    characterCounts.put(charStr, characterCounts.getOrDefault(charStr, 0L) + 1); // Update the count for the character
                 }
+            }
+        }
+
+        @Override
+        protected void cleanup(Context context) throws IOException, InterruptedException{
+            // Write the character counts to the context
+            for (Map.Entry<String, Long> entry : characterCounts.entrySet()) {
+                character.set(entry.getKey());
+                context.write(character, new LongWritable(entry.getValue()));
             }
         }
     }
@@ -67,7 +89,8 @@ public class LetterCount{
 
     //The Reducer sums up the counts for each character received from the mapper.
     public static class ReducerCounter extends Reducer<Text, LongWritable, Text, LongWritable>{
-        private LongWritable result = new LongWritable(); //hadoop longwritable object to hold the sum of the counts for each character
+        private final LongWritable result = new LongWritable();; //hadoop longwritable object to hold the sum of the counts for each character
+
 
         @Override
         public void reduce(Text key, Iterable<LongWritable> values, Context context) throws IOException, InterruptedException{
@@ -80,7 +103,7 @@ public class LetterCount{
         }
     }
 
-    public static Job getJob(Configuration conf, String[] args) throws IOException{
+    public static Job getJob(Configuration conf, String tempOutputFile, String inputFile) throws IOException{
         Job letterCountJob = Job.getInstance(conf, "Letter Count");
 
         //Set the main classes
@@ -91,13 +114,7 @@ public class LetterCount{
 
         //set the partitioner
         letterCountJob.setPartitionerClass(PartitionerCounter.class);
-
-        //set the number of reducers
-        if (args[3]!=null){
-            letterCountJob.setNumReduceTasks(Integer.parseInt(args[3]));
-        }else {
-            letterCountJob.setNumReduceTasks(RunProcess.DEFAULT_NUM_REDUCERS);
-        }
+        letterCountJob.setNumReduceTasks(conf.getInt("numReducers", 1));
 
         // Set the output key and value classes for the mapper
         letterCountJob.setMapOutputKeyClass(Text.class);
@@ -108,8 +125,8 @@ public class LetterCount{
         letterCountJob.setOutputValueClass(LongWritable.class);
 
         // Set the input and output paths
-        FileInputFormat.addInputPath(letterCountJob, new Path(args[0]));
-        FileOutputFormat.setOutputPath(letterCountJob, new Path(args[2]));
+        FileInputFormat.addInputPath(letterCountJob, new Path(inputFile));
+        FileOutputFormat.setOutputPath(letterCountJob, new Path(tempOutputFile));
 
         // Set the input and output formats
         letterCountJob.setInputFormatClass(TextInputFormat.class);
