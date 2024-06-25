@@ -5,6 +5,7 @@ HELP.md
 ### IntelliJ IDEA ###
 /.idea/
 
+workspace.xml
 
 ### LATEX ###
 documentation/documentation.toc
