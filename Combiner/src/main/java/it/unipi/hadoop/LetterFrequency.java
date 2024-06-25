@@ -1,9 +1,11 @@
 package it.unipi.hadoop;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -22,9 +24,18 @@ import java.util.regex.Pattern;
 public class LetterFrequency {
 
     public static class MapperFrequency extends Mapper<Object, Text, Text, LongWritable> {
-        private Text reducerKey = new Text();
-        private final static LongWritable reducerValue = new LongWritable(1);
-        private final static Pattern CHARACTER_PATTERN = Pattern.compile("[a-zğüşıöç]", Pattern.CASE_INSENSITIVE);
+        private Text reducerKey;
+        private static LongWritable reducerValue ;
+        private static Pattern CHARACTER_PATTERN ;
+        private Map<String, Long> characterCounts;
+
+        @Override
+        protected void setup(Context context)throws IOException, InterruptedException{
+            reducerKey = new Text();
+            LongWritable reducerValue = new LongWritable(1);
+            CHARACTER_PATTERN = Pattern.compile("[a-zğüşıöç]", Pattern.CASE_INSENSITIVE);
+            characterCounts = new HashMap<>();
+        }
 
         @Override
         protected void map(Object key, Text value, Context context) throws IOException, InterruptedException {
@@ -38,7 +49,20 @@ public class LetterFrequency {
                 if (CHARACTER_PATTERN.matcher(String.valueOf(ch)).matches()) {
                     reducerKey.set(String.valueOf(ch));
                     context.write(reducerKey, reducerValue);
+
+                    String charStr = String.valueOf(ch);
+                    characterCounts.put(charStr, characterCounts.getOrDefault(charStr, 0L) + 1);
                 }
+            }
+        }
+
+        @Override
+        protected void cleanup(Context context) throws IOException, InterruptedException {
+            // Write the character frequencies to the context
+            for (Map.Entry<String, Long> entry : characterCounts.entrySet()) {
+                reducerKey.set(entry.getKey());
+                reducerValue.set(entry.getValue());
+                context.write(reducerKey, reducerValue);
             }
         }
     }
@@ -48,6 +72,7 @@ public class LetterFrequency {
 
     public static class CombinerFrequency extends Reducer<Text, LongWritable, Text, LongWritable> {
         private LongWritable result = new LongWritable();
+
 
         @Override
         public void reduce(Text key, Iterable<LongWritable> values, Context context) throws IOException, InterruptedException {
@@ -103,11 +128,11 @@ public class LetterFrequency {
 
 
 
-    public static Job getJob(Configuration conf, String[] args, long textLength) throws IOException {
-        Job letterFrequencyJob = Job.getInstance(conf, "LetterFrequency");
-
+    public static Job getJob(String tempOutputFile, long totalLetterCount, String outputFile, Configuration conf) throws IOException {
         // Set the configuration
-        letterFrequencyJob.getConfiguration().setLong("textLength", textLength);
+        conf.setLong("totalLetterCount", totalLetterCount);
+
+        Job letterFrequencyJob = Job.getInstance(conf, "LetterFrequency");
 
         // Set the main classes
         letterFrequencyJob.setJarByClass(LetterFrequency.class);
@@ -116,13 +141,6 @@ public class LetterFrequency {
 
         // Set the combiner class
         letterFrequencyJob.setCombinerClass(CombinerFrequency.class);
-
-        // Set number of reducers
-        if (args[3] != null) {
-            letterFrequencyJob.setNumReduceTasks(Integer.parseInt(args[3]));
-        }else {
-            letterFrequencyJob.setNumReduceTasks(RunProcess.DEFAULT_NUM_REDUCERS);
-        }
 
 
         // Set the output key and value classes for the mapper
@@ -134,8 +152,8 @@ public class LetterFrequency {
         letterFrequencyJob.setOutputValueClass(DoubleWritable.class);
 
         // Set the input and output paths
-        FileInputFormat.addInputPath(letterFrequencyJob, new Path(args[0]));
-        FileOutputFormat.setOutputPath(letterFrequencyJob, new Path(args[2]));
+        FileInputFormat.addInputPath(letterFrequencyJob, new Path(tempOutputFile));
+        FileOutputFormat.setOutputPath(letterFrequencyJob, new Path(outputFile));
 
         // Set the input and output formats
         letterFrequencyJob.setInputFormatClass(TextInputFormat.class);
