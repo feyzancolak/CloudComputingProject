@@ -10,21 +10,14 @@ import java.io.*;
 import java.util.Arrays;
 
 import java.io.BufferedReader;
-
 import java.io.IOException;
 import java.io.InputStreamReader;
-
-
-
 import org.apache.hadoop.fs.FileSystem;
-
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
-import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class RunProcess {
 
@@ -66,7 +59,7 @@ public class RunProcess {
         runLetterFrequencyJob(tempOutputFile, totalLetterCount, outputFile, conf);
 
         // Step 4: Append the output of Letter Count job to the final output file
-        appendLetterCountToFile(tempOutputFile, outputFile, conf);
+        appendLetterCountToFile(totalLetterCount, outputFile, conf);
 
         // Step 5: Delete the temporary output directory
         deleteFileOrDirectory(tempOutputFile, conf);
@@ -96,6 +89,7 @@ public class RunProcess {
 
     private static long getTotalLetterCount(String tempOutputFile, Configuration conf) throws IOException {
         FileSystem fs = FileSystem.get(conf);
+        //Take the hadoop path
         Path outputPath = new Path(tempOutputFile);
         long totalLetterCount = 0;
 
@@ -110,7 +104,7 @@ public class RunProcess {
         return totalLetterCount;
     }
 
-    private static void runLetterFrequencyJob(String tempOutputFile, long totalLetterCount, String outputFile, Configuration conf) throws Exception {
+    private static void runLetterFrequencyJob(String inputFile, long totalLetterCount, String outputFile, Configuration conf) throws Exception {
         conf.setLong("totalLetterCount", totalLetterCount);
 
         Job job = Job.getInstance(conf, "letter frequency");
@@ -120,8 +114,8 @@ public class RunProcess {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(DoubleWritable.class);
 
-        // Use the temp output file as input and output as output for letter frequency job
-        FileInputFormat.addInputPath(job, new Path(tempOutputFile));
+        // Input and output file
+        FileInputFormat.addInputPath(job, new Path(inputFile));
         FileOutputFormat.setOutputPath(job, new Path(outputFile));
 
         if (!job.waitForCompletion(true)) {
@@ -129,24 +123,18 @@ public class RunProcess {
         }
     }
 
-    private static void appendLetterCountToFile(String tempOutputFile, String outputFile, Configuration conf) throws IOException {
+    private static void appendLetterCountToFile(long totalLetterCount, String outputFile, Configuration conf) throws IOException {
         FileSystem fs = FileSystem.get(conf);
         Path outputPath = new Path(outputFile);
-        Path tempOutputPath = new Path(tempOutputFile);
 
         // Ensure the output file exists, otherwise create it
         if (!fs.exists(outputPath)) {
             fs.create(outputPath).close();
         }
 
-        // Read the contents of the temporary output file and append it to the final output file
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(fs.open(new Path(tempOutputPath, "part-r-00000"))));
-             FSDataOutputStream out = fs.append(new Path(outputPath, "part-r-00000"), 4096)) {
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                out.writeBytes(line + "\n");
-            }
+        // Append the total letter count to the final output file
+        try (FSDataOutputStream out = fs.append(new Path(outputPath, "part-r-00000"))) {
+            out.writeBytes("TotalLetterCount: " + totalLetterCount + "\n");
         }
     }
 
