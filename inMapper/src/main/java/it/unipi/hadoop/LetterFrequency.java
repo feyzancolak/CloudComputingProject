@@ -62,12 +62,12 @@ public class LetterFrequency {
     // Reducer class to calculate letter frequencies
     public static class LetterFrequencyReducer extends Reducer<Text, IntWritable, Text, DoubleWritable> {
         private DoubleWritable frequency = new DoubleWritable();
-        private long textLength;
+        private long totalLetterCount;
 
         @Override
         protected void setup(Context context) throws IOException, InterruptedException {
             // Get the total text length from the context configuration
-            textLength = context.getConfiguration().getLong("textLength", 0);
+            totalLetterCount = context.getConfiguration().getLong("totalLetterCount", 0);
         }
 
         @Override
@@ -78,43 +78,11 @@ public class LetterFrequency {
                 sum += val.get();
             }
             // Calculate the frequency of the letter
-            double freq = (double) sum / textLength;
+            double freq = (double) sum / totalLetterCount;
             frequency.set(freq);
             // Write the result to the context
             context.write(key, frequency);
         }
     }
 
-    // Job configurator class to set up and run the letter frequency job
-    public static class LetterFrequencyJobConfigurator {
-        public static void main(String[] args) throws Exception {
-            Configuration conf = new Configuration();
-            String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
-            if (otherArgs.length < 3) {
-                System.err.println("Usage: letterfrequency <in> [<in>...] <out> <language>");
-                System.exit(2);
-            }
-
-            // Set the language in the configuration
-            conf.set("language", otherArgs[otherArgs.length - 1]);
-
-            // Configure the MapReduce job
-            Job job = Job.getInstance(conf, "letter frequency");
-            job.setJarByClass(LetterFrequencyJobConfigurator.class);
-            job.setMapperClass(LetterFrequencyMapper.class);
-            job.setReducerClass(LetterFrequencyReducer.class);
-            job.setOutputKeyClass(Text.class);
-            job.setOutputValueClass(DoubleWritable.class);
-
-            // Add input paths to the job
-            for (int i = 0; i < otherArgs.length - 2; ++i) {
-                FileInputFormat.addInputPath(job, new Path(otherArgs[i]));
-            }
-            // Set the output path for the job
-            FileOutputFormat.setOutputPath(job, new Path(otherArgs[otherArgs.length - 2]));
-
-            // Exit after job completion
-            System.exit(job.waitForCompletion(true) ? 0 : 1);
-        }
-    }
 }

@@ -30,7 +30,7 @@ public class LanguageNormalizer {
                 return normalizeEnglish(input);
             case "it":
                 return normalizeItalian(input);
-            case "tr":
+            case "trk":
                 return normalizeTurkish(input);
             default:
                 throw new IllegalArgumentException("Unsupported language: " + language);
