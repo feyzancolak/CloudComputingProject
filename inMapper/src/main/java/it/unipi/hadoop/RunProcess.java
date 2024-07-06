@@ -114,13 +114,14 @@ public class RunProcess {
 
     private static void runLetterFrequencyJob(String inputFile, long totalLetterCount, String outputFile, Configuration conf) throws Exception {
         conf.setLong("totalLetterCount", totalLetterCount);
+        System.out.println("lettercount used by letterfrequency " + totalLetterCount);
 
         Job job = Job.getInstance(conf, "letter frequency");
         job.setJarByClass(RunProcess.class);
         job.setMapperClass(LetterFrequency.LetterFrequencyMapper.class);
         job.setReducerClass(LetterFrequency.LetterFrequencyReducer.class);
         job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(DoubleWritable.class);
+        job.setOutputValueClass(IntWritable.class);
 
 
         // Input and output file

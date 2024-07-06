@@ -24,7 +24,7 @@ import it.unipi.hadoop.LanguageNormalizer;
 public class LetterFrequency {
 
     // Mapper class to count letter frequencies
-    public static class LetterFrequencyMapper extends Mapper<LongWritable, Text, Text, DoubleWritable> {
+    public static class LetterFrequencyMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
         private Map<String, Integer> charFrequencyMap;
         private Pattern charPattern;
 
@@ -47,16 +47,24 @@ public class LetterFrequency {
                 if (charPattern.matcher(String.valueOf(c)).matches()) {
                     String character = String.valueOf(c);
                     // Emit each character with a DoubleWritable value of 1.0
-                    context.write(new Text(character), new DoubleWritable(1.0));
+                    context.write(new Text(character), new IntWritable(1));
                 }
             }
             System.out.println("Line: " + line);
+        }
+
+        @Override
+        protected void cleanup(Context context) throws IOException, InterruptedException {
+            // Write the output
+            for (Map.Entry<String, Integer> entry : charFrequencyMap.entrySet()) {
+                context.write(new Text(entry.getKey()), new IntWritable(entry.getValue()));
+            }
         }
     }
 
 
     // Reducer class to calculate letter frequencies
-    public static class LetterFrequencyReducer extends Reducer<Text, DoubleWritable, Text, DoubleWritable> {
+    public static class LetterFrequencyReducer extends Reducer<Text, IntWritable, Text, DoubleWritable> {
         private long totalLetterCount;
         private static final Log LOG = LogFactory.getLog(LetterFrequencyReducer.class);
 
@@ -70,10 +78,10 @@ public class LetterFrequency {
         }
 
         @Override
-        public void reduce(Text key, Iterable<DoubleWritable> values, Context context) throws IOException, InterruptedException {
-            double sum = 0.0;
+        public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
+            int sum = 0;
             // Sum the counts of each letter
-            for (DoubleWritable val : values) {
+            for (IntWritable val : values) {
                 sum += val.get();
             }
             // Log the sum for debugging
