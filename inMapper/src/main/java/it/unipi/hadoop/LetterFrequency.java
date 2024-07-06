@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.DoubleWritable;
@@ -22,7 +24,7 @@ import it.unipi.hadoop.LanguageNormalizer;
 public class LetterFrequency {
 
     // Mapper class to count letter frequencies
-    public static class LetterFrequencyMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+    public static class LetterFrequencyMapper extends Mapper<LongWritable, Text, Text, DoubleWritable> {
         private Map<String, Integer> charFrequencyMap;
         private Pattern charPattern;
 
@@ -44,45 +46,46 @@ public class LetterFrequency {
                 // Check if the character matches the pattern
                 if (charPattern.matcher(String.valueOf(c)).matches()) {
                     String character = String.valueOf(c);
-                    // Update the character frequency map
-                    charFrequencyMap.put(character, charFrequencyMap.getOrDefault(character, 0) + 1);
+                    // Emit each character with a DoubleWritable value of 1.0
+                    context.write(new Text(character), new DoubleWritable(1.0));
                 }
             }
-        }
-
-        @Override
-        protected void cleanup(Context context) throws IOException, InterruptedException {
-            // Write the character frequencies to the context
-            for (Map.Entry<String, Integer> entry : charFrequencyMap.entrySet()) {
-                context.write(new Text(entry.getKey()), new IntWritable(entry.getValue()));
-            }
+            System.out.println("Line: " + line);
         }
     }
 
+
     // Reducer class to calculate letter frequencies
-    public static class LetterFrequencyReducer extends Reducer<Text, IntWritable, Text, DoubleWritable> {
-        private DoubleWritable frequency = new DoubleWritable();
+    public static class LetterFrequencyReducer extends Reducer<Text, DoubleWritable, Text, DoubleWritable> {
         private long totalLetterCount;
+        private static final Log LOG = LogFactory.getLog(LetterFrequencyReducer.class);
+
 
         @Override
         protected void setup(Context context) throws IOException, InterruptedException {
             // Get the total text length from the context configuration
             totalLetterCount = context.getConfiguration().getLong("totalLetterCount", 0);
+            LOG.info("Total letter count: " + totalLetterCount);
+
         }
 
         @Override
-        public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
-            int sum = 0;
+        public void reduce(Text key, Iterable<DoubleWritable> values, Context context) throws IOException, InterruptedException {
+            double sum = 0.0;
             // Sum the counts of each letter
-            for (IntWritable val : values) {
+            for (DoubleWritable val : values) {
                 sum += val.get();
             }
+            // Log the sum for debugging
+            LOG.info("Sum for key " + key.toString() + ": " + sum);
+
             // Calculate the frequency of the letter
-            double freq = (double) sum / totalLetterCount;
-            frequency.set(freq);
-            // Write the result to the context
-            context.write(key, frequency);
+            double freq = sum / totalLetterCount;
+            LOG.info("Frequency for key " + key + ": " + freq);
+            context.write(key, new DoubleWritable(freq));
         }
     }
+
+
 
 }

@@ -22,15 +22,16 @@ import org.apache.hadoop.mapreduce.Job;
 public class RunProcess {
 
     public static void main(String[] args) throws Exception {
-        if (args.length < 3 || args.length > 4) {
+        if (args.length < 4 || args.length > 5) {
             System.err.println("Usage: RunProcess <inputfile> <language> <outputfile> [<numReducers>]");
             System.exit(2);
         }
 
-        String inputFile = args[0];
-        String language = args[1];
-        String outputFile = args[2];
-        int numReducers = (args.length == 4) ? Integer.parseInt(args[3]) : 1;
+        //First arg is RunProcess, so it's not considered
+        String inputFile = args[1];
+        String language = args[2];
+        String outputFile = args[3];
+        int numReducers = (args.length == 5) ? Integer.parseInt(args[4]) : 1;
 
         System.out.println("Input file: " + inputFile);
         System.out.println("Language: " + language);
@@ -54,6 +55,7 @@ public class RunProcess {
 
         // Step 2: Read total letter count from the output of Letter Count job
         long totalLetterCount = getTotalLetterCount(tempOutputFile, conf);
+        System.out.println("Total letter count: " + totalLetterCount);
 
         // Step 3: Run Letter Frequency Job and append results to the output file
         runLetterFrequencyJob(tempOutputFile, totalLetterCount, outputFile, conf);
@@ -64,12 +66,16 @@ public class RunProcess {
         // Step 5: Delete the temporary output directory
         deleteFileOrDirectory(tempOutputFile, conf);
 
-
         System.exit(0);
     }
 
+
     private static void runLetterCountJob(String inputFile, String tempOutputFile, Configuration conf) throws Exception {
+        System.out.println("Running letter count job");
         Job job = Job.getInstance(conf, "letter count");
+
+        conf = job.getConfiguration();
+
         job.setJarByClass(RunProcess.class);
         job.setMapperClass(LetterCount.LetterCountMapper.class);
         job.setReducerClass(LetterCount.LetterCountReducer.class);
@@ -83,8 +89,10 @@ public class RunProcess {
         FileOutputFormat.setOutputPath(job, new Path(tempOutputFile));
 
         if (!job.waitForCompletion(true)) {
+            System.out.println("Count Job failed");
             System.exit(1);
         }
+        System.out.println("Count Job is done");
     }
 
     private static long getTotalLetterCount(String tempOutputFile, Configuration conf) throws IOException {
@@ -114,14 +122,18 @@ public class RunProcess {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(DoubleWritable.class);
 
+
         // Input and output file
         FileInputFormat.addInputPath(job, new Path(inputFile));
         FileOutputFormat.setOutputPath(job, new Path(outputFile));
 
         if (!job.waitForCompletion(true)) {
+            System.out.println("Frequency Job failed");
             System.exit(1);
         }
+        System.out.println("Frequency Job is done");
     }
+
 
     private static void appendLetterCountToFile(long totalLetterCount, String outputFile, Configuration conf) throws IOException {
         FileSystem fs = FileSystem.get(conf);
