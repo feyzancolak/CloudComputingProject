@@ -22,17 +22,18 @@ public class RunProcess {
         args[3] = number of reducer tasks (optional) es. 1, 2 and 3
     */
     public static void main(String[] args) throws Exception {
+
         //argument parsing - checks if arguments are passed correctly
-        if (args.length < 3) {
+        if (args.length < 4 || args.length > 5) {
             System.err.println("Usage: <input path> <language> <output path> [<num reducers>]");
             System.exit(2);
         }
 
         //extracts the input file path, language, output file path and number of reducers from the arguments
-        String inputFile = args[0];
-        String language = args[1];
-        String outputFile = args[2];
-        int numReducers = (args.length == 4) ? Integer.parseInt(args[3]) : 1;
+        String inputFile = args[1];
+        String language = args[2];
+        String outputFile = args[3];
+        int numReducers = (args.length == 5) ? Integer.parseInt(args[4]) : 1;
 
         System.out.println("Input file: " + inputFile);
         System.out.println("Language: " + language);
