@@ -1,18 +1,10 @@
 package it.unipi.hadoop;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.Text;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.DoubleWritable;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
@@ -21,13 +13,14 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 public class LetterFrequency {
 
     public static class MapperFrequency extends Mapper<Object, Text, Text, LongWritable> {
-        private static final Log LOG = LogFactory.getLog(MapperFrequency.class);
-
         private Text reducerKey;
         private static LongWritable reducerValue ;
         private static Pattern CHARACTER_PATTERN ;
@@ -39,7 +32,6 @@ public class LetterFrequency {
             reducerValue = new LongWritable(1);
             CHARACTER_PATTERN = Pattern.compile("[a-zğüşıöç]", Pattern.CASE_INSENSITIVE);
             characterCounts = new HashMap<>();
-            LOG.info("Mapper setup completed.");
         }
 
         @Override
@@ -47,7 +39,6 @@ public class LetterFrequency {
             String language = context.getConfiguration().get("language");
             // Convert the line to lower case and remove accents
             String line = LanguageNormalizer.normalize((value.toString()).toLowerCase(),language);
-            LOG.info("Processing line: " + line);
 
             //Emits each letter found in the input text with a count of 1
             for (char ch : line.toCharArray()) {
@@ -58,7 +49,6 @@ public class LetterFrequency {
 
                     String charStr = String.valueOf(ch);
                     characterCounts.put(charStr, characterCounts.getOrDefault(charStr, 0L) + 1);
-                    LOG.debug("Character found: " + charStr);
                 }
             }
         }
@@ -71,17 +61,11 @@ public class LetterFrequency {
                 reducerValue.set(entry.getValue());
                 context.write(reducerKey, reducerValue);
             }
-            LOG.info("Mapper cleanup completed.");
         }
     }
 
-
-
-
     public static class CombinerFrequency extends Reducer<Text, LongWritable, Text, LongWritable> {
-        private static final Log LOG = LogFactory.getLog(CombinerFrequency.class);
         private LongWritable result = new LongWritable();
-
 
         @Override
         public void reduce(Text key, Iterable<LongWritable> values, Context context) throws IOException, InterruptedException {
@@ -101,46 +85,37 @@ public class LetterFrequency {
 
             // Write the key and the aggregated count to the context
             context.write(key, result);
-            LOG.info("Combined key: " + key + " with sum: " + sum);
         }
     }
 
-
-
     public static class ReducerFrequency extends Reducer<Text, LongWritable, Text, DoubleWritable> {
-        private static final Log LOG = LogFactory.getLog(ReducerFrequency.class);
+        private final DoubleWritable result = new DoubleWritable();
         private static long TEXT_LENGTH;
 
-        //Reads the total text length from the job configuration during the setup phase.
         @Override
-        public void setup(Context context) {
-            // Configuration
-            Configuration conf = context.getConfiguration();
-            TEXT_LENGTH = Long.parseLong(conf.get("totalLetterCount"));
-            LOG.info("Reducer setup completed with TEXT_LENGTH: " + TEXT_LENGTH);
+        protected void setup(Context context) {
+            // Get the total letter count from the context configuration
+            TEXT_LENGTH = context.getConfiguration().getLong("totalLetterCount", 0);
         }
 
         @Override
         public void reduce(Text key, Iterable<LongWritable> values, Context context) throws IOException, InterruptedException {
-            // Variables
             long sum = 0;
 
             // Iterate over the values
             for (LongWritable value : values) {
                 sum += value.get();
             }
+            result.set((double) sum / TEXT_LENGTH);
 
-            //Sums the counts of each letter and calculates the relative frequency, writing the result as a DoubleWritable.
-            // Write the output
-            context.write(key, new DoubleWritable((double) sum / (double) TEXT_LENGTH));
-            LOG.info("Reduced key: " + key + " with relative frequency: " + (double) sum / (double) TEXT_LENGTH);
+            // Write the result to the context
+            context.write(key, result);
         }
-
     }
 
+    public static Job configureFrequencyJob(String tempOutputFile, long totalLetterCount, String outputFile, Configuration conf) throws IOException {
+        System.out.println("Configuring letter frequency job");
 
-
-    public static Job getJob(String tempOutputFile, long totalLetterCount, String outputFile, Configuration conf) throws IOException {
         // Set the configuration
         conf.setLong("totalLetterCount", totalLetterCount);
 
@@ -150,17 +125,16 @@ public class LetterFrequency {
         letterFrequencyJob.setJarByClass(LetterFrequency.class);
         letterFrequencyJob.setMapperClass(MapperFrequency.class);
         letterFrequencyJob.setReducerClass(ReducerFrequency.class);
-
-        // Set the combiner class
         letterFrequencyJob.setCombinerClass(CombinerFrequency.class);
 
+        // Set the number of reducers
+        letterFrequencyJob.setNumReduceTasks(conf.getInt("numReducers", 1));
 
-        // Set the output key and value classes for the mapper
-        letterFrequencyJob.setMapOutputKeyClass(Text.class);
-        letterFrequencyJob.setMapOutputValueClass(LongWritable.class);
-
-        // Set the output key and value classes for the reducer
+        // Set the output key classes for the mapper, combiner and reducer
         letterFrequencyJob.setOutputKeyClass(Text.class);
+
+        // Set the output key value classes for the mapper, combiner and reducer
+        letterFrequencyJob.setMapOutputValueClass(LongWritable.class);
         letterFrequencyJob.setOutputValueClass(DoubleWritable.class);
 
         // Set the input and output paths
@@ -171,9 +145,7 @@ public class LetterFrequency {
         letterFrequencyJob.setInputFormatClass(TextInputFormat.class);
         letterFrequencyJob.setOutputFormatClass(TextOutputFormat.class);
 
+        System.out.println("Configured letter frequency job");
         return letterFrequencyJob;
     }
-
-
 }
-

@@ -1,43 +1,35 @@
 package it.unipi.hadoop;
 
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.FSDataOutputStream;
+import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.mapreduce.Job;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class RunProcess {
 
-    /*
-        The main method is the entry point of the application. It parses the command line arguments,
-        creates and configures the jobs, and submits them to the Hadoop cluster.
-        @param args  The command line arguments:
-        args[0] = input file (ex. data/input/filename.txt)
-        args[1] = language e.g. "en", "it", "tr"
-        args[2] = output file (ex. data/output/001/frequency/filename.txt)
-        args[3] = number of reducer tasks (optional) es. 1, 2 and 3
-    */
     public static void main(String[] args) throws Exception {
 
-        //argument parsing - checks if arguments are passed correctly
-        if (args.length < 4 || args.length > 5) {
-            System.err.println("Usage: <input path> <language> <output path> [<num reducers>]");
+        if (args.length < 5 || args.length > 6) {
+            System.err.println("Usage: RunProcess <inputFile> <language> <outputFolder> <finalOutputFile> [<numReducers>]");
             System.exit(2);
         }
 
-        //extracts the input file path, language, output file path and number of reducers from the arguments
+        //First arg is the main class RunProcess, so it's not considered
         String inputFile = args[1];
         String language = args[2];
-        String outputFile = args[3];
-        int numReducers = (args.length == 5) ? Integer.parseInt(args[4]) : 1;
+        String outputFolder = args[3];
+        String finalOutputFile = args[4];
+        int numReducers = (args.length == 6) ? Integer.parseInt(args[5]) : 1;
 
         System.out.println("Input file: " + inputFile);
         System.out.println("Language: " + language);
-        System.out.println("Output file: " + outputFile);
+        System.out.println("Output folder: " + outputFolder);
+        System.out.println("Final output file: " + finalOutputFile);
         System.out.println("Number of reducers: " + numReducers);
 
         // Create configuration and set the language abd number of reducers
@@ -45,18 +37,13 @@ public class RunProcess {
         conf.set("language", language);
         conf.setInt("numReducers", numReducers);
 
-        //Define Temp output file to write letterCount result
-        String tempOutputFile = outputFile + "_temp";
-
-        // Clean output directory before running letter count job to ensure they are empty
-        clearFileContent(outputFile, conf);
-        clearFileContent(tempOutputFile, conf);
+        // Define the folder paths for the intermediate and final output
+        String countFolder = outputFolder + "/count";
+        String frequencyFolder = outputFolder + "/frequency";
 
         // Step 1: Run Letter Count Job
-        // Create and configure the Letter Count job
-        Job letterCountJob = LetterCount.getJob(conf, tempOutputFile,inputFile);
-        System.out.println("Letter Count job configured");
-        // Wait for the Letter Count job to complete
+        Job letterCountJob = LetterCount.configureCountJob(conf, countFolder, inputFile);
+        System.out.println("Running Letter Count job");
         if (!letterCountJob.waitForCompletion(true)) {
             System.err.println("Letter Count job failed");
             System.exit(1);
@@ -64,13 +51,12 @@ public class RunProcess {
         System.out.println("Letter Count job completed successfully");
 
         // Step 2: Read total letter count from the output of Letter Count job
-        long totalLetterCount = getTotalLetterCount(tempOutputFile, conf);
+        long totalLetterCount = getTotalLetterCount(countFolder, conf);
+        System.out.println("Total letter count: " + totalLetterCount);
 
         // Step 3: Run Letter Frequency Job and append results to the output file
-        // Create and configure the Letter Frequency job
-        Job letterFrequencyJob = LetterFrequency.getJob(tempOutputFile,totalLetterCount,outputFile,conf);
-        System.out.println("Letter Frequency job configured");
-        // Wait for the Letter Frequency job to complete
+        Job letterFrequencyJob = LetterFrequency.configureFrequencyJob(inputFile, totalLetterCount, frequencyFolder, conf);
+        System.out.println("Running Letter Frequency job");
         if (!letterFrequencyJob.waitForCompletion(true)) {
             System.err.println("Letter Frequency job failed");
             System.exit(1);
@@ -78,60 +64,123 @@ public class RunProcess {
         System.out.println("Letter Frequency job completed successfully");
 
         // Step 4: Append the output of Letter Count job to the final output file
-        appendLetterCountToFile(totalLetterCount, outputFile, conf);
+        createFinalFile(totalLetterCount, frequencyFolder, finalOutputFile, conf);
 
-        // Step 5: Delete the temporary output directory
-        deleteFileOrDirectory(tempOutputFile, conf);
+        // Step 5: Delete the temporary output directory for the Letter Count job
+        deleteFileOrDirectory(countFolder, conf);
 
         System.exit(0);
     }
 
-    /*
+    /**
         getTotalLetterCount method reads the total letter count from the output of the Letter Count job.
 
-        @param tempOutputFile  The path of the output directory of the Letter Count job.
+        @param countFolder  The path of the output directory of the Letter Count job.
         @param conf  The configuration object.
         @return  The total letter count.
      */
-    private static long getTotalLetterCount(String tempOutputFile, Configuration conf) throws IOException {
+    private static long getTotalLetterCount(String countFolder, Configuration conf) throws IOException {
+        // Take the output of the Letter Count job
         FileSystem fs = FileSystem.get(conf);
-        Path outputPath = new Path(tempOutputFile);
+        Path letterCountFilePath = new Path(countFolder);
+
         long totalLetterCount = 0;
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(fs.open(new Path(outputPath, "part-r-00000"))))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split("\\s+");
-                totalLetterCount += Long.parseLong(parts[1]);
+        // Get a list of all files in the output directory
+        FileStatus[] status = fs.listStatus(letterCountFilePath);
+
+        for (FileStatus fileStatus : status) {
+            String fileName = fileStatus.getPath().getName();
+
+            // Ignore the _SUCCESS file
+            if (!fileName.equals("_SUCCESS")) {
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(fs.open(fileStatus.getPath())))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        String[] parts = line.split("\\s+");
+                        totalLetterCount += Long.parseLong(parts[1]);
+                    }
+                }
             }
         }
 
         return totalLetterCount;
     }
 
-    /*
-        appendLetterCountToFile method appends the total letter count to the final output file.
-
-        @param totalLetterCount  The total letter count.
-        @param outputFile  The path of the final output file.
-        @param conf  The configuration object.
-     */
-    private static void appendLetterCountToFile(long totalLetterCount, String outputFile, Configuration conf) throws IOException {
+    private static void createFinalFile(long totalLetterCount, String frequencyFolder, String outputFile, Configuration conf) throws IOException {
+        // Take the output of the Letter Count job
         FileSystem fs = FileSystem.get(conf);
-        Path outputPath = new Path(outputFile);
+        Path letterCountFilePath = new Path(frequencyFolder);
 
-        // Ensure the output file exists, otherwise create it
-        if (!fs.exists(outputPath)) {
-            fs.create(outputPath).close();
+        // Get a list of all files in the output directory
+        FileStatus[] status = fs.listStatus(letterCountFilePath);
+
+        int validFileCount = 0;
+        Path singleFilePath = null;
+
+        for (FileStatus fileStatus : status) {
+            String fileName = fileStatus.getPath().getName();
+            if (!fileName.equals("_SUCCESS")) {
+                validFileCount++;
+                singleFilePath = fileStatus.getPath();
+            }
         }
 
-        // Append the total letter count to the final output file
-        try (FSDataOutputStream out = fs.append(new Path(outputPath, "part-r-00000"))) {
-            out.writeBytes("TotalLetterCount: " + totalLetterCount + "\n");
+        // Output file path
+        Path outputPath = new Path(outputFile);
+
+        if (validFileCount == 1) {
+            // If there is only one valid file, copy its content directly and append the total letter count
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(fs.open(singleFilePath)));
+                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fs.create(outputPath, true)))) {
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    writer.write(line);
+                    writer.newLine();
+                }
+                // Write a white line
+                writer.newLine();
+                // Write the total letter count
+                writer.write("Total Letter Count:\t" + totalLetterCount + "\n");
+            }
+        } else {
+            // If there are multiple files, use a TreeMap to merge and sort frequencies
+            Map<String, Double> letterFrequencyMap = new TreeMap<>();
+
+            for (FileStatus fileStatus : status) {
+                String fileName = fileStatus.getPath().getName();
+                if (!fileName.equals("_SUCCESS")) {
+                    try (BufferedReader reader = new BufferedReader(new InputStreamReader(fs.open(fileStatus.getPath())))) {
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            // Assume the format is "letter frequency"
+                            String[] parts = line.split("\\s+");
+                            String letter = parts[0];
+                            double frequency = Double.parseDouble(parts[1]);
+
+                            // Merge frequencies
+                            letterFrequencyMap.put(letter, letterFrequencyMap.getOrDefault(letter, 0.0) + frequency);
+                        }
+                    }
+                }
+            }
+
+            try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fs.create(outputPath, true)))) {
+                // Write sorted letters and their frequencies
+                for (Map.Entry<String, Double> entry : letterFrequencyMap.entrySet()) {
+                    writer.write(entry.getKey() + "\t" + entry.getValue());
+                    writer.newLine();
+                }
+                // Write a white line
+                writer.newLine();
+                // Write the total letter count
+                writer.write("Total Letter Count:\t" + totalLetterCount + "\n");
+            }
         }
     }
 
-    /*
+    /**
         deleteFileOrDirectory method deletes the specified file or directory if it exists
 
         @param path  The path of the file or directory to delete.
@@ -143,22 +192,6 @@ public class RunProcess {
 
         if (fs.exists(targetPath)) {
             fs.delete(targetPath, true);
-        }
-    }
-
-    /*
-        Clears the contents of the specified file by overwriting it with an empty file.
-
-        @param filePath  The path of the file to clear.
-        @param conf  The configuration object.
-     */
-    private static void clearFileContent(String filePath, Configuration conf) throws IOException {
-        FileSystem fs = FileSystem.get(conf);
-        Path targetPath = new Path(filePath);
-
-        if (fs.exists(targetPath)) {
-            FSDataOutputStream out = fs.create(targetPath, true); // Overwrites the existing file
-            out.close();
         }
     }
 }

@@ -1,15 +1,16 @@
 package it.unipi.hadoop;
 
-// Class for normalizing text based on the language
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 public class LanguageNormalizer {
 
-    private static final Pattern SPECIAL_CHAR_PATTERN = Pattern.compile("[^a-zçğışöü]");
-
     private static final Map<Character, Character> ITALIAN_ACCENTS_MAP;
+    private static final Pattern ENGLISH_ALPHABET = Pattern.compile("[a-z]");
+    private static final Pattern ITALIAN_ALPHABET = Pattern.compile("[a-z]");
+    private static final Pattern TURKISH_ALPHABET = Pattern.compile("[a-zçğışöü]");
+
     static {
         ITALIAN_ACCENTS_MAP = new HashMap<>();
         ITALIAN_ACCENTS_MAP.put('à', 'a');
@@ -18,7 +19,6 @@ public class LanguageNormalizer {
         ITALIAN_ACCENTS_MAP.put('ì', 'i');
         ITALIAN_ACCENTS_MAP.put('ò', 'o');
         ITALIAN_ACCENTS_MAP.put('ù', 'u');
-        // Add other if necessary
     }
 
     public static String normalize(String input, String language) {
@@ -38,29 +38,28 @@ public class LanguageNormalizer {
     }
 
     private static String normalizeEnglish(String input) {
-        // No specific normalization for English, return the input as is
-        input = removeSpecialCharacters(input);
-        return input;
+        return retainMatchingCharacters(input, ENGLISH_ALPHABET);
     }
 
     private static String normalizeItalian(String input) {
-        input = removeSpecialCharacters(input);
         StringBuilder sb = new StringBuilder();
         for (char c : input.toCharArray()) {
             sb.append(ITALIAN_ACCENTS_MAP.getOrDefault(c, c));
         }
-        return sb.toString();
+        return retainMatchingCharacters(sb.toString(), ITALIAN_ALPHABET);
     }
 
     private static String normalizeTurkish(String input) {
-        input = removeSpecialCharacters(input);
-        // No specific normalization for Turkish, return the input as is
-        return input;
+        return retainMatchingCharacters(input, TURKISH_ALPHABET);
     }
 
-    private static String removeSpecialCharacters(String input) {
-        // Remove all characters that are not letters (a-z, ç, ğ, ı, ş, ö, ü)
-        return SPECIAL_CHAR_PATTERN.matcher(input).replaceAll("");
+    private static String retainMatchingCharacters(String input, Pattern pattern) {
+        StringBuilder sb = new StringBuilder();
+        for (char c : input.toCharArray()) {
+            if (pattern.matcher(String.valueOf(c)).matches()) {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
     }
-
 }
