@@ -6,7 +6,6 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hadoop.mapreduce.Partitioner;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
@@ -14,39 +13,34 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 public class LetterCount {
 
     // Mapper class to count letters
     public static class LetterCountMapper extends Mapper<LongWritable, Text, Text, LongWritable> {
         private Map<Text, LongWritable> charCountMap;
-        private Pattern charPattern;
         private static final LongWritable zero = new LongWritable(0);
+        private static String language;
 
         @Override
         protected void setup(Context context) {
             // Initialize the character count map and pattern for valid characters
             charCountMap = new HashMap<>();
-            charPattern = Pattern.compile("[a-zçğışöü]"); // Include Turkish characters
+            // Get the language from the context configuration
+            language = context.getConfiguration().get("language");
         }
 
         @Override
-        public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-            // Get the language from the context configuration
-            String language = context.getConfiguration().get("language");
+        public void map(LongWritable key, Text value, Context context) {
             // Normalize and convert the line to lowercase based on the specified language
             String line = LanguageNormalizer.normalize(value.toString(), language);
             // Iterate over each character in the line
             for (char c : line.toCharArray()) {
-                // Check if the character matches the pattern
-                if (charPattern.matcher(String.valueOf(c)).matches()) {
-                    Text character = new Text(String.valueOf(c));
-                    // Get the count of the character from the map or initialize it to 0 and increment it by 1
-                    long count = charCountMap.getOrDefault(character, zero).get() + 1;
-                    // Update the character count map
-                    charCountMap.put(character, new LongWritable(count));
-                }
+                Text character = new Text(String.valueOf(c));
+                // Get the count of the character from the map or initialize it to 0 and increment it by 1
+                long count = charCountMap.getOrDefault(character, zero).get() + 1;
+                // Update the character count map
+                charCountMap.put(character, new LongWritable(count));
             }
         }
 
