@@ -29,7 +29,6 @@ The LetterCount algorithm is implemented using Hadoop's MapReduce framework to c
     
     \textbf{Class:} MAPPERCOUNTER
     \State \textbf{initialize:}
-    \State  characterPattern: Regex("[a-zğüşıöç]", caseInsensitive)
     \State  characterCounts: Map<String, Long> \\
     
     \Procedure{setup}{$context$}
@@ -37,22 +36,13 @@ The LetterCount algorithm is implemented using Hadoop's MapReduce framework to c
     \EndProcedure\\
     
     \Procedure{map}{$key, value, context$}
-        \State $\text{language} \gets \text{context.getConfiguration().get("language")}$ 
         \State $\text{line} \gets \text{LanguageNormalizer.normalize}(value.toString().toLowerCase(), language)$
         \For{each character $ch$ in $line$}
-            \If{$ch$ matches $\text{characterPattern}$}
                 \State $\text{charStr} \gets \text{String.valueOf}(ch)$
-                \State $\text{characterCounts}[\text{charStr}] \gets \text{characterCounts.getOrDefault}(\text{charStr}, 0) + 1$
-            \EndIf
+                \State $\text{Emit}(\text{character}, \text{one})$
         \EndFor
     \EndProcedure\\
-    
-    \Procedure{cleanup}{$context$}
-        \For{each entry in $\text{characterCounts}$}
-            \State $\text{Emit}(\text{entry.key}, \text{entry.value})$
-        \EndFor
-    \EndProcedure\\
-    
+        
     \Statex
     
     \textbf{Class:} REDUCERCOUNTER
@@ -105,31 +95,18 @@ The LetterFrequency algorithm calculates the frequency of standard alphabet char
     
     \textbf{Class:} MAPPERFREQUENCY
     \State \textbf{initialize:}
-    \State  characterPattern: Regex("[a-zğüşıöç]", caseInsensitive)
-    \State  characterCounts: Map<String, Long>
     \State  reducerKey: Text
     \State  reducerValue: LongWritable(1) \\
     
     \Procedure{setup}{$context$}
-        \State Initialize characterCounts as an empty map
+
     \EndProcedure\\
     
     \Procedure{map}{$key, value, context$}
-        \State $\text{language} \gets \text{context.getConfiguration().get("language")}$ 
         \State $\text{line} \gets \text{LanguageNormalizer.normalize}(value.toString().toLowerCase(), language)$
         \For{each character $ch$ in $line$}
-            \If{$ch$ matches $\text{characterPattern}$}
                 \State $\text{charStr} \gets \text{String.valueOf}(ch)$
-                \State $\text{characterCounts}[\text{charStr}] \gets \text{characterCounts.getOrDefault}(\text{charStr}, 0) + 1$
-            \EndIf
-        \EndFor
-    \EndProcedure\\
-    
-    \Procedure{cleanup}{$context$}
-        \For{each entry in $\text{characterCounts}$}
-            \State $\text{reducerKey} \gets \text{entry.key}$
-            \State $\text{reducerValue} \gets \text{entry.value}$
-            \State $\text{Emit}(\text{reducerKey}, \text{reducerValue})$
+                \State $\text{Emit}(character, one)$
         \EndFor
     \EndProcedure\\
     
