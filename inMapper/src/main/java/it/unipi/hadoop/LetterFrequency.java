@@ -29,7 +29,6 @@ public class LetterFrequency {
         protected void setup(Context context) {
             // Initialize the character count map and pattern for valid characters
             charCountMap = new HashMap<>();
-            charPattern = Pattern.compile("[a-zçğışöü]"); // Include Turkish characters
         }
 
         @Override
@@ -40,14 +39,12 @@ public class LetterFrequency {
             String line = LanguageNormalizer.normalize(value.toString(), language);
             // Iterate over each character in the line
             for (char c : line.toCharArray()) {
-                // Check if the character matches the pattern
-                if (charPattern.matcher(String.valueOf(c)).matches()) {
-                    Text character = new Text(String.valueOf(c));
-                    // Get the count of the character from the map or initialize it to 0 and increment it by 1
-                    long count = charCountMap.getOrDefault(character, zero).get() + 1;
-                    // Update the character count map
-                    charCountMap.put(character, new LongWritable(count));
-                }
+
+                Text character = new Text(String.valueOf(c));
+                // Get the count of the character from the map or initialize it to 0 and increment it by 1
+                long count = charCountMap.getOrDefault(character, zero).get() + 1;
+                // Update the character count map
+                charCountMap.put(character, new LongWritable(count));
             }
         }
 

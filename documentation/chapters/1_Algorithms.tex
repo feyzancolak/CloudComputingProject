@@ -135,9 +135,10 @@ The LetterCount algorithm is implemented using Hadoop's MapReduce framework to c
 
 \begin{algorithmic}[1]
 \Class{Mapper}{}
-    \State $\textbf{procedure } \text{Initialize}$
-    \State $H \gets$ new AssociativeArray \Comment{Initialize map for character counts}
+    \Procedure {Initialize}{}
+    \State $\text{H} \gets$ new AssociativeArray \Comment{Initialize map for character counts}
     \State $\text{charPattern} \gets \text{compilePattern}("[a-zçğışöü]")$ \Comment{Include Turkish characters}
+    \EndProcedure
 
     \Statex
     \Procedure{Map}{$\text{docid } key, \text{doc } value$}
@@ -158,30 +159,37 @@ The LetterCount algorithm is implemented using Hadoop's MapReduce framework to c
 \EndClass
 \end{algorithmic}
 
+\vspace{0.5cm}  % Add vertical space between classes
+
 \begin{algorithmic}[1]
-\Procedure{Partitioner}{}
-\State $\textbf{procedure } \text{GetPartition}$
+\Class{Partitioner}{}
   \Procedure{GetPartition}{$\text{char } key, \text{count } value, \text{numReducers }$}
     \State \textbf{return} $(\text{key.hashCode()} \& \text{Integer.MAX\_VALUE}) \% \text{numReducers}$
     \Comment{Default hash-based partitioning}
   \EndProcedure
-\EndProcedure
+\EndClass
 \end{algorithmic}
 
+
+\vspace{0.5cm}  % Add vertical space between classes
+
+
 \begin{algorithmic}[1]
-\Procedure{Reducer}{}
-\State $\textbf{procedure } \text{Initialize}$
-  \State $\text{result} \gets 0$ \Comment{Initialize result}
-\EndProcedure
-\Statex
-\Procedure{Reduce}{$\text{char } key, \text{counts } values$}
-  \State $\text{sum} \gets 0$
-  \For{$\text{each } \text{count } \text{val} \text{ in } \text{values}$}
-    \State $\text{sum} \gets \text{sum} + \text{val}$ \Comment{Sum counts for each character}
-  \EndFor
-  \State $\text{result} \gets \text{sum}$
-  \State $\text{Emit}(key, \text{count } \text{result})$ \Comment{Output final count}
-\EndProcedure
+\Class{Reducer}{}
+    \Procedure{Initialize}{}
+    \State $\text{result} \gets 0$ \Comment{Initialize result}
+    \EndProcedure
+
+    \Statex
+    \Procedure{Reduce}{$\text{char } key, \text{counts } values$}
+    \State $\text{sum} \gets 0$
+    \For{$\text{each } \text{count } \text{val} \text{ in } \text{values}$}
+        \State $\text{sum} \gets \text{sum} + \text{val}$ \Comment{Sum counts for each character}
+    \EndFor
+    \State $\text{result} \gets \text{sum}$
+    \State $\text{Emit}(key, \text{count } \text{result})$ \Comment{Output final count}
+    \EndProcedure
+\EndClass
 \end{algorithmic}
 
 \end{algorithm}
@@ -192,30 +200,6 @@ The LetterCount algorithm is implemented using Hadoop's MapReduce framework to c
 \subsection{LetterFrequency}
 The LetterFrequency algorithm calculates the frequency of standard alphabet characters within text documents using Hadoop's MapReduce framework.
 
-
-\textbf{LetterFrequencyMapper}
-\begin{longtable}{|>{\raggedright\arraybackslash}p{0.3\textwidth}|>{\raggedright\arraybackslash}p{0.65\textwidth}|}
-    \hline
-    Setup & Initializes a character frequency map (charFrequencyMap) to store counts of characters.Defines a pattern (charPattern) to match valid characters based on the specified language. \\
-    \hline
-    Map & Processes each line of text, normalizing it to lowercase and filtering based on language-specific characters using LanguageNormalizer.Iterates over each character in the line, updating charFrequencyMap with counts of valid characters.\\
-    \hline
-    Cleanup & Emits key-value pairs where keys are individual characters and values are their corresponding frequencies to the context.
-    \\
-    \hline
-\end{longtable}
-
-
-\textbf{LetterFrequencyReducer}
-\begin{longtable}{|>{\raggedright\arraybackslash}p{0.3\textwidth}|>{\raggedright\arraybackslash}p{0.65\textwidth}|}
-    \hline
-    Setup & Retrieves the total number of letters (totalLetterCount) from the context configuration. \\
-    \hline
-    Reduce & Aggregates counts for each character by summing values associated with each key across multiple Mapper outputs.
-    Calculates the frequency of each character as a ratio of its count to totalLetterCount.
-    Outputs the calculated frequencies.\\
-    \hline
-\end{longtable}
 
 
 
