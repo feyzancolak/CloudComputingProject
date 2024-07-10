@@ -73,35 +73,70 @@ The LetterFrequency algorithm calculates the frequency of standard alphabet char
 
 
 
-\section{InMapper}
+\section{InMapper Combining}
 The InMapper combining technique ensures efficiency by performing aggregation within each Mapper task itself. This approach reduces the amount of data shuffled across the network and further optimizes the processing of letter frequency analysis.
 
 
 \subsection{LetterCount}
 
-The LetterCount algorithm is implemented using Hadoop's MapReduce framework to count occurrences of standard alphabet characters within text documents. Here’s a schematic overview:
+The LetterCount algorithm is implemented using Hadoop's MapReduce framework to count occurrences of standard alphabet characters within text documents. Here’s the algorithm overview:
 
 
-\textbf{Mapper Class (LetterCountMapper)}
-\begin{longtable}{|>{\raggedright\arraybackslash}p{0.3\textwidth}|>{\raggedright\arraybackslash}p{0.65\textwidth}|}
-    \hline
-    Setup & Initializes a character count map (charCountMap) and a pattern (charPattern) to match valid characters based on the specified language. \\
-    \hline
-    Map & Processes each line of text, normalizing it to lowercase and filtering based on language-specific characters using LanguageNormalizer. Iterates over each character in the line, updating charCountMap with counts of valid characters. \\
-    \hline
-    Cleanup & Emits key-value pairs where keys are individual characters and values are their corresponding counts to the context. \\
-    \hline
-\end{longtable}
+\begin{algorithm}
+\caption{LetterCount with In-Mapper Combining}
 
+\begin{algorithmic}[1]
+\Class{Mapper}{}
+    \State $\textbf{procedure } \text{Initialize}$
+    \State $H \gets$ new AssociativeArray \Comment{Initialize map for character counts}
+    \State $\text{charPattern} \gets \text{compilePattern}("[a-zçğışöü]")$ \Comment{Include Turkish characters}
 
-\textbf{Reducer Class (LetterCountReducer)}
-\begin{longtable}{|>{\raggedright\arraybackslash}p{0.3\textwidth}|>{\raggedright\arraybackslash}p{0.65\textwidth}|}
-    \hline
-    Reduce & Aggregates counts for each character by summing values associated with each key across multiple Mapper outputs. Outputs final character counts. \\
-    \hline
-\end{longtable}
+    \Statex
+    \Procedure{Map}{$\text{docid } key, \text{doc } value$}
+    \State $\text{language} \gets \text{context.getConfiguration("language")}$ \Comment{Retrieve language}
+    \State $\text{line} \gets \text{LanguageNormalizer.normalize(value.toString(), language)}$ \Comment{Normalize and convert}
+     \For{$\text{each } \text{char } c \text{ in } \text{line}$}
+        \If{$\text{charPattern.matches(String.valueOf(c))}$}
+        \State $H[c] \gets H.getOrDefault(c, 0) + 1$ \Comment{Update character count}
+        \EndIf
+    \EndFor
+    \EndProcedure
+    \Statex
+    \Procedure{Close}{}
+    \For{$\text{each } \text{char } c \text{ in } H$}
+        \State $\text{Emit}(c, \text{count } H[c])$ \Comment{Output character count}
+    \EndFor
+    \EndProcedure
+\EndClass
+\end{algorithmic}
 
+\begin{algorithmic}[1]
+\Procedure{Partitioner}{}
+\State $\textbf{procedure } \text{GetPartition}$
+  \Procedure{GetPartition}{$\text{char } key, \text{count } value, \text{numReducers }$}
+    \State \textbf{return} $(\text{key.hashCode()} \& \text{Integer.MAX\_VALUE}) \% \text{numReducers}$
+    \Comment{Default hash-based partitioning}
+  \EndProcedure
+\EndProcedure
+\end{algorithmic}
 
+\begin{algorithmic}[1]
+\Procedure{Reducer}{}
+\State $\textbf{procedure } \text{Initialize}$
+  \State $\text{result} \gets 0$ \Comment{Initialize result}
+\EndProcedure
+\Statex
+\Procedure{Reduce}{$\text{char } key, \text{counts } values$}
+  \State $\text{sum} \gets 0$
+  \For{$\text{each } \text{count } \text{val} \text{ in } \text{values}$}
+    \State $\text{sum} \gets \text{sum} + \text{val}$ \Comment{Sum counts for each character}
+  \EndFor
+  \State $\text{result} \gets \text{sum}$
+  \State $\text{Emit}(key, \text{count } \text{result})$ \Comment{Output final count}
+\EndProcedure
+\end{algorithmic}
+
+\end{algorithm}
 
 
 
