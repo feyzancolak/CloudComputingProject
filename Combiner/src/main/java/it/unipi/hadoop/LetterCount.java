@@ -42,6 +42,7 @@ public class LetterCount {
         }
     }
 
+
     //The Reducer sums up the counts for each character received from the mapper.
     public static class ReducerCounter extends Reducer<Text, LongWritable, Text, LongWritable>{
         private LongWritable result = new LongWritable();
@@ -67,6 +68,7 @@ public class LetterCount {
         letterCountJob.setMapperClass(MapperCounter.class);
         letterCountJob.setCombinerClass(ReducerCounter.class);
         letterCountJob.setReducerClass(ReducerCounter.class);
+
 
         // Set the number of reducers
         letterCountJob.setNumReduceTasks(conf.getInt("numReducers", 1));
