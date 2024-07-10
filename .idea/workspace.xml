@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79f428db-0e7f-4788-9f7e-4577f768c58e" name="Changes" comment="comments about run process of combiner">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Combiner/src/main/java/it/unipi/hadoop/LetterCount.java" beforeDir="false" afterPath="$PROJECT_DIR$/Combiner/src/main/java/it/unipi/hadoop/LetterCount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Combiner/src/main/java/it/unipi/hadoop/LetterFrequency.java" beforeDir="false" afterPath="$PROJECT_DIR$/Combiner/src/main/java/it/unipi/hadoop/LetterFrequency.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inMapper/src/main/java/it/unipi/hadoop/LetterCount.java" beforeDir="false" afterPath="$PROJECT_DIR$/inMapper/src/main/java/it/unipi/hadoop/LetterCount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inMapper/src/main/java/it/unipi/hadoop/LetterFrequency.java" beforeDir="false" afterPath="$PROJECT_DIR$/inMapper/src/main/java/it/unipi/hadoop/LetterFrequency.java" afterDir="false" />
-    </list>
+    <list default="true" id="79f428db-0e7f-4788-9f7e-4577f768c58e" name="Changes" comment="comments about run process of combiner" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -112,7 +106,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-1.8.0_402-corretto-1.8.0_402-4caba194b151-ae57be32" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17011.79" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17011.79" />
       </set>
     </attachedChunks>
   </component>
@@ -131,8 +126,7 @@
       <workItem from="1719405381325" duration="10450000" />
       <workItem from="1720175454998" duration="9024000" />
       <workItem from="1720341116239" duration="14052000" />
-      <workItem from="1720600995835" duration="5311000" />
-      <workItem from="1720623162501" duration="1911000" />
+      <workItem from="1720600995835" duration="8062000" />
     </task>
     <task id="LOCAL-00001" summary="new inMapper">
       <option name="closed" value="true" />
