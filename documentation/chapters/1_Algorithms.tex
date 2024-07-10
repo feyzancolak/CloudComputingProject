@@ -3,7 +3,7 @@
 
 The goal of the project is to explore the core algorithms implemented for analyzing letter frequency across different languages using Hadoop MapReduce. 
 The project focuses on processing text documents to extract insights into the occurrence of standard alphabet characters within specific languages, namely Italian, English, and Turkish. 
-To be able to distinguish the different alphabets, a class languageNormalizer was implemented. \\
+To be able to distinguish the different alphabets, a class languageNormalizer was implemented. \\\\
 Furthermore, the input texts also have different dimensions, ranging from small to large datasets.
 In this way we can test the performance of the algorithms with different input sizes. \\
 The project has two types of implementations: Combiner and InMapper. Both techniques share the goal of improving MapReduce efficiency by reducing network traffic and enhancing processing speed through partial aggregation. They also both use the partitioner functionality, which provides an even distribution of data among the reducers, rather than a random distribution. However, they differ in execution stage and scope: the Combiner aggregates data after Mapper tasks and before Reducers, while the InMapper integrates aggregation within each Mapper task, thereby potentially minimizing resource overhead and optimizing memory usage. \\
@@ -13,7 +13,53 @@ The execution of the classes is managed by the RunProcess utility, which orchest
 
 The Combiner acts as a mini-reducer that performs local aggregation of intermediate data before it is sent to the reducers. By summing up the counts of each character within the Mapper tasks, the Combiner reduces the volume of data transferred across the network, which significantly enhances the efficiency of the MapReduce job. This local aggregation minimizes the amount of data that needs to be shuffled, sorted, and processed by the Reducer tasks, thereby optimizing the overall performance of the letter frequency analysis.
 
-
+\begin{algorithm}
+    \caption{LetterCount with Combiner}
+    \begin{algorithmic}[1]
+    \Require Txt file
+    \Ensure Total number of characters belonging to the specified language alphabet
+    \\
+    \Statex
+    
+    \textbf{Class:} MAPPERCOUNTER
+    \State \textbf{initialize:}
+    \State  characterPattern: Regex("[a-zğüşıöç]", caseInsensitive)
+    \State  characterCounts: Map<String, Long> \\
+    
+    \Procedure{setup}{$context$}
+        \State Initialize characterCounts as an empty map
+    \EndProcedure\\
+    
+    \Procedure{map}{$key, value, context$}
+        \State $\text{language} \gets \text{context.getConfiguration().get("language")}$ 
+        \State $\text{line} \gets \text{LanguageNormalizer.normalize}(value.toString().toLowerCase(), language)$
+        \For{each character $ch$ in $line$}
+            \If{$ch$ matches $\text{characterPattern}$}
+                \State $\text{charStr} \gets \text{String.valueOf}(ch)$
+                \State $\text{characterCounts}[\text{charStr}] \gets \text{characterCounts.getOrDefault}(\text{charStr}, 0) + 1$
+            \EndIf
+        \EndFor
+    \EndProcedure\\
+    
+    \Procedure{cleanup}{$context$}
+        \For{each entry in $\text{characterCounts}$}
+            \State $\text{Emit}(\text{entry.key}, \text{entry.value})$
+        \EndFor
+    \EndProcedure\\
+    
+    \Statex
+    
+    \textbf{Class:} REDUCERCOUNTER
+    \Procedure{reduce}{$key, values, context$}
+        \State $\text{sum} \gets 0$
+        \For{each $\text{value}$ in $values$}
+            \State $\text{sum} \gets \text{sum} + \text{value}$
+        \EndFor
+        \State $\text{Emit}(\text{key}, \text{sum})$
+    \EndProcedure
+    \end{algorithmic}
+    \end{algorithm}
+    
 
 \subsection{LetterCount}
 The LetterCount algorithm is implemented using Hadoop's MapReduce framework to count occurrences of standard alphabet characters within text documents. \\ \\
@@ -42,6 +88,8 @@ The LetterCount algorithm is implemented using Hadoop's MapReduce framework to c
 \subsection{LetterFrequency}
 
 The LetterFrequency algorithm calculates the frequency of standard alphabet characters within text documents using Hadoop's MapReduce framework.\\
+
+
 
 \textbf{MapperFrequency}
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.3\textwidth}|>{\raggedright\arraybackslash}p{0.65\textwidth}|}
@@ -100,8 +148,6 @@ The LetterCount algorithm is implemented using Hadoop's MapReduce framework to c
     Reduce & Aggregates counts for each character by summing values associated with each key across multiple Mapper outputs. Outputs final character counts. \\
     \hline
 \end{longtable}
-
-
 
 
 
