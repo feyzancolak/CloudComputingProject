@@ -44,8 +44,6 @@ public class LetterFrequency {
             for (char ch : line.toCharArray()) {
                 // Check if the character is a letter
                 if (CHARACTER_PATTERN.matcher(String.valueOf(ch)).matches()) {
-                   // reducerKey.set(String.valueOf(ch));
-                   // context.write(reducerKey, reducerValue);
 
                     String charStr = String.valueOf(ch);
                     characterCounts.put(charStr, characterCounts.getOrDefault(charStr, 0L) + 1);

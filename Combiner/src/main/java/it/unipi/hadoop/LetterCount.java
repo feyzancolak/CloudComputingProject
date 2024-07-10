@@ -19,10 +19,9 @@ import java.util.regex.Pattern;
 
 public class LetterCount{
 
-    //processes each line of the input text, identifies individual characters, and emita each letter a key with a count of '1' as the value.
+    //processes each line of the input text, identifies individual characters, and emit each letter a key with a count of '1' as the value.
     public static class MapperCounter extends Mapper<Object, Text,Text, LongWritable>{
 
-        private final static LongWritable one = new LongWritable(1); //A constant longwrirable object with value 1 for each letter found
         private static Pattern CHARACTER_PATTERN = null;
         private Text character = new Text();
         private Map<String, Long> characterCounts;
@@ -31,20 +30,17 @@ public class LetterCount{
         protected void setup(Context context)throws IOException, InterruptedException {
             //initialize the character count map and pattern for valid characters
             CHARACTER_PATTERN = Pattern.compile("[a-zğüşıöç]", Pattern.CASE_INSENSITIVE); //regex pattern to match letters with case insensitive
-            //character = new Text(); //hadoop text object to hold single character
             characterCounts = new HashMap<>(); // Initialize the map to store character counts
         }
 
         @Override
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException{
-            String language = context.getConfiguration().get("language");
 
+            String language = context.getConfiguration().get("language");
             String line = LanguageNormalizer.normalize(value.toString().toLowerCase(),language); //convert the line to lowercase
 
             for(char ch: line.toCharArray()){ //iterate through each character in the line
                 if(CHARACTER_PATTERN.matcher(String.valueOf(ch)).matches()){  //use regex to check if the character is a letter
-                    //character.set(String.valueOf(ch)); //set the character as the key
-                    //context.write(character, one); //write the key-value pair to the context with value of '1'
 
                     String charStr = String.valueOf(ch);
                     characterCounts.put(charStr, characterCounts.getOrDefault(charStr, 0L) + 1); // Update the count for the character
@@ -61,6 +57,7 @@ public class LetterCount{
             }
         }
     }
+
 
     //The Reducer sums up the counts for each character received from the mapper.
     public static class ReducerCounter extends Reducer<Text, LongWritable, Text, LongWritable>{
