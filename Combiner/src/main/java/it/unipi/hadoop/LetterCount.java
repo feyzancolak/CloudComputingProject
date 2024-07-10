@@ -58,6 +58,7 @@ public class LetterCount{
         }
     }
 
+
     //The Reducer sums up the counts for each character received from the mapper.
     public static class ReducerCounter extends Reducer<Text, LongWritable, Text, LongWritable>{
         private final LongWritable result = new LongWritable();; //hadoop longwritable object to hold the sum of the counts for each character

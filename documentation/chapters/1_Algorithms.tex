@@ -11,29 +11,29 @@ The execution of the classes is managed by the RunProcess utility, which orchest
 
 \section{Combiner}
 
+The Combiner acts as a mini-reducer that performs local aggregation of intermediate data before it is sent to the reducers. By summing up the counts of each character within the Mapper tasks, the Combiner reduces the volume of data transferred across the network, which significantly enhances the efficiency of the MapReduce job. This local aggregation minimizes the amount of data that needs to be shuffled, sorted, and processed by the Reducer tasks, thereby optimizing the overall performance of the letter frequency analysis.
+
+
+
 \subsection{LetterCount}
+The LetterCount algorithm is implemented using Hadoop's MapReduce framework to count occurrences of standard alphabet characters within text documents. \\ \\
 \textbf{Mapper Class (MapperCounter)}
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.3\textwidth}|>{\raggedright\arraybackslash}p{0.65\textwidth}|}
     \hline
-    Setup &  \\
+    Setup &  Initializes the character count map and regex pattern.\\
     \hline
-    Map &  \\
+    Map &  Processes each line, normalizes it, and counts the occurrences of each letter.\\
     \hline
-    Cleanup & \\
+    Cleanup &Writes the accumulated character counts to the context.\\
     \hline
 \end{longtable}
 
-\textbf{Partitioner Class (PartitionerCounter)}
-\begin{longtable}{|>{\raggedright\arraybackslash}p{0.3\textwidth}|>{\raggedright\arraybackslash}p{0.65\textwidth}|}
-    \hline
-    getPartition &  \\
-    \hline
-\end{longtable}
+
 
 \textbf{Reducer Class (ReducerCounter)}
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.3\textwidth}|>{\raggedright\arraybackslash}p{0.65\textwidth}|}
     \hline
-    Reduce &  \\
+    Reduce & Aggregates counts for each character from the mapper output and writes the total count to the context. \\
     \hline
 \end{longtable}
 
@@ -41,14 +41,16 @@ The execution of the classes is managed by the RunProcess utility, which orchest
 
 \subsection{LetterFrequency}
 
+The LetterFrequency algorithm calculates the frequency of standard alphabet characters within text documents using Hadoop's MapReduce framework.\\
+
 \textbf{MapperFrequency}
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.3\textwidth}|>{\raggedright\arraybackslash}p{0.65\textwidth}|}
     \hline
-    Setup &  \\
+    Setup &   Initializes the character count map and regex pattern.\\
     \hline
-    Map & \\
+    Map &  Processes each line, normalizes it, and counts the occurrences of each letter.\\
     \hline
-    Cleanup & \\
+    Cleanup & Writes the accumulated character counts to the context.\\
     \hline
 \end{longtable}
 
@@ -56,16 +58,16 @@ The execution of the classes is managed by the RunProcess utility, which orchest
 \textbf{CombinerFrequency}
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.3\textwidth}|>{\raggedright\arraybackslash}p{0.65\textwidth}|}
     \hline
-    Reduce & \\
+    Reduce & Aggregates counts for each character from the mapper output and writes the intermediate sums to the context.\\
     \hline
 \end{longtable}
 
 \textbf{ReducerFrequency}
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.3\textwidth}|>{\raggedright\arraybackslash}p{0.65\textwidth}|}
     \hline
-    Setup &  \\
+    Setup & Retrieves the total letter count from the configuration. \\
     \hline
-    Map & \\
+    Map & Calculates the frequency of each character by dividing the count by the total number of characters and writes the result to the context.\\
     \hline
 \end{longtable}
 
@@ -91,12 +93,6 @@ The LetterCount algorithm is implemented using Hadoop's MapReduce framework to c
     \hline
 \end{longtable}
 
-\textbf{Partitioner Class (CounterPartitioner)}
-\begin{longtable}{|>{\raggedright\arraybackslash}p{0.3\textwidth}|>{\raggedright\arraybackslash}p{0.65\textwidth}|}
-    \hline
-    Custom Partitioning & Distributes key-value pairs across Reducers based on a simple hash-based partitioning scheme. \\
-    \hline
-\end{longtable}
 
 \textbf{Reducer Class (LetterCountReducer)}
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.3\textwidth}|>{\raggedright\arraybackslash}p{0.65\textwidth}|}
