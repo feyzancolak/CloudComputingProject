@@ -22,12 +22,11 @@ The LetterCount algorithm is implemented using Hadoop's MapReduce framework to c
 \begin{algorithm}
     \caption{LetterCount with Combiner}
     \begin{algorithmic}[1]
-    \Require Txt file
     \Ensure Total number of characters belonging to the specified language alphabet
     \\
     \Statex
     
-    \textbf{Class:} MAPPERCOUNTER
+    \textbf{Class:} MAPPER
 
     \Procedure{setup}{$context$}
         \State $\text{language} \gets \text{context.getConfiguration("language")}$ \Comment{Retrieve language}
@@ -36,43 +35,24 @@ The LetterCount algorithm is implemented using Hadoop's MapReduce framework to c
     \Procedure{map}{$key, value, context$}
         \State $\text{line} \gets \text{LanguageNormalizer.normalize}(value.toString().toLowerCase(), language)$
         \For{each character $ch$ in $line$}
-                \State $\text{charStr} \gets \text{String.valueOf}(ch)$
-                \State $\text{Emit}(\text{character}, \text{one})$
+                \State $\text{Emit}(\text{character ch}, \text{count 1})$
         \EndFor
     \EndProcedure\\
         
     \Statex
     
-    \textbf{Class:} REDUCERCOUNTER
-    \Procedure{reduce}{$key, values, context$}
+    \textbf{Class:} REDUCER
+    \Procedure{reduce}{$c, values, context$}
         \State $\text{sum} \gets 0$
         \For{each $\text{value}$ in $values$}
             \State $\text{sum} \gets \text{sum} + \text{value}$
         \EndFor
-        \State $\text{Emit}(\text{key}, \text{sum})$
+        \State $\text{Emit}(\text{character c}, \text{count sum})$
     \EndProcedure
     \end{algorithmic}
     \end{algorithm}
 
-\textbf{Mapper Class (MapperCounter)}
-\begin{longtable}{|>{\raggedright\arraybackslash}p{0.3\textwidth}|>{\raggedright\arraybackslash}p{0.65\textwidth}|}
-    \hline
-    Setup &  Initializes the character count map and regex pattern.\\
-    \hline
-    Map &  Processes each line, normalizes it, and counts the occurrences of each letter.\\
-    \hline
-    Cleanup &Writes the accumulated character counts to the context.\\
-    \hline
-\end{longtable}
 
-
-
-\textbf{Reducer Class (ReducerCounter)}
-\begin{longtable}{|>{\raggedright\arraybackslash}p{0.3\textwidth}|>{\raggedright\arraybackslash}p{0.65\textwidth}|}
-    \hline
-    Reduce & Aggregates counts for each character from the mapper output and writes the total count to the context. \\
-    \hline
-\end{longtable}
 
 
 
@@ -86,83 +66,56 @@ The LetterFrequency algorithm calculates the frequency of standard alphabet char
 \begin{algorithm}
     \caption{LetterFrequency with Combiner}
     \begin{algorithmic}[1]
-    \Require Txt file
     \Ensure Frequency of each character belonging to the specified language alphabet
     \\
     \Statex
     
-    \textbf{Class:} MAPPERFREQUENCY
+    \textbf{Class:} MAPPER
 
-    \Procedure{setup}{$context$}
-        \State $\text{language} \gets \text{context.getConfiguration("language")}$ \Comment{Retrieve language}
+    \Procedure{setup}{language $lg$}
+        \State $\text{language} \gets \text{lg}$ \Comment{Retrieve language}
     \EndProcedure\\
 
-    \Procedure{map}{$key, value, context$}
-        \State $\text{line} \gets \text{LanguageNormalizer.normalize}(value.toString().toLowerCase(), language)$
+   \Procedure{map}{docid $key$, doc $value$}
+        \State \text{line} \gets \text{NORMALIZE}{value,language}
         \For{each character $ch$ in $line$}
-                \State $\text{charStr} \gets \text{String.valueOf}(ch)$
-                \State $\text{Emit}(character, one)$
+                \State $\text{Emit}(\text{character ch}, \text{count 1})$
         \EndFor
     \EndProcedure\\
+
     
     \Statex
     
-    \textbf{Class:} COMBINERFREQUENCY
-    \Procedure{reduce}{$key, values, context$}
+    \textbf{Class:} COMBINER
+    \Procedure{reduce}{$c, values, context$}
                 \State $\text{sum} \gets 0$
         \For{each value in values}
             \State sum += value
         \EndFor
-        \State $\text{Emit}(key, sum)$
+        \State $\text{Emit}(\text{character c}, \text{count sum})$
     \EndProcedure\\
     
     \Statex
     
-    \textbf{Class:} REDUCERFREQUENCY
-    \Procedure{setup}{$context$}
-        \State \text{TEXT\_LENGTH} = context.getConfiguration().getLong("totalLetterCount", 0)
+    \textbf{Class:} REDUCER
+    \Procedure{setup}{long $text_length$}
+        \State \text{TEXT\_LENGTH} \gets \text{text\_length}
     \EndProcedure\\
     
-    \Procedure{reduce}{$key, values, context$}
-        \State \textbf{initialize:} sum as 0
+    \Procedure{reduce}{$c, values, context$}
+        \State $\text{sum} \gets 0$
         \For{each value in values}
             \State sum += value
         \EndFor
         \State result = sum / TEXT\_LENGTH
-        \State $\text{Emit}(key, result)$
+        \State $\text{Emit}(\text{character c}, \text{count result})$
     \EndProcedure
     
     \end{algorithmic}
     \end{algorithm}
 
 
-\textbf{MapperFrequency}
-\begin{longtable}{|>{\raggedright\arraybackslash}p{0.3\textwidth}|>{\raggedright\arraybackslash}p{0.65\textwidth}|}
-    \hline
-    Setup &   Initializes the character count map and regex pattern.\\
-    \hline
-    Map &  Processes each line, normalizes it, and counts the occurrences of each letter.\\
-    \hline
-    Cleanup & Writes the accumulated character counts to the context.\\
-    \hline
-\end{longtable}
 
-
-\textbf{CombinerFrequency}
-\begin{longtable}{|>{\raggedright\arraybackslash}p{0.3\textwidth}|>{\raggedright\arraybackslash}p{0.65\textwidth}|}
-    \hline
-    Reduce & Aggregates counts for each character from the mapper output and writes the intermediate sums to the context.\\
-    \hline
-\end{longtable}
-
-\textbf{ReducerFrequency}
-\begin{longtable}{|>{\raggedright\arraybackslash}p{0.3\textwidth}|>{\raggedright\arraybackslash}p{0.65\textwidth}|}
-    \hline
-    Setup & Retrieves the total letter count from the configuration. \\
-    \hline
-    Map & Calculates the frequency of each character by dividing the count by the total number of characters and writes the result to the context.\\
-    \hline
-\end{longtable}
 
 
 
