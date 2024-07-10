@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79f428db-0e7f-4788-9f7e-4577f768c58e" name="Changes" comment="comments about run process of combiner" />
+    <list default="true" id="79f428db-0e7f-4788-9f7e-4577f768c58e" name="Changes" comment="comments about run process of combiner">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Combiner/src/main/java/it/unipi/hadoop/LetterCount.java" beforeDir="false" afterPath="$PROJECT_DIR$/Combiner/src/main/java/it/unipi/hadoop/LetterCount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Combiner/src/main/java/it/unipi/hadoop/LetterFrequency.java" beforeDir="false" afterPath="$PROJECT_DIR$/Combiner/src/main/java/it/unipi/hadoop/LetterFrequency.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inMapper/src/main/java/it/unipi/hadoop/LetterCount.java" beforeDir="false" afterPath="$PROJECT_DIR$/inMapper/src/main/java/it/unipi/hadoop/LetterCount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inMapper/src/main/java/it/unipi/hadoop/LetterFrequency.java" beforeDir="false" afterPath="$PROJECT_DIR$/inMapper/src/main/java/it/unipi/hadoop/LetterFrequency.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
