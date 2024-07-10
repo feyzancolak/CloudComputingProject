@@ -28,11 +28,9 @@ The LetterCount algorithm is implemented using Hadoop's MapReduce framework to c
     \Statex
     
     \textbf{Class:} MAPPERCOUNTER
-    \State \textbf{initialize:}
-    \State  characterCounts: Map<String, Long> \\
-    
+
     \Procedure{setup}{$context$}
-        \State Initialize characterCounts as an empty map
+        \State $\text{language} \gets \text{context.getConfiguration("language")}$ \Comment{Retrieve language}
     \EndProcedure\\
     
     \Procedure{map}{$key, value, context$}
@@ -94,14 +92,11 @@ The LetterFrequency algorithm calculates the frequency of standard alphabet char
     \Statex
     
     \textbf{Class:} MAPPERFREQUENCY
-    \State \textbf{initialize:}
-    \State  reducerKey: Text
-    \State  reducerValue: LongWritable(1) \\
-    
-    \Procedure{setup}{$context$}
 
+    \Procedure{setup}{$context$}
+        \State $\text{language} \gets \text{context.getConfiguration("language")}$ \Comment{Retrieve language}
     \EndProcedure\\
-    
+
     \Procedure{map}{$key, value, context$}
         \State $\text{line} \gets \text{LanguageNormalizer.normalize}(value.toString().toLowerCase(), language)$
         \For{each character $ch$ in $line$}
@@ -114,7 +109,7 @@ The LetterFrequency algorithm calculates the frequency of standard alphabet char
     
     \textbf{Class:} COMBINERFREQUENCY
     \Procedure{reduce}{$key, values, context$}
-        \State \textbf{initialize:} sum as 0
+                \State $\text{sum} \gets 0$
         \For{each value in values}
             \State sum += value
         \EndFor
