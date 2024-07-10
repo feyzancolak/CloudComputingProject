@@ -13,56 +13,40 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Pattern;
 
-public class LetterCount{
+public class LetterCount {
 
     //processes each line of the input text, identifies individual characters, and emit each letter a key with a count of '1' as the value.
     public static class MapperCounter extends Mapper<Object, Text,Text, LongWritable>{
+        private static String language;
+        private static final LongWritable one = new LongWritable(1);
+        private static Text character;
 
-        private static Pattern CHARACTER_PATTERN = null;
-        private Text character = new Text();
-        private Map<String, Long> characterCounts;
 
         @Override
-        protected void setup(Context context)throws IOException, InterruptedException {
-            //initialize the character count map and pattern for valid characters
-            CHARACTER_PATTERN = Pattern.compile("[a-zğüşıöç]", Pattern.CASE_INSENSITIVE); //regex pattern to match letters with case insensitive
-            characterCounts = new HashMap<>(); // Initialize the map to store character counts
+        protected void setup(Context context) {
+            // Get the language from the context configuration
+            language = context.getConfiguration().get("language");
+            // Initialize the character
+            character = new Text();
         }
 
         @Override
-        public void map(Object key, Text value, Context context) throws IOException, InterruptedException{
-
-            String language = context.getConfiguration().get("language");
+        public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
             String line = LanguageNormalizer.normalize(value.toString().toLowerCase(),language); //convert the line to lowercase
 
-            for(char ch: line.toCharArray()){ //iterate through each character in the line
-                if(CHARACTER_PATTERN.matcher(String.valueOf(ch)).matches()){  //use regex to check if the character is a letter
-
+            for (char ch: line.toCharArray()){ //iterate through each character in the line
                     String charStr = String.valueOf(ch);
-                    characterCounts.put(charStr, characterCounts.getOrDefault(charStr, 0L) + 1); // Update the count for the character
-                }
-            }
-        }
-
-        @Override
-        protected void cleanup(Context context) throws IOException, InterruptedException{
-            // Write the character counts to the context
-            for (Map.Entry<String, Long> entry : characterCounts.entrySet()) {
-                character.set(entry.getKey());
-                context.write(character, new LongWritable(entry.getValue()));
+                    character.set(charStr);
+                    // Emit each character with a count of 1
+                    context.write(character, one);
             }
         }
     }
 
-
     //The Reducer sums up the counts for each character received from the mapper.
     public static class ReducerCounter extends Reducer<Text, LongWritable, Text, LongWritable>{
-        private final LongWritable result = new LongWritable();; //hadoop longwritable object to hold the sum of the counts for each character
-
+        private static final LongWritable result = new LongWritable();
 
         @Override
         public void reduce(Text key, Iterable<LongWritable> values, Context context) throws IOException, InterruptedException{

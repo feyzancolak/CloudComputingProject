@@ -13,6 +13,12 @@ The execution of the classes is managed by the RunProcess utility, which orchest
 
 The Combiner acts as a mini-reducer that performs local aggregation of intermediate data before it is sent to the reducers. By summing up the counts of each character within the Mapper tasks, the Combiner reduces the volume of data transferred across the network, which significantly enhances the efficiency of the MapReduce job. This local aggregation minimizes the amount of data that needs to be shuffled, sorted, and processed by the Reducer tasks, thereby optimizing the overall performance of the letter frequency analysis.
 
+
+    
+
+\subsection{LetterCount}
+The LetterCount algorithm is implemented using Hadoop's MapReduce framework to count occurrences of standard alphabet characters within text documents.
+
 \begin{algorithm}
     \caption{LetterCount with Combiner}
     \begin{algorithmic}[1]
@@ -59,10 +65,7 @@ The Combiner acts as a mini-reducer that performs local aggregation of intermedi
     \EndProcedure
     \end{algorithmic}
     \end{algorithm}
-    
 
-\subsection{LetterCount}
-The LetterCount algorithm is implemented using Hadoop's MapReduce framework to count occurrences of standard alphabet characters within text documents. \\ \\
 \textbf{Mapper Class (MapperCounter)}
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.3\textwidth}|>{\raggedright\arraybackslash}p{0.65\textwidth}|}
     \hline
@@ -89,6 +92,76 @@ The LetterCount algorithm is implemented using Hadoop's MapReduce framework to c
 
 The LetterFrequency algorithm calculates the frequency of standard alphabet characters within text documents using Hadoop's MapReduce framework.\\
 
+
+
+
+\begin{algorithm}
+    \caption{LetterFrequency with Combiner}
+    \begin{algorithmic}[1]
+    \Require Txt file
+    \Ensure Frequency of each character belonging to the specified language alphabet
+    \\
+    \Statex
+    
+    \textbf{Class:} MAPPERFREQUENCY
+    \State \textbf{initialize:}
+    \State  characterPattern: Regex("[a-zğüşıöç]", caseInsensitive)
+    \State  characterCounts: Map<String, Long>
+    \State  reducerKey: Text
+    \State  reducerValue: LongWritable(1) \\
+    
+    \Procedure{setup}{$context$}
+        \State Initialize characterCounts as an empty map
+    \EndProcedure\\
+    
+    \Procedure{map}{$key, value, context$}
+        \State $\text{language} \gets \text{context.getConfiguration().get("language")}$ 
+        \State $\text{line} \gets \text{LanguageNormalizer.normalize}(value.toString().toLowerCase(), language)$
+        \For{each character $ch$ in $line$}
+            \If{$ch$ matches $\text{characterPattern}$}
+                \State $\text{charStr} \gets \text{String.valueOf}(ch)$
+                \State $\text{characterCounts}[\text{charStr}] \gets \text{characterCounts.getOrDefault}(\text{charStr}, 0) + 1$
+            \EndIf
+        \EndFor
+    \EndProcedure\\
+    
+    \Procedure{cleanup}{$context$}
+        \For{each entry in $\text{characterCounts}$}
+            \State $\text{reducerKey} \gets \text{entry.key}$
+            \State $\text{reducerValue} \gets \text{entry.value}$
+            \State $\text{Emit}(\text{reducerKey}, \text{reducerValue})$
+        \EndFor
+    \EndProcedure\\
+    
+    \Statex
+    
+    \textbf{Class:} COMBINERFREQUENCY
+    \Procedure{reduce}{$key, values, context$}
+        \State \textbf{initialize:} sum as 0
+        \For{each value in values}
+            \State sum += value
+        \EndFor
+        \State $\text{Emit}(key, sum)$
+    \EndProcedure\\
+    
+    \Statex
+    
+    \textbf{Class:} REDUCERFREQUENCY
+    \Procedure{setup}{$context$}
+        \State \text{TEXT\_LENGTH} = context.getConfiguration().getLong("totalLetterCount", 0)
+    \EndProcedure\\
+    
+    \Procedure{reduce}{$key, values, context$}
+        \State \textbf{initialize:} sum as 0
+        \For{each value in values}
+            \State sum += value
+        \EndFor
+        \State result = sum / TEXT\_LENGTH
+        \State $\text{Emit}(key, result)$
+    \EndProcedure
+    
+    \end{algorithmic}
+    \end{algorithm}
 
 
 \textbf{MapperFrequency}
