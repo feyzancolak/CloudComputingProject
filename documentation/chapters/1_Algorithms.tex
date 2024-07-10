@@ -3,10 +3,10 @@
 
 The goal of the project is to explore the core algorithms implemented for analyzing letter frequency across different languages using Hadoop MapReduce. 
 The project focuses on processing text documents to extract insights into the occurrence of standard alphabet characters within specific languages, namely Italian, English, and Turkish. 
-To be able to distinguish the different alphabets, a class languageNormalizer was implemented. 
+To be able to distinguish the different alphabets, a class languageNormalizer was implemented. \\
 Furthermore, the input texts also have different dimensions, ranging from small to large datasets.
-In this way we can test the performance of the algorithms with different input sizes.
-The project has two types of implementations: Combiner and InMapper. Both techniques share the goal of improving MapReduce efficiency by reducing network traffic and enhancing processing speed through partial aggregation. They also both use the partitioner functionality, which provides an even distribution of data among the reducers, rather than a random distribution. However, they differ in execution stage and scope: the Combiner aggregates data after Mapper tasks and before Reducers, while the InMapper integrates aggregation within each Mapper task, thereby potentially minimizing resource overhead and optimizing memory usage. 
+In this way we can test the performance of the algorithms with different input sizes. \\
+The project has two types of implementations: Combiner and InMapper. Both techniques share the goal of improving MapReduce efficiency by reducing network traffic and enhancing processing speed through partial aggregation. They also both use the partitioner functionality, which provides an even distribution of data among the reducers, rather than a random distribution. However, they differ in execution stage and scope: the Combiner aggregates data after Mapper tasks and before Reducers, while the InMapper integrates aggregation within each Mapper task, thereby potentially minimizing resource overhead and optimizing memory usage. \\
 The execution of the classes is managed by the RunProcess utility, which orchestrates the input file processing, language selection, output path management, and configurable parameters such as the number of Reducers employed. The input file is first used by the letterCount class to count the number of letters in the text. This information is stored in a temporary file, which is taken as input from the letterFrequency class that then calculates the frequency of each letter in the text. The output of the letterFrequency class is the final result of the analysis, and to this it is also added the result of the letterCount.
 
 \section{Combiner}

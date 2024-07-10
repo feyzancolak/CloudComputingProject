@@ -1,1 +1,22 @@
 \chapter{Results}
+
+\subsection{Dataset}
+In order to complete this letter frequncy analysis through Hadoop, several datasets of different sizes were used. 
+
+The smallest datasets are about the theatrical piece \textit{Seagull} by Anton Chekhov. Each file is approximately 100KB and includes: 
+\begin{itemize}
+    \item The English translation
+    \item The Italian translation
+    \item The Turkish translation
+\end{itemize}
+
+The medium datasets are about the \textit{Lord Of The Rings} trilogy by J.R.R. Tolkien. Each file is approximately 3MB and includes: 
+\begin{itemize}
+    \item The original English text
+    \item The Italian translation
+    \item The Turkish translation
+\end{itemize}
+
+The largest dataset is a collection of 5 Million book reviews in English from Goodreads. This dataset is about 3GB. 
+ 
+The datasets are stored in HDFS and were processed by the Hadoop MapReduce framework. The results of the analysis were stored in HDFS and were later retrieved and analyzed.
