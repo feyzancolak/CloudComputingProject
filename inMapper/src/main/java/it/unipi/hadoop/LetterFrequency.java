@@ -19,16 +19,17 @@ public class LetterFrequency {
 
     // Mapper class to count letters
     public static class LetterFrequencyMapper extends Mapper<LongWritable, Text, Text, LongWritable> {
-        private Map<Text, LongWritable> charCountMap;
         private static final LongWritable zero = new LongWritable(0);
+        private Map<Text, LongWritable> charCountMap = new HashMap<>();
+        private Text character = new Text();
+        private LongWritable charCount = new LongWritable();
         private static String language;
 
         @Override
         protected void setup(Context context) {
-            // Initialize the character count map and pattern for valid characters
-            charCountMap = new HashMap<>();
             // Get the language from the context configuration
-            language = context.getConfiguration().get("language");
+            if (language == null)
+                language = context.getConfiguration().get("language");
         }
 
         @Override
@@ -37,11 +38,11 @@ public class LetterFrequency {
             String line = LanguageNormalizer.normalize(value.toString(), language);
             // Iterate over each character in the line
             for (char c : line.toCharArray()) {
-                Text character = new Text(String.valueOf(c));
+                character.set(String.valueOf(c));
                 // Get the count of the character from the map or initialize it to 0 and increment it by 1
-                long count = charCountMap.getOrDefault(character, zero).get() + 1;
+                charCount.set(charCountMap.getOrDefault(character, zero).get() + 1);
                 // Update the character count map
-                charCountMap.put(character, new LongWritable(count));
+                charCountMap.put(character, charCount);
             }
         }
 
@@ -53,16 +54,17 @@ public class LetterFrequency {
             }
         }
     }
-    // Partitioner is the default one
 
     // Reducer class to sum the counts of letters
     public static class LetterFrequencyReducer extends Reducer<Text, LongWritable, Text, DoubleWritable> {
-        private final DoubleWritable result = new DoubleWritable();
-        private static long TEXT_LENGTH;
+        private static Long TEXT_LENGTH;
+        private DoubleWritable result = new DoubleWritable();
+
         @Override
         protected void setup(Context context) {
             // Get the total letter count from the context configuration
-            TEXT_LENGTH = context.getConfiguration().getLong("totalLetterCount", 0);
+            if (TEXT_LENGTH == null)
+                TEXT_LENGTH = context.getConfiguration().getLong("totalLetterCount", 0);
         }
 
         @Override
