@@ -192,7 +192,7 @@ The LetterCount algorithm is implemented using Hadoop's MapReduce framework to c
         \EndProcedure
     
         \Statex
-        \Procedure{Map}{$\text{docid key, doc value}$}
+        \Procedure{Map}{$\text{key, value}$}
         \State $\text{line} \gets \text{normalize(value, language)}$ \Comment{Normalize based on input language}
         \For{$\text{each character } c \text{ in } \text{line}$}
             \State $\text{sum} \gets \text{sum + 1}$
@@ -201,7 +201,7 @@ The LetterCount algorithm is implemented using Hadoop's MapReduce framework to c
     
         \Statex
         \Procedure{Close}{}
-        \For{$\text{each entry } (character, count) \text{ in } \text{charCountMap}$}
+        \For{$\text{each entry } (character, count) \text{ in } \text{Map}$}
 
         \State $\text{emit(character, count)}$
         \Comment{Output character counts}
@@ -226,10 +226,10 @@ The LetterCount algorithm is implemented using Hadoop's MapReduce framework to c
     \begin{algorithmic}[1]
     \Class{Reducer}{}
        
-        \Procedure{Reduce}{$\text{docid key, values}$}
+        \Procedure{Reduce}{$\text{key, values}$}
         \State $\text{sum} \gets 0$ \Comment{Initialize result}
     
-        \State $\text{long sum} \gets 0$
+        
         \For{$\text{each value } v \text{ in } \text{values}$}
             \State $\text{sum} \gets \text{sum} + \text{v}$ \Comment{Sum counts for each letter}
         \EndFor
@@ -258,7 +258,7 @@ The LetterFrequency algorithm calculates the frequency of standard alphabet char
         \EndProcedure
     
         \Statex
-        \Procedure{Map}{$\text{docid key, doc value}$}
+        \Procedure{Map}{$\text{key, value}$}
         \State $\text{line} \gets \text{normalize(value, language)}$ \Comment{Normalize based on input language}
         \For{$\text{each character } c \text{ in } \text{line}$}
             \State $\text{sum} \gets \text{sum + 1}$
@@ -267,8 +267,8 @@ The LetterFrequency algorithm calculates the frequency of standard alphabet char
     
         \Statex
         \Procedure{Close}{}
-        \For{$\text{each entry } (character, count) \text{ in } \text{counts [c1, c2, ...]}$}
-        }
+        \For{$\text{each entry } (character, count) \text{ in } \text{Map}$}
+        
             \State $\text{emit(character, count)}$
             \Comment{Output character counts}
         \EndFor
@@ -297,15 +297,15 @@ The LetterFrequency algorithm calculates the frequency of standard alphabet char
         \EndProcedure
     
         \Statex
-        \Procedure{Reduce}{$\text{Text key, values}}
-        \State $\text{long sum} \gets 0$
-        \For{$\text{each value } v \text{ in } \text{values}$}
-            \State $\text{sum} \gets \text{sum} + \text{v}$
-            \Comment{Sum counts for each letter}
-        \EndFor
-        \State  $\text{frequency} \gets \text{sum / TEXT\_LENGTH)}$
-        \State $\text{emit(key, frequency)}$
-        \Comment{Output final count}
+        \Procedure{Reduce}{$\text{key, values}$}
+            \State $\text{sum} \gets 0$
+            \For{$\text{each value } v \text{ in } \text{values}$}
+                \State $\text{sum} \gets \text{sum} + \text{v}$
+                \Comment{Sum counts for each letter}
+            \EndFor
+            \State  $\text{frequency} \gets \text{sum / (TEXT\_LENGTH)}$
+            \State $\text{emit(key, frequency)}$
+            \Comment{Output final count}
         \EndProcedure
     \EndClass
     \end{algorithmic}
