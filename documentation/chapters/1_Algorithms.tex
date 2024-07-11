@@ -9,15 +9,16 @@ In this way we can test the performance of the algorithms with different input s
 The project has two types of implementations: Combiner and InMapper. Both techniques share the goal of improving MapReduce efficiency by reducing network traffic and enhancing processing speed through partial aggregation. They also both use the partitioner functionality, which provides an even distribution of data among the reducers, rather than a random distribution. However, they differ in execution stage and scope: the Combiner aggregates data after Mapper tasks and before Reducers, while the InMapper integrates aggregation within each Mapper task, thereby potentially minimizing resource overhead and optimizing memory usage. \\
 The execution of the classes is managed by the RunProcess utility, which orchestrates the input file processing, language selection, output path management, and configurable parameters such as the number of Reducers employed. The input file is first used by the letterCount class to count the number of letters in the text. This information is stored in a temporary file, which is taken as input from the letterFrequency class that then calculates the frequency of each letter in the text. The output of the letterFrequency class is the final result of the analysis, and to this it is also added the result of the letterCount.
 
+\newpage
+
 \section{Combiner}
 
 The Combiner acts as a mini-reducer that performs local aggregation of intermediate data before it is sent to the reducers. By summing up the counts of each character within the Mapper tasks, the Combiner reduces the volume of data transferred across the network, which significantly enhances the efficiency of the MapReduce job. This local aggregation minimizes the amount of data that needs to be shuffled, sorted, and processed by the Reducer tasks, thereby optimizing the overall performance of the letter frequency analysis.
 
-
     
 
 \subsection{LetterCount}
-The LetterCount algorithm is implemented using Hadoop's MapReduce framework to count occurrences of standard alphabet characters within text documents.
+The LetterCount algorithm is implemented using Hadoop's MapReduce framework to count occurrences of standard alphabet characters within text documents. \\ 
 
 \begin{algorithm}
     \caption{LetterCount with Combiner}
@@ -28,14 +29,14 @@ The LetterCount algorithm is implemented using Hadoop's MapReduce framework to c
     
     \textbf{Class:} MAPPER
 
-    \Procedure{setup}{$context$}
-        \State $\text{language} \gets \text{context.getConfiguration("language")}$ \Comment{Retrieve language}
+    \Procedure{setup}{langıage $lg$}
+        \State $\text{language} \gets \text{lg}$ \Comment{Retrieve language}
     \EndProcedure\\
     
     \Procedure{map}{$key, value, context$}
-        \State $\text{line} \gets \text{LanguageNormalizer.normalize}(value.toString().toLowerCase(), language)$
+        \State $\text{line} \gets \text{NORMALIZE}(value, language)$ \Comment{Normalize and convert}
         \For{each character $ch$ in $line$}
-                \State $\text{Emit}(\text{character ch}, \text{count 1})$
+                \State $\text{Emit}(\text{character ch}, \text{count 1})$ \Comment{Emit each character with a count of 1}
         \EndFor
     \EndProcedure\\
         
@@ -43,24 +44,19 @@ The LetterCount algorithm is implemented using Hadoop's MapReduce framework to c
     
     \textbf{Class:} REDUCER
     \Procedure{reduce}{$c, values, context$}
-        \State $\text{sum} \gets 0$
+        \State $\text{sum} \gets 0$  \Comment{Initialize sum}
         \For{each $\text{value}$ in $values$}
-            \State $\text{sum} \gets \text{sum} + \text{value}$
+            \State $\text{sum} \gets \text{sum} + \text{value}$ \Comment{Sum up the counts of each character}
         \EndFor
-        \State $\text{Emit}(\text{character c}, \text{count sum})$
+        \State $\text{Emit}(\text{character c}, \text{count sum})$ \Comment{Output final count of each character}
     \EndProcedure
     \end{algorithmic}
     \end{algorithm}
 
-
-
-
+\newpage
 
 \subsection{LetterFrequency}
-
-The LetterFrequency algorithm calculates the frequency of standard alphabet characters within text documents using Hadoop's MapReduce framework.\\
-
-
+The LetterFrequency algorithm calculates the frequency of standard alphabet characters within text documents using Hadoop's MapReduce framework. \\ 
 
 
 \begin{algorithm}
@@ -77,9 +73,9 @@ The LetterFrequency algorithm calculates the frequency of standard alphabet char
     \EndProcedure\\
 
    \Procedure{map}{docid $key$, doc $value$}
-        \State \text{line} \gets \text{NORMALIZE}{value,language}
+            \State $\text{line} \gets \text{NORMALIZE}(value, language)$ \Comment{Normalize and convert}
         \For{each character $ch$ in $line$}
-                \State $\text{Emit}(\text{character ch}, \text{count 1})$
+            \State $\text{Emit}(\text{character ch}, \text{count 1})$ \Comment{Emit each character with a count of 1}   
         \EndFor
     \EndProcedure\\
 
@@ -89,7 +85,7 @@ The LetterFrequency algorithm calculates the frequency of standard alphabet char
     \textbf{Class:} COMBINER
     \Procedure{reduce}{$c, values, context$}
                 \State $\text{sum} \gets 0$
-        \For{each value in values}
+        \For{each value in values} \Comment{Combine the counts of the same letter}
             \State sum += value
         \EndFor
         \State $\text{Emit}(\text{character c}, \text{count sum})$
@@ -98,16 +94,16 @@ The LetterFrequency algorithm calculates the frequency of standard alphabet char
     \Statex
     
     \textbf{Class:} REDUCER
-    \Procedure{setup}{long $text_length$}
-        \State \text{TEXT\_LENGTH} \gets \text{text\_length}
+    \Procedure{setup}{long $text\_length$} 
+        \State $\text{$TEXT\_LENGTH$} \gets \text{text\_length}$ \Comment{Get total letter count from context configuration}
     \EndProcedure\\
-    
+
     \Procedure{reduce}{$c, values, context$}
         \State $\text{sum} \gets 0$
-        \For{each value in values}
+        \For{each value in values} \Comment{Combine the counts of the same letter}
             \State sum += value
         \EndFor
-        \State result = sum / TEXT\_LENGTH
+        \State result = sum / TEXT\_LENGTH \Comment{Calculate frequency}
         \State $\text{Emit}(\text{character c}, \text{count result})$
     \EndProcedure
     
@@ -115,7 +111,7 @@ The LetterFrequency algorithm calculates the frequency of standard alphabet char
     \end{algorithm}
 
 
-
+\newpage
 
 
 
