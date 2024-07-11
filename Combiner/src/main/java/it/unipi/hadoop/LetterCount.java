@@ -18,17 +18,15 @@ public class LetterCount {
 
     //processes each line of the input text, identifies individual characters, and emit each letter a key with a count of '1' as the value.
     public static class MapperCounter extends Mapper<Object, Text,Text, LongWritable>{
-        private static String language;
         private static final LongWritable one = new LongWritable(1);
-        private static Text character;
-
+        private Text character = new Text();
+        private static String language;
 
         @Override
         protected void setup(Context context) {
             // Get the language from the context configuration
-            language = context.getConfiguration().get("language");
-            // Initialize the character
-            character = new Text();
+            if (language == null)
+                language = context.getConfiguration().get("language");
         }
 
         @Override
@@ -47,7 +45,7 @@ public class LetterCount {
 
     //The Reducer sums up the counts for each character received from the mapper.
     public static class ReducerCounter extends Reducer<Text, LongWritable, Text, LongWritable>{
-        private static final LongWritable result = new LongWritable();
+        private LongWritable result = new LongWritable();
 
         @Override
         public void reduce(Text key, Iterable<LongWritable> values, Context context) throws IOException, InterruptedException{

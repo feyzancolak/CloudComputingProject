@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79f428db-0e7f-4788-9f7e-4577f768c58e" name="Changes" comment="comments about run process of combiner" />
+    <list default="true" id="79f428db-0e7f-4788-9f7e-4577f768c58e" name="Changes" comment="comments about run process of combiner">
+      <change beforePath="$PROJECT_DIR$/documentation/chapters/1_Algorithms.tex" beforeDir="false" afterPath="$PROJECT_DIR$/documentation/chapters/1_Algorithms.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentation/documentation.synctex(busy)" beforeDir="false" afterPath="$PROJECT_DIR$/documentation/documentation.synctex(busy)" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -126,7 +129,7 @@
       <workItem from="1719405381325" duration="10450000" />
       <workItem from="1720175454998" duration="9024000" />
       <workItem from="1720341116239" duration="14052000" />
-      <workItem from="1720600995835" duration="15108000" />
+      <workItem from="1720600995835" duration="16436000" />
     </task>
     <task id="LOCAL-00001" summary="new inMapper">
       <option name="closed" value="true" />

@@ -18,16 +18,15 @@ import java.io.IOException;
 public class LetterFrequency {
 
     public static class MapperFrequency extends Mapper<Object, Text, Text, LongWritable> {
-        private static Text character;
-        private static String language;
         private static final LongWritable one = new LongWritable(1);
+        private Text character = new Text();
+        private static String language;
 
         @Override
         protected void setup(Context context) {
             // Get the language from the context configuration
-            language = context.getConfiguration().get("language");
-            // Initialize the character
-            character = new Text();
+            if (language == null)
+                language = context.getConfiguration().get("language");
         }
 
         @Override
@@ -45,7 +44,7 @@ public class LetterFrequency {
     }
 
     public static class CombinerFrequency extends Reducer<Text, LongWritable, Text, LongWritable> {
-        private final LongWritable result = new LongWritable();
+        private LongWritable result = new LongWritable();
 
         @Override
         public void reduce(Text key, Iterable<LongWritable> values, Context context) throws IOException, InterruptedException {
@@ -63,15 +62,14 @@ public class LetterFrequency {
     }
 
     public static class ReducerFrequency extends Reducer<Text, LongWritable, Text, DoubleWritable> {
-        private static DoubleWritable result;
-        private static long TEXT_LENGTH;
+        private DoubleWritable result = new DoubleWritable();
+        private static Long TEXT_LENGTH;
 
         @Override
         protected void setup(Context context) {
             // Get the total letter count from the context configuration
-            TEXT_LENGTH = context.getConfiguration().getLong("totalLetterCount", 0);
-            // Initialize the result
-            result = new DoubleWritable();
+            if (TEXT_LENGTH == null)
+                TEXT_LENGTH = context.getConfiguration().getLong("totalLetterCount", 0);
         }
 
         @Override
