@@ -18,8 +18,7 @@ public class LetterCount {
 
     // Mapper class to count letters
     public static class LetterCountMapper extends Mapper<LongWritable, Text, Text, LongWritable> {
-        private static final LongWritable zero = new LongWritable(0);
-        private Map<Text, LongWritable> charCountMap = new HashMap<>();
+        private Map<String, Long> charCountMap = new HashMap<>();
         private Text character = new Text();
         private LongWritable charCount = new LongWritable();
         private static String language;
@@ -37,9 +36,9 @@ public class LetterCount {
             String line = LanguageNormalizer.normalize(value.toString(), language);
             // Iterate over each character in the line
             for (char c : line.toCharArray()) {
-                character.set(String.valueOf(c));
                 // Get the count of the character from the map or initialize it to 0 and increment it by 1
-                charCount.set(charCountMap.getOrDefault(character, zero).get() + 1);
+                String character = String.valueOf(c);
+                Long charCount = charCountMap.getOrDefault(character, 0L) + 1;
                 // Update the character count map
                 charCountMap.put(character, charCount);
             }
@@ -48,15 +47,17 @@ public class LetterCount {
         @Override
         protected void cleanup(Context context) throws IOException, InterruptedException {
             // Write the character counts to the context
-            for (Map.Entry<Text, LongWritable> entry : charCountMap.entrySet()) {
-                context.write(entry.getKey(), entry.getValue());
+            for (Map.Entry<String, Long> entry : charCountMap.entrySet()) {
+                character.set(entry.getKey());
+                charCount.set(entry.getValue());
+                context.write(character, charCount);
             }
         }
     }
 
     // Reducer class to sum the counts of letters
     public static class LetterCountReducer extends Reducer<Text, LongWritable, Text, LongWritable> {
-        private final LongWritable result = new LongWritable();
+        private LongWritable result = new LongWritable();
 
         @Override
         public void reduce(Text key, Iterable<LongWritable> values, Context context) throws IOException, InterruptedException {

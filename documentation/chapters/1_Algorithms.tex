@@ -18,98 +18,90 @@ The Combiner acts as a mini-reducer that performs local aggregation of intermedi
     
 
 \subsection{LetterCount}
-The LetterCount algorithm is implemented using Hadoop's MapReduce framework to count occurrences of standard alphabet characters within text documents. \\ 
+The LetterCount algorithm is implemented using Hadoop's MapReduce framework to count occurrences of standard alphabet characters within text documents. \\
 
 \begin{algorithm}
     \caption{LetterCount with Combiner}
     \begin{algorithmic}[1]
-    \Ensure Total number of characters belonging to the specified language alphabet
-    \\
-    \Statex
-    
-    \textbf{Class:} MAPPER
+        \Ensure Total number of characters belonging to the specified language alphabet
 
-    \Procedure{setup}{langıage $lg$}
-        \State $\text{language} \gets \text{lg}$ \Comment{Retrieve language}
-    \EndProcedure\\
-    
-    \Procedure{map}{$key, value, context$}
-        \State $\text{line} \gets \text{NORMALIZE}(value, language)$ \Comment{Normalize and convert}
-        \For{each character $ch$ in $line$}
-                \State $\text{Emit}(\text{character ch}, \text{count 1})$ \Comment{Emit each character with a count of 1}
-        \EndFor
-    \EndProcedure\\
-        
-    \Statex
-    
-    \textbf{Class:} REDUCER
-    \Procedure{reduce}{$c, values, context$}
-        \State $\text{sum} \gets 0$  \Comment{Initialize sum}
-        \For{each $\text{value}$ in $values$}
-            \State $\text{sum} \gets \text{sum} + \text{value}$ \Comment{Sum up the counts of each character}
-        \EndFor
-        \State $\text{Emit}(\text{character c}, \text{count sum})$ \Comment{Output final count of each character}
-    \EndProcedure
+        \Statex \Statex \textbf{Class:} MAPPER
+
+        \Procedure{setup}{language $lg$}
+            \State language $\gets$ lg \Comment{Retrieve language}
+        \EndProcedure\\
+
+        \Procedure{map}{docid $key$, doc $value$}
+            \State line $\gets$ NORMALIZE(value, language) \Comment{Normalize and convert}
+            \For{each character $ch$ in line}
+                \State Emit(character $ch$, count 1) \Comment{Emit each character with a count of 1}
+            \EndFor
+        \EndProcedure
+
+        \Statex \Statex \textbf{Class:} COMBINER / REDUCER
+
+        \Procedure{reduce}{character $c$, count[] $values$}
+            \State sum $\gets$ 0 \Comment{Initialize sum}
+            \For{each count $value$ in values} \Comment{Combine the counts of the same letter}
+                \State sum $\gets$ sum + $value$
+            \EndFor
+            \State Emit(character $c$, count sum) \Comment{Output final count of each character}
+        \EndProcedure
+
     \end{algorithmic}
-    \end{algorithm}
+\end{algorithm}
 
 \newpage
 
 \subsection{LetterFrequency}
-The LetterFrequency algorithm calculates the frequency of standard alphabet characters within text documents using Hadoop's MapReduce framework. \\ 
+The LetterFrequency algorithm calculates the frequency of standard alphabet characters within text documents using Hadoop's MapReduce framework. \\
 
 
 \begin{algorithm}
     \caption{LetterFrequency with Combiner}
     \begin{algorithmic}[1]
-    \Ensure Frequency of each character belonging to the specified language alphabet
-    \\
-    \Statex
-    
-    \textbf{Class:} MAPPER
+        \Ensure Frequency of each character belonging to the specified language alphabet
 
-    \Procedure{setup}{language $lg$}
-        \State $\text{language} \gets \text{lg}$ \Comment{Retrieve language}
-    \EndProcedure\\
+        \Statex \Statex \textbf{Class:} MAPPER
 
-   \Procedure{map}{docid $key$, doc $value$}
-            \State $\text{line} \gets \text{NORMALIZE}(value, language)$ \Comment{Normalize and convert}
-        \For{each character $ch$ in $line$}
-            \State $\text{Emit}(\text{character ch}, \text{count 1})$ \Comment{Emit each character with a count of 1}   
-        \EndFor
-    \EndProcedure\\
+        \Procedure{setup}{language $lg$}
+            \State \text{language} $\gets$ \text{$lg$} \Comment{Retrieve language}
+        \EndProcedure\\
 
-    
-    \Statex
-    
-    \textbf{Class:} COMBINER
-    \Procedure{reduce}{$c, values, context$}
-                \State $\text{sum} \gets 0$
-        \For{each value in values} \Comment{Combine the counts of the same letter}
-            \State sum += value
-        \EndFor
-        \State $\text{Emit}(\text{character c}, \text{count sum})$
-    \EndProcedure\\
-    
-    \Statex
-    
-    \textbf{Class:} REDUCER
-    \Procedure{setup}{long $text\_length$} 
-        \State $\text{$TEXT\_LENGTH$} \gets \text{text\_length}$ \Comment{Get total letter count from context configuration}
-    \EndProcedure\\
+        \Procedure{map}{docid $key$, doc $value$}
+            \State \text{line} $\gets$ \text{NORMALIZE}(value, language) \Comment{Normalize and convert}
+            \For{each character $ch$ in $line$}
+                \State $\text{Emit}(\text{character $ch$}, \text{count $1$})$ \Comment{Emit each character with a count of 1}
+            \EndFor
+        \EndProcedure
 
-    \Procedure{reduce}{$c, values, context$}
-        \State $\text{sum} \gets 0$
-        \For{each value in values} \Comment{Combine the counts of the same letter}
-            \State sum += value
-        \EndFor
-        \State result = sum / TEXT\_LENGTH \Comment{Calculate frequency}
-        \State $\text{Emit}(\text{character c}, \text{count result})$
-    \EndProcedure
-    
+        \Statex \Statex \textbf{Class:} COMBINER
+
+        \Procedure{reduce}{character $c$, count[] $values$}
+            \State \text{sum} $\gets$ \text{$0$} \Comment{Initialize sum}
+            \For{each count $value$ in $values$} \Comment{Combine the counts of the same letter}
+            \State \text{sum} $\gets$ \text{sum + $value$}
+            \EndFor
+            \State $\text{Emit}(\text{character $c$}, \text{count $sum$})$ \Comment{Emit the combined count of each character}
+        \EndProcedure
+
+        \Statex \Statex \textbf{Class:} REDUCER
+
+        \Procedure{setup}{long $text\_length$}
+            \State $\text{TEXT\_LENGTH} \gets \text{text\_length}$ \Comment{Retrieve total letter count}
+        \EndProcedure\\
+
+        \Procedure{reduce}{character $c$, count[] $values$}
+            \State $\text{sum} \gets 0$
+            \For{each count $value$ in $values$} \Comment{Combine the counts of the same letter}
+            \State sum $\gets$ sum + $value$
+            \EndFor
+            \State result $\gets$ sum / TEXT\_LENGTH \Comment{Evaluate frequency}
+            \State $\text{Emit}(\text{character $c$}, \text{frequency $result$})$
+        \EndProcedure
+
     \end{algorithmic}
-    \end{algorithm}
-
+\end{algorithm}
 
 \newpage
 
