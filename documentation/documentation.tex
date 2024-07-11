@@ -1,12 +1,6 @@
 \documentclass[a4paper,titlepage]{report}
 
-\algdef{SE}% flags used internally to indicate we're defining a new block statement
-[CLASS]% new block type, not to be confused with loops or if-statements
-{Class}% "\Struct{name}" will indicate the start of the struct declaration
-{EndClass}% "\EndStruct" ends the block indent
-[1]% There is one argument, which is the name of the data structure
-{\textbf{class} \textsc{#1}}% typesetting of the start of a struct
-{\textbf{end class}}% typesetting the end of the struct
+
 
 % Packages for graphics and layout
 \usepackage{graphicx}
@@ -45,9 +39,24 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 
-\makeatletter
-\newcommand{\BState}{\State\hskip-\ALG@thistlm}
-\makeatother
+\algdef{SE}% flags used internally to indicate we're defining a new block statement
+[CLASS]% new block type, not to be confused with loops or if-statements
+{Class}% "\Struct{name}" will indicate the start of the struct declaration
+{EndClass}% "\EndStruct" ends the block indent
+[1]% There is one argument, which is the name of the data structure
+{\textbf{class} \textsc{#1}}% typesetting of the start of a struct
+{\textbf{end class}}% typesetting the end of the struct
+
+
+\algdef{SE}% flags used internally to indicate we're defining a new block statement
+[METHOD]% new block type, not to be confused with loops or if-statements
+{Method}% "\Struct{name}" will indicate the start of the struct declaration
+{EndMethod}% "\EndStruct" ends the block indent
+[2]% There is one argument, which is the name of the data structure
+{\textbf{method} \textsc{#1}(\textsc{#2})}% typesetting of the start of a struct
+{\textbf{end method}}% typesetting the end of the struct
+
+
 \usepackage[utf8]{inputenc} % To handle UTF-8 encoding
 \usepackage[T1]{fontenc}    % To ensure proper font encoding
 \usepackage{lmodern}        % Latin Modern font which supports Turkish characters

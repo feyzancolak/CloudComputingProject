@@ -25,28 +25,32 @@ The LetterCount algorithm is implemented using Hadoop's MapReduce framework to c
     \begin{algorithmic}[1]
         \Ensure Total number of characters belonging to the specified language alphabet
 
-        \Statex \Statex \textbf{Class:} MAPPER
+        \Statex
+        \Class{MAPPER}
 
-        \Procedure{setup}{language $lg$}
+        \Method{Initialize}{language $lg$}
             \State language $\gets$ lg \Comment{Retrieve language}
-        \EndProcedure\\
+        \EndMethod\\
 
-        \Procedure{map}{docid $key$, doc $value$}
+        \Method{map}{docid $key$, doc $value$}
             \State line $\gets$ NORMALIZE(value, language) \Comment{Normalize and convert}
             \For{each character $ch$ in line}
                 \State Emit(character $ch$, count 1) \Comment{Emit each character with a count of 1}
             \EndFor
-        \EndProcedure
+        \EndMethod
+        \EndClass
 
-        \Statex \Statex \textbf{Class:} COMBINER / REDUCER
+        \Statex
+        \Class{COMBINER / REDUCER}
 
-        \Procedure{reduce}{character $c$, count[] $values$}
+        \Method{reduce}{character $c$, count[] $values$}
             \State sum $\gets$ 0 \Comment{Initialize sum}
             \For{each count $value$ in values} \Comment{Combine the counts of the same letter}
                 \State sum $\gets$ sum + $value$
             \EndFor
             \State Emit(character $c$, count sum) \Comment{Output final count of each character}
-        \EndProcedure
+        \EndMethod
+        \EndClass
 
     \end{algorithmic}
 \end{algorithm}
@@ -62,43 +66,49 @@ The LetterFrequency algorithm calculates the frequency of standard alphabet char
     \begin{algorithmic}[1]
         \Ensure Frequency of each character belonging to the specified language alphabet
 
-        \Statex \Statex \textbf{Class:} MAPPER
+        \Statex
+        \Class {MAPPER}
 
-        \Procedure{setup}{language $lg$}
+        \Method{Initialize}{language $lg$}
             \State \text{language} $\gets$ \text{$lg$} \Comment{Retrieve language}
-        \EndProcedure\\
+        \EndMethod\\
 
-        \Procedure{map}{docid $key$, doc $value$}
+        \Method{map}{docid $key$, doc $value$}
             \State \text{line} $\gets$ \text{NORMALIZE}(value, language) \Comment{Normalize and convert}
             \For{each character $ch$ in $line$}
                 \State $\text{Emit}(\text{character $ch$}, \text{count $1$})$ \Comment{Emit each character with a count of 1}
             \EndFor
-        \EndProcedure
+        \EndMethod
+        \EndClass
 
-        \Statex \Statex \textbf{Class:} COMBINER
+        \Statex
+        \Class{COMBINER}
 
-        \Procedure{reduce}{character $c$, count[] $values$}
+        \Method{reduce}{character $c$, count[] $values$}
             \State \text{sum} $\gets$ \text{$0$} \Comment{Initialize sum}
             \For{each count $value$ in $values$} \Comment{Combine the counts of the same letter}
             \State \text{sum} $\gets$ \text{sum + $value$}
             \EndFor
             \State $\text{Emit}(\text{character $c$}, \text{count $sum$})$ \Comment{Emit the combined count of each character}
-        \EndProcedure
+        \EndMethod
+        \EndClass
 
-        \Statex \Statex \textbf{Class:} REDUCER
+        \Statex
+        \Class {REDUCER}
 
-        \Procedure{setup}{long $text\_length$}
+        \Method{Initialize}{long $text\_length$}
             \State $\text{TEXT\_LENGTH} \gets \text{text\_length}$ \Comment{Retrieve total letter count}
-        \EndProcedure\\
+        \EndMethod\\
 
-        \Procedure{reduce}{character $c$, count[] $values$}
+        \Method{reduce}{character $c$, count[] $values$}
             \State $\text{sum} \gets 0$
             \For{each count $value$ in $values$} \Comment{Combine the counts of the same letter}
             \State sum $\gets$ sum + $value$
             \EndFor
             \State result $\gets$ sum / TEXT\_LENGTH \Comment{Evaluate frequency}
             \State $\text{Emit}(\text{character $c$}, \text{frequency $result$})$
-        \EndProcedure
+        \EndMethod
+        \EndClass
 
     \end{algorithmic}
 \end{algorithm}
@@ -121,56 +131,48 @@ The LetterCount algorithm is implemented using Hadoop's MapReduce framework to c
     
     \begin{algorithmic}[1]
     \Class{Mapper}{}
-        \Procedure {Initialize}{}
-        \State $\text{sum} \gets$ 0 \Comment{Initialize zero count}
-        \State $\text{language} \gets \text{get language from context configuration}$
+        \Method {Initialize}{language $lg$}
+        \State $\text{map} \gets$ new HASHMAP \Comment{Initialize zero count}
+        \State $\text{language} \gets lg$ \Comment{Retrieve language}
 
-        \EndProcedure
+        \EndMethod
+        \\
     
-        \Statex
-        \Procedure{Map}{$\text{key, value}$}
+        \Method{Map}{$\text{docid key, doc value}$}
         \State $\text{line} \gets \text{normalize(value, language)}$ \Comment{Normalize based on input language}
-        \For{$\text{each character } c \text{ in } \text{line}$}
+        \For{$\text{each character } c \text{ in } line$}
             \State $\text{sum} \gets \text{sum + 1}$
         \EndFor
-        \EndProcedure
+
+        \State{$\text{map.add(c, sum)}$}
+        \EndMethod
+        \\
     
-        \Statex
-        \Procedure{Close}{}
-        \For{$\text{each entry } (character, count) \text{ in } \text{Map}$}
+        \Method{Close}{}
+        \For{$\text{each entry } (character, count) \text{ in } map$}
 
         \State $\text{emit(character, count)}$
         \Comment{Output character counts}
         \EndFor
-        \EndProcedure
+        \EndMethod
     \EndClass
     \end{algorithmic}
-    
+ 
     \vspace{0.5cm}  % Add vertical space between classes
     
-    \begin{algorithmic}[1]
-    \Class{Partitioner}{}
-    \Procedure{Partition}{$\text{key, value, numReducers}$}
-    \State \textbf{return} $\left(\text{hash(key)} \, \text{AND} \, \text{MAX\_INT}\right) \, \text{MOD} \, \text{numReducers}$
-    \Comment{Default hash-based partitioning}
-    \EndProcedure
-    \EndClass
-    \end{algorithmic}
-    
-    \vspace{0.5cm}  % Add vertical space between classes
     
     \begin{algorithmic}[1]
     \Class{Reducer}{}
        
-        \Procedure{Reduce}{$\text{key, values}$}
+        \Method{Reduce}{\text{character $c$, count[] $values$}}
         \State $\text{sum} \gets 0$ \Comment{Initialize result}
     
         
-        \For{$\text{each value } v \text{ in } \text{values}$}
-            \State $\text{sum} \gets \text{sum} + \text{v}$ \Comment{Sum counts for each letter}
+        \For{each count  $value$  in  $values$}
+            \State $\text{sum} \gets \text{sum} + value$ \Comment{Sum counts for each letter}
         \EndFor
-        \State $\text{emit(key, sum)}$ \Comment{Output final count}
-        \EndProcedure
+        \State $\text{Emit(c, sum)}$ \Comment{Output final count}
+        \EndMethod
     \EndClass
     \end{algorithmic}
     
@@ -187,53 +189,44 @@ The LetterFrequency algorithm calculates the frequency of standard alphabet char
     
     \begin{algorithmic}[1]
     \Class{Mapper}{}
-        \Procedure {Initialize}{}
+        \Method {Initialize}{}
         \State $\text{sum} \gets$ 0 \Comment{Initialize zero count}
         \State $\text{language} \gets \text{get language from context configuration}$
 
-        \EndProcedure
+        \EndMethod
     
         \Statex
-        \Procedure{Map}{$\text{key, value}$}
+        \Method{Map}{$\text{key, value}$}
         \State $\text{line} \gets \text{normalize(value, language)}$ \Comment{Normalize based on input language}
         \For{$\text{each character } c \text{ in } \text{line}$}
             \State $\text{sum} \gets \text{sum + 1}$
         \EndFor
-        \EndProcedure
+        \EndMethod
     
         \Statex
-        \Procedure{Close}{}
+        \Method{Close}{}
         \For{$\text{each entry } (character, count) \text{ in } \text{Map}$}
         
             \State $\text{emit(character, count)}$
             \Comment{Output character counts}
         \EndFor
-        \EndProcedure
+        \EndMethod
     \EndClass
     \end{algorithmic}
     
-    \vspace{0.5cm}  % Add vertical space between classes
-
-    \begin{algorithmic}[1]
-        \Class{Partitioner}{}
-        \Procedure{Partition}{$\text{key, value, numReducers}$}
-        \State \textbf{return} $\left(\text{hash(key)} \, \text{AND} \, \text{MAX\_INT}\right) \, \text{MOD} \, \text{numReducers}$
-        \Comment{Default hash-based partitioning}
-    \EndProcedure
-        \EndClass
-    \end{algorithmic}
+   
     
     \vspace{0.5cm}
 
     \begin{algorithmic}[1]
     \Class{Reducer}{}
-        \Procedure{Initialize}{}
+        \Method{Initialize}{}
         \State $\text{TEXT\_LENGTH} \gets \text{get totalLetterCount from context configuration}$
 
-        \EndProcedure
+        \EndMethod
     
         \Statex
-        \Procedure{Reduce}{$\text{key, values}$}
+        \Method{Reduce}{$\text{key, values}$}
             \State $\text{sum} \gets 0$
             \For{$\text{each value } v \text{ in } \text{values}$}
                 \State $\text{sum} \gets \text{sum} + \text{v}$
@@ -242,7 +235,7 @@ The LetterFrequency algorithm calculates the frequency of standard alphabet char
             \State  $\text{frequency} \gets \text{sum / (TEXT\_LENGTH)}$
             \State $\text{emit(key, frequency)}$
             \Comment{Output final count}
-        \EndProcedure
+        \EndMethod
     \EndClass
     \end{algorithmic}
     
