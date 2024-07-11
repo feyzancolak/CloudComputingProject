@@ -24,5 +24,100 @@ The datasets are stored in HDFS and were processed by the Hadoop MapReduce frame
 \section{Performance}
 The performance of the Hadoop MapReduce framework was tested on the English datasets. This allowed us to see the difference peformances for the different sizes with the different number of reducers.
 
+\newpage
+
 \section{Frequency}
-The frequency of the letters was tested in English, Italian and Turkish using the small and medium datasets. 
+The frequency of the letters was tested in English, Italian and Turkish using the small (Seagull) and medium (Lord of the Rings) datasets. 
+This allowed to compare frequency differences between the languages and the different sizes datasets.\\ \\
+Below it can be seen the results of the frequency analysis for the small and medium datasets for each languages.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{media/allSeagul.png}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{media/allLordOfTheRings.png}
+\end{figure}
+
+\newpage
+
+\subsection*{Letter frequency results for all datasets in each languages separately} 
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{media/seagulEnglish.png} 
+        \caption{Letter Frequency of Seagul in English}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{media/lordOfTheRingsEnglish.png}
+        \caption{Letter Frequency of Lord of the Rings in English}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{media/seagulTurkish.png} 
+        \caption{Letter Frequency of Seagul in Turkish}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{media/lordOfTheRingsTurkish.png}
+        \caption{Letter Frequency of Lord of the Rings in Turkish}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{media/seagulItalian.png} 
+        \caption{Letter Frequency of Seagul in Italian}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{media/lordOfTheRingsItalian.png}
+        \caption{Letter Frequency of Lord of the Rings in Italian}
+    \end{minipage}
+\end{figure}
+
+
+
+
+
+\newpage
+\subsection*{Comparison of small and medium datasets in each languages} 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{media/allEnglish.png}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{media/allTurkish.png}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{media/allItalian.png}
+\end{figure}
+
+
+\textbf{Obtanied Results:}
+\begin{itemize}
+    \item In each language \textit{A} and \text{E} are the most frequent letters.
+    \item \textit{T} has significantly more priority in English than the other languages.
+    \item The frequency order of the letter in the same language is almost the same for the small and medium dataset.
+    \item \textit{Q} and \textit{X} are the common few frequent letters in all languages.
+    \item In general the vowel of the languages are more frequent than the consonants.
+\end{itemize}
