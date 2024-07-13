@@ -4,9 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79f428db-0e7f-4788-9f7e-4577f768c58e" name="Changes" comment="comments about run process of combiner">
-      <change beforePath="$PROJECT_DIR$/documentation/chapters/1_Algorithms.tex" beforeDir="false" afterPath="$PROJECT_DIR$/documentation/chapters/1_Algorithms.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentation/documentation.synctex(busy)" beforeDir="false" afterPath="$PROJECT_DIR$/documentation/documentation.synctex(busy)" afterDir="false" />
+    <list default="true" id="79f428db-0e7f-4788-9f7e-4577f768c58e" name="Changes" comment="output files">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/analytics/performance.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/analytics/performance.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/analytics/performance_pt2.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/analytics/performance_pt2.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentation/auxil/documentation.aux" beforeDir="false" afterPath="$PROJECT_DIR$/documentation/auxil/documentation.aux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentation/auxil/documentation.log" beforeDir="false" afterPath="$PROJECT_DIR$/documentation/auxil/documentation.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentation/auxil/documentation.toc" beforeDir="false" afterPath="$PROJECT_DIR$/documentation/auxil/documentation.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentation/chapters/2_Results.tex" beforeDir="false" afterPath="$PROJECT_DIR$/documentation/chapters/2_Results.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentation/media/performance_graph.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +48,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;LaTeX.latex.executor&quot;: &quot;Run&quot;,
     &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
     &quot;Maven.Combiner [clean].executor&quot;: &quot;Run&quot;,
     &quot;Maven.Combiner [compile].executor&quot;: &quot;Run&quot;,
@@ -55,6 +63,7 @@
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/messi/Documents/GitHub/CloudComputingProject/documentation/media&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -63,7 +72,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.runner&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -72,7 +81,7 @@
       <recent name="it.unipi.hadoop" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.RunProcess (1)">
+  <component name="RunManager" selected="LaTeX.latex">
     <configuration name="RunProcess (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="it.unipi.hadoop.RunProcess" />
       <module name="inMapper" />
@@ -99,9 +108,59 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="latex" type="LATEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory">
+      <texify>
+        <compiler>PDFLATEX</compiler>
+        <compiler-path />
+        <sumatra-path />
+        <pdf-viewer>BUILT-IN-PDF-VIEWER</pdf-viewer>
+        <viewer-command />
+        <compiler-arguments />
+        <envs />
+        <main-file>$PROJECT_DIR$/documentation/documentation.tex</main-file>
+        <output-path>$PROJECT_DIR$/documentation</output-path>
+        <auxil-path>$PROJECT_DIR$/documentation/auxil</auxil-path>
+        <compile-twice>false</compile-twice>
+        <output-format>PDF</output-format>
+        <latex-distribution>MIKTEX</latex-distribution>
+        <has-been-run>true</has-been-run>
+        <bib-run-config>[]</bib-run-config>
+        <makeindex-run-config>[]</makeindex-run-config>
+      </texify>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list />
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.RunProcess (1)" />
         <item itemvalue="Application.RunProcess" />
       </list>
     </recent_temporary>
@@ -109,8 +168,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17011.79" />
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17011.79" />
+        <option value="jdk-1.8.0_402-corretto-1.8.0_402-4caba194b151-ae57be32" />
       </set>
     </attachedChunks>
   </component>
@@ -130,6 +188,8 @@
       <workItem from="1720175454998" duration="9024000" />
       <workItem from="1720341116239" duration="14052000" />
       <workItem from="1720600995835" duration="16436000" />
+      <workItem from="1720857740566" duration="565000" />
+      <workItem from="1720858317821" duration="990000" />
     </task>
     <task id="LOCAL-00001" summary="new inMapper">
       <option name="closed" value="true" />
@@ -163,7 +223,23 @@
       <option name="project" value="LOCAL" />
       <updated>1718977496609</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="algorithms Combiner pseudocode">
+      <option name="closed" value="true" />
+      <created>1720707709965</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1720707709965</updated>
+    </task>
+    <task id="LOCAL-00006" summary="output files">
+      <option name="closed" value="true" />
+      <created>1720709905295</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1720709905295</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -183,6 +259,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="new inMapper" />
     <MESSAGE value="gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="gitignore" />
+    <MESSAGE value="algorithms Combiner pseudocode" />
+    <MESSAGE value="output files" />
+    <option name="LAST_COMMIT_MESSAGE" value="output files" />
   </component>
 </project>

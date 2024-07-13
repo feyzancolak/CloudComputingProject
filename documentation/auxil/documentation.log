@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.7.11)  11 JUL 2024 16:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.7.13)  13 JUL 2024 11:46
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -25,90 +25,6 @@ File: size10.clo 2024/02/08 v1.4n Standard LaTeX file (size option)
 \belowcaptionskip=\skip50
 \bibindent=\dimen141
 )
-documentation.tex:3: Undefined control sequence.
-l.3 \algdef
-           {SE}% flags used internally to indicate we're defining a new bloc...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-documentation.tex:3: LaTeX Error: Missing \begin{document}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.3 \algdef{S
-             E}% flags used internally to indicate we're defining a new bloc...
-
-You're in trouble here.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-documentation.tex:8: Illegal parameter number in definition of \reserved@b.
-<to be read again> 
-                   }
-l.8 {\textbf{class} \textsc{#1}
-                               }% typesetting of the start of a struct
-You meant to type ## instead of #, right?
-Or maybe a } was forgotten somewhere earlier, and things
-are all screwed up? I'm going to assume that you meant ##.
-
-documentation.tex:8: You can't use `macro parameter character #' in horizontal 
-mode.
-<recently read> ##
-                  
-l.8 {\textbf{class} \textsc{#1}
-                               }% typesetting of the start of a struct
-Sorry, but I'm not programmed to handle this case;
-I'll just pretend that you didn't ask for it.
-If you're in the wrong mode, you might be able to
-return to the right one by typing `I}' or `I$' or `I\par'.
-
-documentation.tex:11: Undefined control sequence.
-l.11 \algdef
-            {Si}% flags used internally to indicate we're defining a new blo...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-documentation.tex:11: LaTeX Error: Missing \begin{document}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.11 \algdef{S
-              i}% flags used internally to indicate we're defining a new blo...
-
-You're in trouble here.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-documentation.tex:16: Illegal parameter number in definition of \reserved@b.
-<to be read again> 
-                   }
-l.16 {\textbf{method} \textsc{#1}
-                                 }% typesetting of the start of a struct
-You meant to type ## instead of #, right?
-Or maybe a } was forgotten somewhere earlier, and things
-are all screwed up? I'm going to assume that you meant ##.
-
-documentation.tex:16: You can't use `macro parameter character #' in horizontal
- mode.
-<recently read> ##
-                  
-l.16 {\textbf{method} \textsc{#1}
-                                 }% typesetting of the start of a struct
-Sorry, but I'm not programmed to handle this case;
-I'll just pretend that you didn't ask for it.
-If you're in the wrong mode, you might be able to
-return to the right one by typing `I}' or `I$' or `I\par'.
-
 (C:\Users\messi\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
 
@@ -1097,22 +1013,7 @@ Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
 \ALG@tmplength=\skip152
 )
 Document Style - pseudocode environments for use with the `algorithmicx' style
-)
-
-documentation.tex:57: LaTeX Error: Command \BState already defined.
-               Or name \end... illegal, see p.192 of the manual.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.57 ...ommand{\BState}{\State\hskip-\ALG@thistlm}
-                                                  
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-(C:\Users\messi\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
+) (C:\Users\messi\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
 Package: inputenc 2024/02/08 v1.3d Input encoding file
 \inpenc@prehook=\toks47
 \inpenc@posthook=\toks48
@@ -1187,13 +1088,13 @@ Package babel Info: Hyphen rules for 'newzealand' set to \l@ukenglish
 Package babel Info: Importing font and identification data for english
 (babel)             from babel-en.ini. Reported on input line 11.
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 100.
+Package hyperref Info: Option `colorlinks' set `true' on input line 102.
 
 (C:\Users\messi\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2024/05/25 1.10b listings language file
 )
 LaTeX Font Info:    Trying to load font information for T1+lmr on input line 23
-3.
+5.
 
 (C:\Users\messi\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
@@ -1202,24 +1103,24 @@ File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 mentation.aux)
 \openout1 = `documentation.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 233.
-LaTeX Font Info:    ... okay on input line 233.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 233.
-LaTeX Font Info:    ... okay on input line 233.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 233.
-LaTeX Font Info:    ... okay on input line 233.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 233.
-LaTeX Font Info:    ... okay on input line 233.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 233.
-LaTeX Font Info:    ... okay on input line 233.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 233.
-LaTeX Font Info:    ... okay on input line 233.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 233.
-LaTeX Font Info:    ... okay on input line 233.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 233.
-LaTeX Font Info:    ... okay on input line 233.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 233.
-LaTeX Font Info:    ... okay on input line 233.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 235.
+LaTeX Font Info:    ... okay on input line 235.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 235.
+LaTeX Font Info:    ... okay on input line 235.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 235.
+LaTeX Font Info:    ... okay on input line 235.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 235.
+LaTeX Font Info:    ... okay on input line 235.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 235.
+LaTeX Font Info:    ... okay on input line 235.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 235.
+LaTeX Font Info:    ... okay on input line 235.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 235.
+LaTeX Font Info:    ... okay on input line 235.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 235.
+LaTeX Font Info:    ... okay on input line 235.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 235.
+LaTeX Font Info:    ... okay on input line 235.
 
 (C:\Users\messi\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
@@ -1297,7 +1198,7 @@ Package caption Info: longtable package is loaded.
 Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
 )
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 233.
+Package hyperref Info: Link coloring ON on input line 235.
 
 (C:/Users\messi\Documents\GitHub\CloudComputingProject\documentation\auxil\docu
 mentation.out)
@@ -1308,32 +1209,24 @@ mentation.out)
 
 \c@lstlisting=\count377
  (chapters/0_Coverpage.tex
-
-[1
-
-{C:/Users/messi/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/mess
-i/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}]
-<media/university-of-Pisa-logo.jpg, id=43, 647.41875pt x 647.41875pt>
+<media/university-of-Pisa-logo.jpg, id=34, 647.41875pt x 647.41875pt>
 File: media/university-of-Pisa-logo.jpg Graphic file (type jpg)
 <use media/university-of-Pisa-logo.jpg>
 Package pdftex.def Info: media/university-of-Pisa-logo.jpg  used on input line 
 7.
 (pdftex.def)             Requested size: 181.18439pt x 181.1871pt.
-<media/Kowalski4.jpg, id=44, 903.375pt x 903.375pt>
+<media/Kowalski4.jpg, id=35, 903.375pt x 903.375pt>
 File: media/Kowalski4.jpg Graphic file (type jpg)
 <use media/Kowalski4.jpg>
 Package pdftex.def Info: media/Kowalski4.jpg  used on input line 14.
 (pdftex.def)             Requested size: 181.18439pt x 181.18182pt.
 
 
+[1
 
-pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.20 \end{titlepage}
-                     [1 <./media/university-of-Pisa-logo.jpg> <./media/Kowalski
-4.jpg>])
+{C:/Users/messi/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/mess
+i/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc} <./media/universi
+ty-of-Pisa-logo.jpg> <./media/Kowalski4.jpg>])
 (C:/Users\messi\Documents\GitHub\CloudComputingProject\documentation\auxil\docu
 mentation.toc
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 4
@@ -1399,2592 +1292,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 21--22
 
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
 put line 24.
-chapters/1_Algorithms.tex:30: Undefined control sequence.
-l.30         \Method
-                    {setup}{language $lg$}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-chapters/1_Algorithms.tex:32: Undefined control sequence.
-l.32         \EndMethod
-                       \\
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
 
 
 [3{C:/Users/messi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.en
 c}{C:/Users/messi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.en
 c}]
-Underfull \hbox (badness 10000) in paragraph at lines 57--58
+Underfull \hbox (badness 10000) in paragraph at lines 61--62
 
  []
 
 
 
 [4{C:/Users/messi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}]
-chapters/1_Algorithms.tex:123: Undefined control sequence.
-l.123     \Class
-                {Mapper}{}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
 
-
-chapters/1_Algorithms.tex:124: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.124         \Procedure
-                         {Initialize}{}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:124: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.124         \Procedure
-                         {Initialize}{}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:124: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.124         \Procedure
-                         {Initialize}{}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:125: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.125         \State
-                     $\text{sum} \gets$ 0 \Comment{Initialize zero count}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:125: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.125         \State
-                     $\text{sum} \gets$ 0 \Comment{Initialize zero count}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:125: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.125         \State
-                     $\text{sum} \gets$ 0 \Comment{Initialize zero count}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:126: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.126         \State
-                     $\text{language} \gets \text{get language from context ...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:126: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.126         \State
-                     $\text{language} \gets \text{get language from context ...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:126: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.126         \State
-                     $\text{language} \gets \text{get language from context ...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:128: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.128         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:128: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.128         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:128: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.128         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:130: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.130         \Statex
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:130: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.130         \Statex
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:130: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.130         \Statex
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:131: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.131         \Procedure
-                        {Map}{$\text{key, value}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:131: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.131         \Procedure
-                        {Map}{$\text{key, value}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:131: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.131         \Procedure
-                        {Map}{$\text{key, value}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:132: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.132         \State
-                     $\text{line} \gets \text{normalize(value, language)}$ \...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:132: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.132         \State
-                     $\text{line} \gets \text{normalize(value, language)}$ \...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:132: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.132         \State
-                     $\text{line} \gets \text{normalize(value, language)}$ \...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:133: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.133         \For
-                  {$\text{each character } c \text{ in } \text{line}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:133: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.133         \For
-                  {$\text{each character } c \text{ in } \text{line}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:133: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.133         \For
-                  {$\text{each character } c \text{ in } \text{line}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:134: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.134             \State
-                         $\text{sum} \gets \text{sum + 1}$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:134: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.134             \State
-                         $\text{sum} \gets \text{sum + 1}$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:134: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.134             \State
-                         $\text{sum} \gets \text{sum + 1}$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:135: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.135         \EndFor
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:135: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.135         \EndFor
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:135: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.135         \EndFor
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:136: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.136         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:136: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.136         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:136: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.136         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:138: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.138         \Statex
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:138: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.138         \Statex
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:138: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.138         \Statex
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:139: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.139         \Procedure
-                        {Close}{}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:139: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.139         \Procedure
-                        {Close}{}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:139: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.139         \Procedure
-                        {Close}{}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:140: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.140         \For
-                  {$\text{each entry } (character, count) \text{ in } \text{...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:140: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.140         \For
-                  {$\text{each entry } (character, count) \text{ in } \text{...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:140: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.140         \For
-                  {$\text{each entry } (character, count) \text{ in } \text{...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:142: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.142         \State
-                     $\text{emit(character, count)}$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:142: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.142         \State
-                     $\text{emit(character, count)}$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:142: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.142         \State
-                     $\text{emit(character, count)}$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:144: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.144         \EndFor
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:144: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.144         \EndFor
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:144: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.144         \EndFor
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:145: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.145         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:145: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.145         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:145: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.145         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-chapters/1_Algorithms.tex:146: Undefined control sequence.
-<recently read> \EndClass 
-                          
-l.146     \EndClass
-                   
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-chapters/1_Algorithms.tex:147: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.147     \end{algorithmic}
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-chapters/1_Algorithms.tex:152: Undefined control sequence.
-l.152     \Class
-                {Partitioner}{}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-chapters/1_Algorithms.tex:153: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.153     \Procedure
-                    {Partition}{$\text{key, value, numReducers}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:153: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.153     \Procedure
-                    {Partition}{$\text{key, value, numReducers}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:153: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.153     \Procedure
-                    {Partition}{$\text{key, value, numReducers}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:154: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.154     \State
-                 \textbf{return} $\left(\text{hash(key)} \, \text{AND} \, \t...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:154: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.154     \State
-                 \textbf{return} $\left(\text{hash(key)} \, \text{AND} \, \t...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:154: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.154     \State
-                 \textbf{return} $\left(\text{hash(key)} \, \text{AND} \, \t...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:156: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.156     \EndProcedure
-                       
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:156: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.156     \EndProcedure
-                       
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:156: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.156     \EndProcedure
-                       
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-chapters/1_Algorithms.tex:157: Undefined control sequence.
-<recently read> \EndClass 
-                          
-l.157     \EndClass
-                   
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-chapters/1_Algorithms.tex:158: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.158     \end{algorithmic}
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 152--158
-[]\T1/lmr/m/n/10 Partitioner\T1/lmr/bx/n/10 pro-ce-dure \T1/lmr/m/sc/10 Par-ti-
-tion\T1/lmr/m/n/10 ($[]$) [] \T1/lmr/bx/n/10 re-turn
- []
-
-chapters/1_Algorithms.tex:163: Undefined control sequence.
-l.163     \Class
-                {Reducer}{}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-chapters/1_Algorithms.tex:165: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.165         \Procedure
-                        {Reduce}{$\text{key, values}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:165: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.165         \Procedure
-                        {Reduce}{$\text{key, values}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:165: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.165         \Procedure
-                        {Reduce}{$\text{key, values}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:166: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.166         \State
-                     $\text{sum} \gets 0$ \Comment{Initialize result}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:166: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.166         \State
-                     $\text{sum} \gets 0$ \Comment{Initialize result}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:166: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.166         \State
-                     $\text{sum} \gets 0$ \Comment{Initialize result}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:169: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.169         \For
-                  {$\text{each value } v \text{ in } \text{values}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:169: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.169         \For
-                  {$\text{each value } v \text{ in } \text{values}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:169: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.169         \For
-                  {$\text{each value } v \text{ in } \text{values}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:170: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.170             \State
-                         $\text{sum} \gets \text{sum} + \text{v}$ \Comment{S...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:170: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.170             \State
-                         $\text{sum} \gets \text{sum} + \text{v}$ \Comment{S...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:170: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.170             \State
-                         $\text{sum} \gets \text{sum} + \text{v}$ \Comment{S...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:171: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.171         \EndFor
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:171: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.171         \EndFor
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:171: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.171         \EndFor
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:172: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.172         \State
-                     $\text{emit(key, sum)}$ \Comment{Output final count}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:172: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.172         \State
-                     $\text{emit(key, sum)}$ \Comment{Output final count}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:172: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.172         \State
-                     $\text{emit(key, sum)}$ \Comment{Output final count}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:173: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.173         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:173: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.173         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:173: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.173         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-chapters/1_Algorithms.tex:174: Undefined control sequence.
-<recently read> \EndClass 
-                          
-l.174     \EndClass
-                   
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-chapters/1_Algorithms.tex:175: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.175     \end{algorithmic}
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-
-[5]
-chapters/1_Algorithms.tex:189: Undefined control sequence.
-l.189     \Class
-                {Mapper}{}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-chapters/1_Algorithms.tex:190: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.190         \Procedure
-                         {Initialize}{}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:190: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.190         \Procedure
-                         {Initialize}{}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:190: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.190         \Procedure
-                         {Initialize}{}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:191: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.191         \State
-                     $\text{sum} \gets$ 0 \Comment{Initialize zero count}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:191: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.191         \State
-                     $\text{sum} \gets$ 0 \Comment{Initialize zero count}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:191: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.191         \State
-                     $\text{sum} \gets$ 0 \Comment{Initialize zero count}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:192: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.192         \State
-                     $\text{language} \gets \text{get language from context ...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:192: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.192         \State
-                     $\text{language} \gets \text{get language from context ...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:192: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.192         \State
-                     $\text{language} \gets \text{get language from context ...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:194: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.194         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:194: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.194         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:194: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.194         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:196: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.196         \Statex
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:196: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.196         \Statex
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:196: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.196         \Statex
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:197: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.197         \Procedure
-                        {Map}{$\text{key, value}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:197: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.197         \Procedure
-                        {Map}{$\text{key, value}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:197: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.197         \Procedure
-                        {Map}{$\text{key, value}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:198: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.198         \State
-                     $\text{line} \gets \text{normalize(value, language)}$ \...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:198: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.198         \State
-                     $\text{line} \gets \text{normalize(value, language)}$ \...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:198: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.198         \State
-                     $\text{line} \gets \text{normalize(value, language)}$ \...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:199: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.199         \For
-                  {$\text{each character } c \text{ in } \text{line}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:199: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.199         \For
-                  {$\text{each character } c \text{ in } \text{line}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:199: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.199         \For
-                  {$\text{each character } c \text{ in } \text{line}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:200: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.200             \State
-                         $\text{sum} \gets \text{sum + 1}$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:200: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.200             \State
-                         $\text{sum} \gets \text{sum + 1}$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:200: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.200             \State
-                         $\text{sum} \gets \text{sum + 1}$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:201: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.201         \EndFor
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:201: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.201         \EndFor
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:201: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.201         \EndFor
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:202: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.202         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:202: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.202         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:202: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.202         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:204: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.204         \Statex
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:204: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.204         \Statex
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:204: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.204         \Statex
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:205: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.205         \Procedure
-                        {Close}{}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:205: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.205         \Procedure
-                        {Close}{}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:205: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.205         \Procedure
-                        {Close}{}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:206: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.206         \For
-                  {$\text{each entry } (character, count) \text{ in } \text{...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:206: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.206         \For
-                  {$\text{each entry } (character, count) \text{ in } \text{...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:206: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.206         \For
-                  {$\text{each entry } (character, count) \text{ in } \text{...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:208: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.208             \State
-                         $\text{emit(character, count)}$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:208: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.208             \State
-                         $\text{emit(character, count)}$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:208: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.208             \State
-                         $\text{emit(character, count)}$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:210: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.210         \EndFor
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:210: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.210         \EndFor
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:210: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.210         \EndFor
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:211: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.211         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:211: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.211         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:211: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.211         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-chapters/1_Algorithms.tex:212: Undefined control sequence.
-<recently read> \EndClass 
-                          
-l.212     \EndClass
-                   
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-chapters/1_Algorithms.tex:213: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.213     \end{algorithmic}
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-chapters/1_Algorithms.tex:218: Undefined control sequence.
-l.218         \Class
-                    {Partitioner}{}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-chapters/1_Algorithms.tex:219: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.219         \Procedure
-                        {Partition}{$\text{key, value, numReducers}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:219: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.219         \Procedure
-                        {Partition}{$\text{key, value, numReducers}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:219: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.219         \Procedure
-                        {Partition}{$\text{key, value, numReducers}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:220: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.220         \State
-                     \textbf{return} $\left(\text{hash(key)} \, \text{AND} \...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:220: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.220         \State
-                     \textbf{return} $\left(\text{hash(key)} \, \text{AND} \...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:220: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.220         \State
-                     \textbf{return} $\left(\text{hash(key)} \, \text{AND} \...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:222: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.222     \EndProcedure
-                       
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:222: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.222     \EndProcedure
-                       
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:222: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.222     \EndProcedure
-                       
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-chapters/1_Algorithms.tex:223: Undefined control sequence.
-<recently read> \EndClass 
-                          
-l.223         \EndClass
-                       
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-chapters/1_Algorithms.tex:224: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.224     \end{algorithmic}
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 218--224
-[]\T1/lmr/m/n/10 Partitioner\T1/lmr/bx/n/10 pro-ce-dure \T1/lmr/m/sc/10 Par-ti-
-tion\T1/lmr/m/n/10 ($[]$) [] \T1/lmr/bx/n/10 re-turn
- []
-
-chapters/1_Algorithms.tex:229: Undefined control sequence.
-l.229     \Class
-                {Reducer}{}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-chapters/1_Algorithms.tex:230: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.230         \Procedure
-                        {Initialize}{}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:230: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.230         \Procedure
-                        {Initialize}{}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:230: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.230         \Procedure
-                        {Initialize}{}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:231: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.231         \State
-                     $\text{TEXT\_LENGTH} \gets \text{get totalLetterCount f...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:231: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.231         \State
-                     $\text{TEXT\_LENGTH} \gets \text{get totalLetterCount f...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:231: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.231         \State
-                     $\text{TEXT\_LENGTH} \gets \text{get totalLetterCount f...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:233: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.233         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:233: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.233         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:233: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.233         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:235: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.235         \Statex
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:235: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.235         \Statex
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:235: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.235         \Statex
-                     
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:236: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.236         \Procedure
-                        {Reduce}{$\text{key, values}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:236: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.236         \Procedure
-                        {Reduce}{$\text{key, values}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:236: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.236         \Procedure
-                        {Reduce}{$\text{key, values}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:237: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.237             \State
-                         $\text{sum} \gets 0$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:237: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.237             \State
-                         $\text{sum} \gets 0$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:237: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.237             \State
-                         $\text{sum} \gets 0$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:238: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.238             \For
-                      {$\text{each value } v \text{ in } \text{values}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:238: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.238             \For
-                      {$\text{each value } v \text{ in } \text{values}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:238: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.238             \For
-                      {$\text{each value } v \text{ in } \text{values}$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:239: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.239                 \State
-                             $\text{sum} \gets \text{sum} + \text{v}$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:239: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.239                 \State
-                             $\text{sum} \gets \text{sum} + \text{v}$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:239: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.239                 \State
-                             $\text{sum} \gets \text{sum} + \text{v}$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:241: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.241             \EndFor
-                         
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:241: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.241             \EndFor
-                         
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:241: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.241             \EndFor
-                         
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:242: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.242             \State
-                          $\text{frequency} \gets \text{sum / (TEXT\_LENGTH)}$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:242: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.242             \State
-                          $\text{frequency} \gets \text{sum / (TEXT\_LENGTH)}$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:242: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.242             \State
-                          $\text{frequency} \gets \text{sum / (TEXT\_LENGTH)}$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:243: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.243             \State
-                         $\text{emit(key, frequency)}$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:243: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.243             \State
-                         $\text{emit(key, frequency)}$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:243: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.243             \State
-                         $\text{emit(key, frequency)}$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:245: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.245         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:245: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.245         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-chapters/1_Algorithms.tex:245: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.245         \EndProcedure
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-chapters/1_Algorithms.tex:246: Undefined control sequence.
-<recently read> \EndClass 
-                          
-l.246     \EndClass
-                   
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-chapters/1_Algorithms.tex:247: LaTeX Error: Something's wrong--perhaps a missin
-g \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.247     \end{algorithmic}
-                           
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 229--247
-[]\T1/lmr/m/n/10 Reducer\T1/lmr/bx/n/10 pro-ce-dure \T1/lmr/m/sc/10 Ini-tial-iz
-e [] $[] \OMS/lmsy/m/n/10  
- []
-
-
-Underfull \hbox (badness 5533) in paragraph at lines 229--247
-[]$ []\T1/lmr/bx/n/10 end pro-ce-dure[][]pro-ce-dure \T1/lmr/m/sc/10 Re-
- []
-
-) (chapters/2_Results.tex
+[5]) (chapters/2_Results.tex
 
 [6]
 Chapter 2.
@@ -3992,11 +1313,237 @@ LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 8
 .
 (C:\Users\messi\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-))
+)
 
 [7
 
 {C:/Users/messi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}]
+<media/performance.png, id=99, 1318.2048pt x 2221.5798pt>
+File: media/performance.png Graphic file (type png)
+<use media/performance.png>
+Package pdftex.def Info: media/performance.png  used on input line 30.
+(pdftex.def)             Requested size: 362.37569pt x 610.716pt.
+
+
+[8 <./media/performance.png>]
+
+chapters/2_Results.tex:35: LaTeX Error: Something's wrong--perhaps a missing \i
+tem.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.35 \item \textbf
+                  {100KB}: Both algorithms show similar performance with sli...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+chapters/2_Results.tex:35: LaTeX Error: Something's wrong--perhaps a missing \i
+tem.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.35 \item \textbf
+                  {100KB}: Both algorithms show similar performance with sli...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+chapters/2_Results.tex:35: LaTeX Error: Something's wrong--perhaps a missing \i
+tem.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.35 \item \textbf
+                  {100KB}: Both algorithms show similar performance with sli...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+chapters/2_Results.tex:36: LaTeX Error: Something's wrong--perhaps a missing \i
+tem.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.36     \item \textbf
+                      {3MB}: Both algorithms again show similar trends, but ...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+chapters/2_Results.tex:36: LaTeX Error: Something's wrong--perhaps a missing \i
+tem.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.36     \item \textbf
+                      {3MB}: Both algorithms again show similar trends, but ...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+chapters/2_Results.tex:36: LaTeX Error: Something's wrong--perhaps a missing \i
+tem.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.36     \item \textbf
+                      {3MB}: Both algorithms again show similar trends, but ...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+chapters/2_Results.tex:37: LaTeX Error: Something's wrong--perhaps a missing \i
+tem.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.37     \item \textbf
+                      {3GB}: \textit{inMapper} shows a slight increase in to...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+chapters/2_Results.tex:37: LaTeX Error: Something's wrong--perhaps a missing \i
+tem.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.37     \item \textbf
+                      {3GB}: \textit{inMapper} shows a slight increase in to...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+chapters/2_Results.tex:37: LaTeX Error: Something's wrong--perhaps a missing \i
+tem.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.37     \item \textbf
+                      {3GB}: \textit{inMapper} shows a slight increase in to...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+chapters/2_Results.tex:38: LaTeX Error: Something's wrong--perhaps a missing \i
+tem.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.38 \end{itemize}
+                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+
+[9]
+
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 98--101
+
+ []
+
+<media/allSeagul.png, id=123, 729.927pt x 393.8715pt>
+File: media/allSeagul.png Graphic file (type png)
+<use media/allSeagul.png>
+Package pdftex.def Info: media/allSeagul.png  used on input line 104.
+(pdftex.def)             Requested size: 452.9679pt x 244.42618pt.
+<media/allLordOfTheRings.png, id=124, 729.927pt x 393.8715pt>
+File: media/allLordOfTheRings.png Graphic file (type png)
+<use media/allLordOfTheRings.png>
+Package pdftex.def Info: media/allLordOfTheRings.png  used on input line 109.
+(pdftex.def)             Requested size: 452.9679pt x 244.42618pt.
+
+
+[11 <./media/allSeagul.png> <./media/allLordOfTheRings.png>]
+<media/seagulEnglish.png, id=133, 729.927pt x 393.8715pt>
+File: media/seagulEnglish.png Graphic file (type png)
+<use media/seagulEnglish.png>
+Package pdftex.def Info: media/seagulEnglish.png  used on input line 120.
+(pdftex.def)             Requested size: 203.83417pt x 109.98877pt.
+<media/lordOfTheRingsEnglish.png, id=134, 729.927pt x 393.8715pt>
+File: media/lordOfTheRingsEnglish.png Graphic file (type png)
+<use media/lordOfTheRingsEnglish.png>
+Package pdftex.def Info: media/lordOfTheRingsEnglish.png  used on input line 12
+6.
+(pdftex.def)             Requested size: 203.83417pt x 109.98877pt.
+<media/seagulTurkish.png, id=135, 729.927pt x 393.8715pt>
+File: media/seagulTurkish.png Graphic file (type png)
+<use media/seagulTurkish.png>
+Package pdftex.def Info: media/seagulTurkish.png  used on input line 135.
+(pdftex.def)             Requested size: 203.83417pt x 109.98877pt.
+<media/lordOfTheRingsTurkish.png, id=136, 729.927pt x 393.8715pt>
+File: media/lordOfTheRingsTurkish.png Graphic file (type png)
+<use media/lordOfTheRingsTurkish.png>
+Package pdftex.def Info: media/lordOfTheRingsTurkish.png  used on input line 14
+1.
+(pdftex.def)             Requested size: 203.83417pt x 109.98877pt.
+<media/seagulItalian.png, id=137, 729.927pt x 393.8715pt>
+File: media/seagulItalian.png Graphic file (type png)
+<use media/seagulItalian.png>
+Package pdftex.def Info: media/seagulItalian.png  used on input line 150.
+(pdftex.def)             Requested size: 203.83417pt x 109.98877pt.
+<media/lordOfTheRingsItalian.png, id=138, 729.927pt x 393.8715pt>
+File: media/lordOfTheRingsItalian.png Graphic file (type png)
+<use media/lordOfTheRingsItalian.png>
+Package pdftex.def Info: media/lordOfTheRingsItalian.png  used on input line 15
+6.
+(pdftex.def)             Requested size: 203.83417pt x 109.98877pt.
+
+
+[12 <./media/seagulEnglish.png> <./media/lordOfTheRingsEnglish.png> <./media/se
+agulTurkish.png> <./media/lordOfTheRingsTurkish.png> <./media/seagulItalian.png
+> <./media/lordOfTheRingsItalian.png>]
+<media/allEnglish.png, id=153, 729.927pt x 393.8715pt>
+File: media/allEnglish.png Graphic file (type png)
+<use media/allEnglish.png>
+Package pdftex.def Info: media/allEnglish.png  used on input line 170.
+(pdftex.def)             Requested size: 271.7835pt x 146.6557pt.
+<media/allTurkish.png, id=154, 729.927pt x 393.8715pt>
+File: media/allTurkish.png Graphic file (type png)
+<use media/allTurkish.png>
+Package pdftex.def Info: media/allTurkish.png  used on input line 175.
+(pdftex.def)             Requested size: 271.7835pt x 146.6557pt.
+<media/allItalian.png, id=155, 729.927pt x 393.8715pt>
+File: media/allItalian.png Graphic file (type png)
+<use media/allItalian.png>
+Package pdftex.def Info: media/allItalian.png  used on input line 180.
+(pdftex.def)             Requested size: 271.7835pt x 146.6557pt.
+)
+
+[13 <./media/allEnglish.png> <./media/allTurkish.png> <./media/allItalian.png>]
+
 (C:/Users\messi\Documents\GitHub\CloudComputingProject\documentation\auxil\docu
 mentation.aux)
  ***********
@@ -4007,31 +1554,27 @@ Package rerunfilecheck Info: File `documentation.out' has not changed.
 (rerunfilecheck)             Checksum: EE4FB1C450A3488E4C2A106AF9D02AE5;704.
  ) 
 Here is how much of TeX's memory you used:
- 29057 strings out of 473904
- 544663 string characters out of 5726600
- 1940908 words of memory out of 5000000
- 51327 multiletter control sequences out of 15000+600000
- 615093 words of font info for 64 fonts, out of 8000000 for 9000
+ 29194 strings out of 473904
+ 548078 string characters out of 5726600
+ 1941908 words of memory out of 5000000
+ 51443 multiletter control sequences out of 15000+600000
+ 620074 words of font info for 64 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 94i,9n,95p,1204b,521s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/messi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
-cmbx10.pfb><C:/Users/messi/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
-fonts/cm/cmcsc10.pfb><C:/Users/messi/AppData/Local/Programs/MiKTeX/fonts/type1/
-public/amsfonts/cm/cmr10.pfb><C:/Users/messi/AppData/Local/Programs/MiKTeX/font
-s/type1/public/lm/lmbx10.pfb><C:/Users/messi/AppData/Local/Programs/MiKTeX/font
-s/type1/public/lm/lmbx12.pfb><C:/Users/messi/AppData/Local/Programs/MiKTeX/font
-s/type1/public/lm/lmcsc10.pfb><C:/Users/messi/AppData/Local/Programs/MiKTeX/fon
-ts/type1/public/lm/lmmi10.pfb><C:/Users/messi/AppData/Local/Programs/MiKTeX/fon
-ts/type1/public/lm/lmr10.pfb><C:/Users/messi/AppData/Local/Programs/MiKTeX/font
-s/type1/public/lm/lmr12.pfb><C:/Users/messi/AppData/Local/Programs/MiKTeX/fonts
-/type1/public/lm/lmr8.pfb><C:/Users/messi/AppData/Local/Programs/MiKTeX/fonts/t
-ype1/public/lm/lmri10.pfb><C:/Users/messi/AppData/Local/Programs/MiKTeX/fonts/t
-ype1/public/lm/lmri12.pfb><C:/Users/messi/AppData/Local/Programs/MiKTeX/fonts/t
-ype1/public/lm/lmsy10.pfb>
+ 94i,9n,95p,1204b,567s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/messi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pf
+b><C:/Users/messi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pf
+b><C:/Users/messi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.p
+fb><C:/Users/messi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.p
+fb><C:/Users/messi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pf
+b><C:/Users/messi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb
+><C:/Users/messi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><
+C:/Users/messi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><
+C:/Users/messi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri12.pfb><
+C:/Users/messi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb>
 Output written on C:/Users\messi\Documents\GitHub\CloudComputingProject\documen
-tation\documentation.pdf (9 pages, 512460 bytes).
+tation\documentation.pdf (14 pages, 1333145 bytes).
 PDF statistics:
- 176 PDF objects out of 1000 (max. 8388607)
- 26 named destinations out of 1000 (max. 500000)
- 79 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 231 PDF objects out of 1000 (max. 8388607)
+ 49 named destinations out of 1000 (max. 500000)
+ 139 words of extra memory for PDF output out of 10000 (max. 10000000)
 
