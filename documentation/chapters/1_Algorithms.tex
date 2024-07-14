@@ -3,53 +3,62 @@
 
 The goal of the project is to explore the core algorithms implemented for analyzing letter frequency across different languages using Hadoop MapReduce. 
 The project focuses on processing text documents to extract insights into the occurrence of standard alphabet characters within specific languages, namely Italian, English, and Turkish. 
-To be able to distinguish the different alphabets, a class languageNormalizer was implemented. \\\\
-Furthermore, the input texts also have different dimensions, ranging from small to large datasets.
-In this way we can test the performance of the algorithms with different input sizes. \\
-The project has two types of implementations: Combiner and InMapper. Both techniques share the goal of improving MapReduce efficiency by reducing network traffic and enhancing processing speed through partial aggregation. They also both use the partitioner functionality, which provides an even distribution of data among the reducers, rather than a random distribution. However, they differ in execution stage and scope: the Combiner aggregates data after Mapper tasks and before Reducers, while the InMapper integrates aggregation within each Mapper task, thereby potentially minimizing resource overhead and optimizing memory usage. \\
-The execution of the classes is managed by the RunProcess utility, which orchestrates the input file processing, language selection, output path management, and configurable parameters such as the number of Reducers employed. The input file is first used by the letterCount class to count the number of letters in the text. This information is stored in a temporary file, which is taken as input from the letterFrequency class that then calculates the frequency of each letter in the text. The output of the letterFrequency class is the final result of the analysis, and to this it is also added the result of the letterCount.
+To be able to distinguish the different alphabets, a class languageNormalizer was implemented. Furthermore, the input texts also have different
+dimensions, ranging from small to large datasets. In this way we can test the performance of the algorithms with different input sizes. \\ \\
+The project has two types of implementations: Combiner and InMapper. Both techniques share the goal of improving MapReduce efficiency by
+reducing network traffic and enhancing processing speed through partial aggregation. They also both use the partitioner functionality,
+which provides an even distribution of data among the reducers, rather than a random distribution. However, they differ in execution
+stage and scope: the Combiner aggregates data after Mapper tasks and before Reducers, while the InMapper integrates aggregation within
+each Mapper task, thereby potentially minimizing resource overhead and optimizing memory usage. \\ \\
+The execution of the classes is managed by the RunProcess utility, which orchestrates the input file processing, language selection,
+output path management, and configurable parameters such as the number of Reducers employed. The input file is first used by the
+letterCount class to count the number of letters in the text. This information is stored in a temporary file, which is taken as input
+from the letterFrequency class that then calculates the frequency of each letter in the text. The output of the letterFrequency class
+is the final result of the analysis, and to this it is also added the result of the letterCount.
 
 \newpage
 
 \section{Combiner}
 
-The Combiner acts as a mini-reducer that performs local aggregation of intermediate data before it is sent to the reducers. By summing up the counts of each character within the Mapper tasks, the Combiner reduces the volume of data transferred across the network, which significantly enhances the efficiency of the MapReduce job. This local aggregation minimizes the amount of data that needs to be shuffled, sorted, and processed by the Reducer tasks, thereby optimizing the overall performance of the letter frequency analysis.
-
-    
+The Combiner acts as a mini-reducer that performs local aggregation of intermediate data before it is sent to the reducers.
+By summing up the counts of each character within the Mapper tasks, the Combiner reduces the volume of data transferred
+across the network, which significantly enhances the efficiency of the MapReduce job. This local aggregation minimizes
+the amount of data that needs to be shuffled, sorted, and processed by the Reducer tasks, thereby optimizing the overall
+performance of the letter frequency analysis.
 
 \subsection{LetterCount}
-The LetterCount algorithm is implemented using Hadoop's MapReduce framework to count occurrences of standard alphabet characters within text documents. \\
+The LetterCount algorithm is implemented using Hadoop's MapReduce framework to count occurrences of standard alphabet
+characters within text documents. \\
 
 \begin{algorithm}
     \caption{LetterCount with Combiner}
     \begin{algorithmic}[1]
-        \Ensure Total number of characters belonging to the specified language alphabet
+        \Require Input text document
+        \Ensure Count of each character belonging to the specified language alphabet
 
         \Statex
         \Class{MAPPER}
+            \Method{Initialize}{language $lg$}
+                \State language $\gets$ $lg$ \Comment{Retrieve language}
+            \EndMethod\\
 
-        \Method{Initialize}{language $lg$}
-            \State language $\gets$ lg \Comment{Retrieve language}
-        \EndMethod\\
-
-        \Method{map}{docid $key$, doc $value$}
-            \State line $\gets$ NORMALIZE(value, language) \Comment{Normalize and convert}
-            \For{each character $ch$ in line}
-                \State Emit(character $ch$, count 1) \Comment{Emit each character with a count of 1}
-            \EndFor
-        \EndMethod
+            \Method{Map}{docid $key$, doc $value$}
+                \State line $\gets$ NORMALIZE($value$, $language$) \Comment{Normalize and convert}
+                \For{each character $ch$ in $line$}
+                    \State Emit(character $ch$, count $1$) \Comment{Emit each character with a count of 1}
+                \EndFor
+            \EndMethod
         \EndClass
 
         \Statex
         \Class{COMBINER / REDUCER}
-
-        \Method{reduce}{character $c$, count[] $values$}
-            \State sum $\gets$ 0 \Comment{Initialize sum}
-            \For{each count $value$ in values} \Comment{Combine the counts of the same letter}
-                \State sum $\gets$ sum + $value$
-            \EndFor
-            \State Emit(character $c$, count sum) \Comment{Output final count of each character}
-        \EndMethod
+            \Method{Reduce}{character $ch$, count[] $values$}
+                \State sum $\gets$ 0 \Comment{Initialize sum}
+                \For{each count $value$ in $values$} \Comment{Combine the counts of the same letter}
+                    \State sum $\gets$ sum + $value$
+                \EndFor
+                \State Emit(character $ch$, count $sum$) \Comment{Output final count of each character}
+            \EndMethod
         \EndClass
 
     \end{algorithmic}
@@ -64,50 +73,48 @@ The LetterFrequency algorithm calculates the frequency of standard alphabet char
 \begin{algorithm}
     \caption{LetterFrequency with Combiner}
     \begin{algorithmic}[1]
+        \Require Input text document and total letter count
         \Ensure Frequency of each character belonging to the specified language alphabet
 
         \Statex
         \Class {MAPPER}
+            \Method{Initialize}{language $lg$}
+                \State \text{language} $\gets$ \text{$lg$} \Comment{Retrieve language}
+            \EndMethod\\
 
-        \Method{Initialize}{language $lg$}
-            \State \text{language} $\gets$ \text{$lg$} \Comment{Retrieve language}
-        \EndMethod\\
-
-        \Method{map}{docid $key$, doc $value$}
-            \State \text{line} $\gets$ \text{NORMALIZE}(value, language) \Comment{Normalize and convert}
-            \For{each character $ch$ in $line$}
-                \State $\text{Emit}(\text{character $ch$}, \text{count $1$})$ \Comment{Emit each character with a count of 1}
-            \EndFor
-        \EndMethod
+            \Method{Map}{docid $key$, doc $value$}
+                \State \text{line} $\gets$ \text{NORMALIZE}($value$, $language$) \Comment{Normalize and convert}
+                \For{each character $ch$ in $line$}
+                    \State $\text{Emit}(\text{character $ch$}, \text{count $1$})$ \Comment{Emit each character with a count of 1}
+                \EndFor
+            \EndMethod
         \EndClass
 
         \Statex
         \Class{COMBINER}
-
-        \Method{reduce}{character $c$, count[] $values$}
-            \State \text{sum} $\gets$ \text{$0$} \Comment{Initialize sum}
-            \For{each count $value$ in $values$} \Comment{Combine the counts of the same letter}
-            \State \text{sum} $\gets$ \text{sum + $value$}
-            \EndFor
-            \State $\text{Emit}(\text{character $c$}, \text{count $sum$})$ \Comment{Emit the combined count of each character}
-        \EndMethod
+            \Method{Reduce}{character $ch$, count[] $values$}
+                \State \text{sum} $\gets$ \text{$0$} \Comment{Initialize sum}
+                \For{each count $value$ in $values$} \Comment{Combine the counts of the same letter}
+                    \State \text{sum} $\gets$ \text{sum + $value$}
+                \EndFor
+                \State $\text{Emit}(\text{character $ch$}, \text{count $sum$})$ \Comment{Emit the combined count of each character}
+            \EndMethod
         \EndClass
 
         \Statex
         \Class {REDUCER}
+            \Method{Initialize}{long $text\_length$}
+                \State $\text{TEXT\_LENGTH} \gets \text{text\_length}$ \Comment{Retrieve total letter count}
+            \EndMethod\\
 
-        \Method{Initialize}{long $text\_length$}
-            \State $\text{TEXT\_LENGTH} \gets \text{text\_length}$ \Comment{Retrieve total letter count}
-        \EndMethod\\
-
-        \Method{reduce}{character $c$, count[] $values$}
-            \State $\text{sum} \gets 0$
-            \For{each count $value$ in $values$} \Comment{Combine the counts of the same letter}
-            \State sum $\gets$ sum + $value$
-            \EndFor
-            \State result $\gets$ sum / TEXT\_LENGTH \Comment{Evaluate frequency}
-            \State $\text{Emit}(\text{character $c$}, \text{frequency $result$})$
-        \EndMethod
+            \Method{Reduce}{character $ch$, count[] $values$}
+                \State $\text{sum} \gets 0$
+                \For{each count $value$ in $values$} \Comment{Combine the counts of the same letter}
+                    \State sum $\gets$ sum + $value$
+                \EndFor
+                \State result $\gets$ sum / $TEXT\_LENGTH$ \Comment{Evaluate frequency}
+                \State $\text{Emit}(\text{character $ch$}, \text{frequency $result$})$ \Comment{Output frequency of each character}
+            \EndMethod
         \EndClass
 
     \end{algorithmic}
@@ -125,59 +132,48 @@ The InMapper combining technique ensures efficiency by performing aggregation wi
 
 The LetterCount algorithm is implemented using Hadoop's MapReduce framework to count occurrences of standard alphabet characters within text documents. Here’s the algorithm overview:
 
-
 \begin{algorithm}
     \caption{LetterCount with In-Mapper Combining}
     
     \begin{algorithmic}[1]
-    \Class{Mapper}{}
-        \Method {Initialize}{language $lg$}
-        \State $\text{map} \gets$ new HASHMAP \Comment{Initialize zero count}
-        \State $\text{language} \gets lg$ \Comment{Retrieve language}
+        \Require Input text document
+        \Ensure Count of each character belonging to the specified language alphabet
 
-        \EndMethod
-        \\
-    
-        \Method{Map}{$\text{docid key, doc value}$}
-        \State $\text{line} \gets \text{normalize(value, language)}$ \Comment{Normalize based on input language}
-        \For{$\text{each character } c \text{ in } line$}
-            \State $\text{sum} \gets \text{sum + 1}$
-        \EndFor
+        \Statex
+        \Class{Mapper}{}
+            \Method {Initialize}{language $lg$}
+                \State \text{map} $\gets$ new HASHMAP \Comment{Initialize zero count}
+                \State \text{language} $\gets$ $lg$ \Comment{Retrieve language}
+            \EndMethod
+            \\
 
-        \State{$\text{map.add(c, sum)}$}
-        \EndMethod
-        \\
-    
-        \Method{Close}{}
-        \For{$\text{each entry } (character, count) \text{ in } map$}
+            \Method{Map}{$\text{docid $key$, doc $value$}$}
+                \State $\text{line} $\gets$ \text{NORMALIZE($value$, $language$)}$ \Comment{Normalize based on input language}
+                \For{each character $ch$ in $line$}
+                    \State map($ch$) $\gets$ map($ch$) + $1$
+                \EndFor
+            \EndMethod
+            \\
 
-        \State $\text{emit(character, count)}$
-        \Comment{Output character counts}
-        \EndFor
-        \EndMethod
-    \EndClass
+            \Method{Close}{}
+                \For{each entry (character $ch$, count $sum$) in $map$}
+                    \State $\text{Emit}(\text{character $ch$}, \text{count $sum$})$ \Comment{Emit the combined count of each character}
+                \EndFor
+            \EndMethod
+        \EndClass
+
+        \Statex
+        \Class{Reducer}
+            \Method{Reduce}{\text{character $ch$, count[] $values$}}
+                \State \text{sum} $\gets$ $0$ \Comment{Initialize result}
+                \For{each count $value$ in $values$}
+                    \State \text{sum} $\gets$ \text{sum} + $value$ \Comment{Sum counts for each letter}
+                \EndFor
+                \State Emit(character $ch$, count $sum$) \Comment{Output final count of each character}
+            \EndMethod
+        \EndClass
     \end{algorithmic}
- 
-    \vspace{0.5cm}  % Add vertical space between classes
-    
-    
-    \begin{algorithmic}[1]
-    \Class{Reducer}{}
-       
-        \Method{Reduce}{\text{character $c$, count[] $values$}}
-        \State $\text{sum} \gets 0$ \Comment{Initialize result}
-    
-        
-        \For{each count  $value$  in  $values$}
-            \State $\text{sum} \gets \text{sum} + value$ \Comment{Sum counts for each letter}
-        \EndFor
-        \State $\text{Emit(c, sum)}$ \Comment{Output final count}
-        \EndMethod
-    \EndClass
-    \end{algorithmic}
-    
 \end{algorithm}
-
 
 \newpage
 %% write the pseudocode for the LetterFrequency algorithm with In-Mapper Combining
@@ -188,55 +184,48 @@ The LetterFrequency algorithm calculates the frequency of standard alphabet char
     \caption{LetterFrequency with In-Mapper Combining}
     
     \begin{algorithmic}[1]
-    \Class{Mapper}{}
-        \Method {Initialize}{}
-        \State $\text{sum} \gets$ 0 \Comment{Initialize zero count}
-        \State $\text{language} \gets \text{get language from context configuration}$
+        \Require Input text document and total letter count
+        \Ensure Frequency of each character belonging to the specified language alphabet
 
-        \EndMethod
-    
         \Statex
-        \Method{Map}{$\text{key, value}$}
-        \State $\text{line} \gets \text{normalize(value, language)}$ \Comment{Normalize based on input language}
-        \For{$\text{each character } c \text{ in } \text{line}$}
-            \State $\text{sum} \gets \text{sum + 1}$
-        \EndFor
-        \EndMethod
-    
-        \Statex
-        \Method{Close}{}
-        \For{$\text{each entry } (character, count) \text{ in } \text{Map}$}
-        
-            \State $\text{emit(character, count)}$
-            \Comment{Output character counts}
-        \EndFor
-        \EndMethod
-    \EndClass
-    \end{algorithmic}
-    
-   
-    
-    \vspace{0.5cm}
+        \Class{Mapper}{}
+            \Method {Initialize}{language $lg$}
+                \State \text{map} $\gets$ new HASHMAP \Comment{Initialize zero count}
+                \State \text{language} $\gets$ $lg$ \Comment{Retrieve language}
+            \EndMethod
+            \\
 
-    \begin{algorithmic}[1]
-    \Class{Reducer}{}
-        \Method{Initialize}{}
-        \State $\text{TEXT\_LENGTH} \gets \text{get totalLetterCount from context configuration}$
+            \Method{Map}{\text{docid $key$, doc $value$}}
+                \State \text{line} $\gets$ \text{NORMALIZE($value$, $language$)} \Comment{Normalize based on input language}
+                \For{each character $ch$ in $line$}
+                    \State \text{map($ch$)} $\gets$ \text{map($ch$) + $1$}
+                \EndFor
+            \EndMethod
+            \\
 
-        \EndMethod
-    
+            \Method{Close}{}
+                \For{each entry (character $ch$, count $sum$) in $map$}
+                    \State \text{Emit($ch$, $sum$)} \Comment{Output character counts}
+                \EndFor
+            \EndMethod
+        \EndClass
+
         \Statex
-        \Method{Reduce}{$\text{key, values}$}
-            \State $\text{sum} \gets 0$
-            \For{$\text{each value } v \text{ in } \text{values}$}
-                \State $\text{sum} \gets \text{sum} + \text{v}$
-                \Comment{Sum counts for each letter}
-            \EndFor
-            \State  $\text{frequency} \gets \text{sum / (TEXT\_LENGTH)}$
-            \State $\text{emit(key, frequency)}$
-            \Comment{Output final count}
-        \EndMethod
-    \EndClass
+        \Class{Reducer}{}
+            \Method{Initialize}{long $text\_length$}
+                \State \text{TEXT\_LENGTH} $\gets$ \text{$text\_length$} \Comment{Retrieve total letter count}
+            \EndMethod
+            \\
+
+            \Method{Reduce}{\text{character $ch$, count[] $values$}}
+                \State \text{sum} $\gets$ $0$
+                \For{each value $v$ in $values$}
+                    \State \text{sum} $\gets$ \text{sum + $v$} \Comment{Sum counts for each letter}
+                \EndFor
+                \State \text{frequency} $\gets$ \text{sum / ($TEXT\_LENGTH$)}
+                \State \text{Emit(character $c$, frequency $result$)} \Comment{Output frequency of each character}
+            \EndMethod
+        \EndClass
     \end{algorithmic}
     
     \end{algorithm}

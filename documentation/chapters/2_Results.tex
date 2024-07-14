@@ -22,24 +22,32 @@ The largest dataset is a collection of 5 Million book reviews in English from Go
 The datasets are stored in HDFS and were processed by the Hadoop MapReduce framework. The results of the analysis were stored in HDFS and were later retrieved and analyzed.
 \newpage
 \section{Performance}
-The performance of the Hadoop MapReduce framework was tested on the English datasets. This allowed us to see the difference peformances for the different sizes with the different number of reducers and the use of the different algorithms. \\
-\textbf{Obtained Results:}
+The performance of the Hadoop MapReduce framework was tested on the English datasets. This allowed us to see the difference peformances for the different
+sizes with the different number of reducers and the use of the different algorithms. \\
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.8\textwidth]{media/performance.png}
 \end{figure}
 
-In analyzing the performance of the two algorithms (Combiner and inMapper) across different data sizes (100KB, 3MB, 3GB) and varying numbers of reducers (1, 2, 3), several trends emerge:
+\subsection{General Observations}
 
-\begin{itemize}
-    \item \textbf{Efficiency and Resource Usage}: The \textit{inMapper} algorithm consistently demonstrates better efficiency across multiple metrics, including CPU time, physical and virtual memory usage, and garbage collection times. This indicates that \textit{inMapper} handles tasks more effectively, especially with larger data sizes.
-    \item \textbf{Scalability with Reducers}: Both algorithms benefit from an increased number of reducers, though \textit{inMapper} shows more significant performance gains. This suggests that \textit{inMapper} scales better with additional resources.
-    \item \textbf{Performance with Larger Data Sizes}: As data size increases, the performance difference between the algorithms becomes more apparent. \textit{inMapper} generally outperforms Combiner, particularly with larger datasets (3GB), making it a preferable choice for large-scale data processing tasks.
-\end{itemize}
-
-Overall, the \textit{inMapper} algorithm proves to be more efficient and scalable, particularly when dealing with larger datasets and an increasing number of reducers. This makes it a better choice for high-performance data processing scenarios.
-
+For small file sizes, there is no substantial difference in performance between the various Hadoop algorithms. However,
+as the file size increases, significant differences in performance become apparent. Specifically, the inMapper algorithms
+show greater efficiency, particularly regarding execution times. When looking at metrics such as the total time spent by
+all reduce and map tasks, CPU time spent, and garbage collection time elapsed, the inMapper approaches outperform the
+Combiner approaches for larger file sizes. This improved efficiency with inMapper algorithms becomes more evident
+as the file size increases.\\ \\
+Regarding memory usage, the inMapper algorithms demonstrate slightly better performance compared to the Combiner algorithms.
+Although the differences are not as noticeable as those observed in execution times, the inMapper algorithms consistently
+show an advantage in terms of memory efficiency, especially for larger files. This includes both peak physical and virtual
+memory used during map and reduce tasks.\\ \\
+Increasing the number of reducers did not lead to performance improvements for the file sizes used in the tests. Instead,
+it generally resulted in increased resource usage and longer execution times due to the management overhead of additional reducer tasks.
+However, for very large file sizes, such as 3GB, performance tends to stabilize with an increased number of reducers.
+In some instances, slight improvements are observed, suggesting that for even larger file sizes, substantial performance gains could be achieved
+by increasing the number of reducers. This indicates a potential for significant performance enhancements with more reducers for files
+larger than those tested, as the workload can be distributed more effectively.
 
 \newpage
 
@@ -130,7 +138,8 @@ Below it can be seen the results of the frequency analysis for the small and med
 \end{figure}
 
 
-\textbf{Obtanied Results:}
+\subsection{General Observations}
+
 \begin{itemize}
     \item In each language \textit{A} and \text{E} are the most frequent letters.
     \item \textit{T} has significantly more priority in English than the other languages.
