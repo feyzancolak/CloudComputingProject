@@ -18,7 +18,7 @@ import java.util.Map;
 public class LetterFrequency {
 
     // Mapper class to count letters
-    public static class LetterFrequencyMapper extends Mapper<LongWritable, Text, Text, LongWritable> {
+    public static class LetterFrequencyMapper extends Mapper<Object, Text, Text, LongWritable> {
         private Map<String, Long> charCountMap = new HashMap<>();
         private Text character = new Text();
         private LongWritable charCount = new LongWritable();
@@ -32,7 +32,7 @@ public class LetterFrequency {
         }
 
         @Override
-        public void map(LongWritable key, Text value, Context context) {
+        public void map(Object key, Text value, Context context) {
             // Normalize and convert the line to lowercase based on the specified language
             String line = LanguageNormalizer.normalize(value.toString(), language);
             // Iterate over each character in the line
@@ -84,20 +84,29 @@ public class LetterFrequency {
 
     public static Job configureFrequencyJob(String inputFile, long totalLetterCount, String outputFile, Configuration conf) throws Exception {
         System.out.println("Configuring letter frequency job");
+
+        // Set the total letter count in the configuration
         conf.setLong("totalLetterCount", totalLetterCount);
+
         Job job = Job.getInstance(conf, "letter frequency");
 
+        // Set classes for job
         job.setJarByClass(RunProcess.class);
         job.setMapperClass(LetterFrequency.LetterFrequencyMapper.class);
         job.setReducerClass(LetterFrequency.LetterFrequencyReducer.class);
+
+        // Set output types
         job.setOutputKeyClass(Text.class);
         job.setMapOutputValueClass(LongWritable.class);
         job.setOutputValueClass(DoubleWritable.class);
 
+        // Set the number of reducers
         job.setNumReduceTasks(conf.getInt("numReducers", 1));
 
+        // Set the input and output paths
         FileInputFormat.addInputPath(job, new Path(inputFile));
         FileOutputFormat.setOutputPath(job, new Path(outputFile));
+
         System.out.println("Configured letter frequency job");
         return job;
     }

@@ -16,8 +16,6 @@ letterCount class to count the number of letters in the text. This information i
 from the letterFrequency class that then calculates the frequency of each letter in the text. The output of the letterFrequency class
 is the final result of the analysis, and to this it is also added the result of the letterCount.
 
-\newpage
-
 \section{Combiner}
 
 The Combiner acts as a mini-reducer that performs local aggregation of intermediate data before it is sent to the reducers.
@@ -28,13 +26,13 @@ performance of the letter frequency analysis.
 
 \subsection{LetterCount}
 The LetterCount algorithm is implemented using Hadoop's MapReduce framework to count occurrences of standard alphabet
-characters within text documents. \\
+characters within text documents.
 
 \begin{algorithm}
     \caption{LetterCount with Combiner}
     \begin{algorithmic}[1]
         \Require Input text document
-        \Ensure Count of each character belonging to the specified language alphabet
+        \Ensure Count of the total number of character occurrences
 
         \Statex
         \Class{MAPPER}
@@ -45,19 +43,41 @@ characters within text documents. \\
             \Method{Map}{docid $key$, doc $value$}
                 \State line $\gets$ NORMALIZE($value$, $language$) \Comment{Normalize and convert}
                 \For{each character $ch$ in $line$}
-                    \State Emit(character $ch$, count $1$) \Comment{Emit each character with a count of 1}
+                    \State Emit(nullType $null$, count $1$) \Comment{Emit each character with a count of 1}
                 \EndFor
             \EndMethod
         \EndClass
 
         \Statex
-        \Class{COMBINER / REDUCER}
-            \Method{Reduce}{character $ch$, count[] $values$}
+        \Class{COMBINER}
+            \Method{Reduce}{nullType $null$, count[] $values$}
                 \State sum $\gets$ 0 \Comment{Initialize sum}
                 \For{each count $value$ in $values$} \Comment{Combine the counts of the same letter}
                     \State sum $\gets$ sum + $value$
                 \EndFor
-                \State Emit(character $ch$, count $sum$) \Comment{Output final count of each character}
+                \State Emit(nullType $null$, count $sum$) \Comment{Output final count of each character}
+            \EndMethod
+        \EndClass
+
+        \Statex
+        \Class{PARTITIONER}
+            \Method{GetPartition}{nullType $null$, count $value$, int $numReducers$}
+                \State \text{Return} \text{(int) RANDOM($numReducers$)} \Comment{Randomly assign the key to a reducer}
+            \EndMethod
+        \EndClass
+
+        \Statex
+        \Class{REDUCER}
+            \Method{Initialize}{}
+                \State \text{totalCountKey} $\gets$ $"total\_count"$ \Comment{Initialize total count key}
+            \EndMethod\\
+
+            \Method{Reduce}{nullType $null$, count[] $values$}
+                \State sum $\gets$ $0$ \Comment{Initialize sum}
+                \For{each count $value$ in $values$} \Comment{Combine the counts of the same letter}
+                    \State sum $\gets$ sum + $value$
+                \EndFor
+                \State Emit(key $totalCountKey$, count $sum$) \Comment{Output final count of each character}
             \EndMethod
         \EndClass
 
@@ -137,46 +157,59 @@ The LetterCount algorithm is implemented using Hadoop's MapReduce framework to c
     
     \begin{algorithmic}[1]
         \Require Input text document
-        \Ensure Count of each character belonging to the specified language alphabet
+        \Ensure Count of the total number of character occurrences
 
         \Statex
         \Class{Mapper}{}
-            \Method {Initialize}{language $lg$}
+            \Method {Initialize}{language $lg$, int $numReducers$}
                 \State \text{map} $\gets$ new HASHMAP \Comment{Initialize zero count}
                 \State \text{language} $\gets$ $lg$ \Comment{Retrieve language}
+                \State \text{numReducers} $\gets$ $numReducers$ \Comment{Initialize number of reducers}
             \EndMethod
             \\
 
             \Method{Map}{$\text{docid $key$, doc $value$}$}
-                \State $\text{line} $\gets$ \text{NORMALIZE($value$, $language$)}$ \Comment{Normalize based on input language}
+                \State \text{line} $\gets$ \text{NORMALIZE($value$, $language$)} \Comment{Normalize based on input language}
                 \For{each character $ch$ in $line$}
-                    \State map($ch$) $\gets$ map($ch$) + $1$
+                    \State \text{selectedReducer} $\gets$ \text{RANDOM($numReducers$)} \Comment{Randomly assign a partition}
+                    \State map($selectedReducer$) $\gets$ map($selectedReducer$) + $1$
                 \EndFor
             \EndMethod
             \\
 
             \Method{Close}{}
-                \For{each entry (character $ch$, count $sum$) in $map$}
-                    \State $\text{Emit}(\text{character $ch$}, \text{count $sum$})$ \Comment{Emit the combined count of each character}
+                \For{each entry (key $selectedReducer$, count $sum$) in $map$}
+                    \State $\text{Emit}(\text{key $selectedReducer$}, \text{count $sum$})$ \Comment{Emit the combined count of each character}
                 \EndFor
             \EndMethod
         \EndClass
 
         \Statex
+        \Class{Partitioner}
+            \Method{GetPartition}{key $selectedReducer$, value $value$, int $numReducers$}
+                \State \text{Return} \text{$selectedReducer$} \Comment{Assign key to selected reducer}
+            \EndMethod
+        \EndClass
+
+        \Statex
         \Class{Reducer}
-            \Method{Reduce}{\text{character $ch$, count[] $values$}}
+            \Method{Initialize}{}
+                \State \text{totalCountKey} $\gets$ $"total\_count"$ \Comment{Initialize total count key}
+            \EndMethod\\
+
+            \Method{Reduce}{\text{key $selectedReducer$, count[] $values$}}
                 \State \text{sum} $\gets$ $0$ \Comment{Initialize result}
                 \For{each count $value$ in $values$}
                     \State \text{sum} $\gets$ \text{sum} + $value$ \Comment{Sum counts for each letter}
                 \EndFor
-                \State Emit(character $ch$, count $sum$) \Comment{Output final count of each character}
+                \State Emit(key $totalCountKey$, count $sum$) \Comment{Output final count of each character}
             \EndMethod
         \EndClass
     \end{algorithmic}
 \end{algorithm}
 
 \newpage
-%% write the pseudocode for the LetterFrequency algorithm with In-Mapper Combining
+
 \subsection{LetterFrequency}
 The LetterFrequency algorithm calculates the frequency of standard alphabet characters within text documents using Hadoop's MapReduce framework.
 

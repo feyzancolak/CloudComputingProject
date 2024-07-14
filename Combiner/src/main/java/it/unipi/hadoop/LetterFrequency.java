@@ -90,26 +90,24 @@ public class LetterFrequency {
     public static Job configureFrequencyJob(String tempOutputFile, long totalLetterCount, String outputFile, Configuration conf) throws IOException {
         System.out.println("Configuring letter frequency job");
 
-        // Set the configuration
+        // Set the total letter count in the configuration
         conf.setLong("totalLetterCount", totalLetterCount);
 
         Job letterFrequencyJob = Job.getInstance(conf, "LetterFrequency");
 
-        // Set the main classes
+        // Set classes for job
         letterFrequencyJob.setJarByClass(LetterFrequency.class);
         letterFrequencyJob.setMapperClass(MapperFrequency.class);
         letterFrequencyJob.setReducerClass(ReducerFrequency.class);
         letterFrequencyJob.setCombinerClass(CombinerFrequency.class);
 
-        // Set the number of reducers
-        letterFrequencyJob.setNumReduceTasks(conf.getInt("numReducers", 1));
-
-        // Set the output key classes for the mapper, combiner and reducer
+        // Set output types
         letterFrequencyJob.setOutputKeyClass(Text.class);
-
-        // Set the output key value classes for the mapper, combiner and reducer
         letterFrequencyJob.setMapOutputValueClass(LongWritable.class);
         letterFrequencyJob.setOutputValueClass(DoubleWritable.class);
+
+        // Set the number of reducers
+        letterFrequencyJob.setNumReduceTasks(conf.getInt("numReducers", 1));
 
         // Set the input and output paths
         FileInputFormat.addInputPath(letterFrequencyJob, new Path(tempOutputFile));
