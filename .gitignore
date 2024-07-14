@@ -1,13 +1,12 @@
 HELP.md
-/Combiner/target
-/inMapper/target
+Combiner/target
+inMapper/target
 
 ### IntelliJ IDEA ###
-/.idea/
-
-workspace.xml
+.idea
 
 ### LATEX ###
+documentation/auxil
 documentation/documentation.toc
 documentation/documentation.synctex.gz
 documentation/documentation.log
