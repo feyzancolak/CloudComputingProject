@@ -3,7 +3,7 @@ Combiner/target
 inMapper/target
 
 ### IntelliJ IDEA ###
-.idea
+.idea/
 
 ### LATEX ###
 documentation/auxil/*
