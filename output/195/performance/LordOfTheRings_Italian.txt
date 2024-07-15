@@ -1,0 +1,180 @@
+Input file: CC_project/data/input/LordOfTheRings_Italian.txt
+Language: it
+Output folder: CC_project/data/output/195/notFormatted/LordOfTheRings_Italian
+Final output file: CC_project/data/output/195/formatted/LordOfTheRings_Italian.txt
+Number of reducers: 2
+Configuring letter count job
+Configured letter count job
+Running Letter Count job
+2024-07-14 21:34:44,460 INFO client.RMProxy: Connecting to ResourceManager at hadoop-namenode/10.1.1.137:8032
+2024-07-14 21:34:44,906 WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
+2024-07-14 21:34:44,920 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding for path: /tmp/hadoop-yarn/staging/hadoop/.staging/job_1720306872127_0553
+2024-07-14 21:34:45,036 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+2024-07-14 21:34:45,335 INFO input.FileInputFormat: Total input files to process : 1
+2024-07-14 21:34:45,449 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+2024-07-14 21:34:45,482 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+2024-07-14 21:34:45,500 INFO mapreduce.JobSubmitter: number of splits:1
+2024-07-14 21:34:45,841 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+2024-07-14 21:34:45,874 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1720306872127_0553
+2024-07-14 21:34:45,874 INFO mapreduce.JobSubmitter: Executing with tokens: []
+2024-07-14 21:34:46,156 INFO conf.Configuration: resource-types.xml not found
+2024-07-14 21:34:46,156 INFO resource.ResourceUtils: Unable to find 'resource-types.xml'.
+2024-07-14 21:34:46,238 INFO impl.YarnClientImpl: Submitted application application_1720306872127_0553
+2024-07-14 21:34:46,520 INFO mapreduce.Job: The url to track the job: http://hadoop-namenode:8088/proxy/application_1720306872127_0553/
+2024-07-14 21:34:46,521 INFO mapreduce.Job: Running job: job_1720306872127_0553
+2024-07-14 21:34:53,665 INFO mapreduce.Job: Job job_1720306872127_0553 running in uber mode : false
+2024-07-14 21:34:53,668 INFO mapreduce.Job:  map 0% reduce 0%
+2024-07-14 21:34:59,823 INFO mapreduce.Job:  map 100% reduce 0%
+2024-07-14 21:35:03,871 INFO mapreduce.Job:  map 100% reduce 50%
+2024-07-14 21:35:04,884 INFO mapreduce.Job:  map 100% reduce 100%
+2024-07-14 21:35:04,912 INFO mapreduce.Job: Job job_1720306872127_0553 completed successfully
+2024-07-14 21:35:05,037 INFO mapreduce.Job: Counters: 53
+	File System Counters
+		FILE: Number of bytes read=40
+		FILE: Number of bytes written=654567
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=3215104
+		HDFS: Number of bytes written=40
+		HDFS: Number of read operations=13
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=4
+	Job Counters 
+		Launched map tasks=1
+		Launched reduce tasks=2
+		Data-local map tasks=1
+		Total time spent by all maps in occupied slots (ms)=58016
+		Total time spent by all reduces in occupied slots (ms)=93088
+		Total time spent by all map tasks (ms)=3626
+		Total time spent by all reduce tasks (ms)=5818
+		Total vcore-milliseconds taken by all map tasks=3626
+		Total vcore-milliseconds taken by all reduce tasks=5818
+		Total megabyte-milliseconds taken by all map tasks=7426048
+		Total megabyte-milliseconds taken by all reduce tasks=11915264
+	Map-Reduce Framework
+		Map input records=48386
+		Map output records=2
+		Map output bytes=24
+		Map output materialized bytes=40
+		Input split bytes=153
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=2
+		Reduce shuffle bytes=40
+		Reduce input records=2
+		Reduce output records=2
+		Spilled Records=4
+		Shuffled Maps =2
+		Failed Shuffles=0
+		Merged Map outputs=2
+		GC time elapsed (ms)=323
+		CPU time spent (ms)=3620
+		Physical memory (bytes) snapshot=900411392
+		Virtual memory (bytes) snapshot=10285236224
+		Total committed heap usage (bytes)=776470528
+		Peak Map Physical memory (bytes)=474718208
+		Peak Map Virtual memory (bytes)=3421917184
+		Peak Reduce Physical memory (bytes)=213352448
+		Peak Reduce Virtual memory (bytes)=3431927808
+	Shuffle Errors
+		BAD_ID=0
+		CONNECTION=0
+		IO_ERROR=0
+		WRONG_LENGTH=0
+		WRONG_MAP=0
+		WRONG_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=3214951
+	File Output Format Counters 
+		Bytes Written=40
+Letter Count job completed successfully
+2024-07-14 21:35:05,123 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+2024-07-14 21:35:05,147 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+Total letter count: 2445824
+Configuring letter frequency job
+Configured letter frequency job
+Running Letter Frequency job
+2024-07-14 21:35:05,183 INFO client.RMProxy: Connecting to ResourceManager at hadoop-namenode/10.1.1.137:8032
+2024-07-14 21:35:05,199 WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
+2024-07-14 21:35:05,203 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding for path: /tmp/hadoop-yarn/staging/hadoop/.staging/job_1720306872127_0554
+2024-07-14 21:35:05,211 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+2024-07-14 21:35:05,239 INFO input.FileInputFormat: Total input files to process : 1
+2024-07-14 21:35:05,253 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+2024-07-14 21:35:05,291 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+2024-07-14 21:35:05,309 INFO mapreduce.JobSubmitter: number of splits:1
+2024-07-14 21:35:05,341 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+2024-07-14 21:35:05,382 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1720306872127_0554
+2024-07-14 21:35:05,382 INFO mapreduce.JobSubmitter: Executing with tokens: []
+2024-07-14 21:35:05,406 INFO impl.YarnClientImpl: Submitted application application_1720306872127_0554
+2024-07-14 21:35:05,413 INFO mapreduce.Job: The url to track the job: http://hadoop-namenode:8088/proxy/application_1720306872127_0554/
+2024-07-14 21:35:05,414 INFO mapreduce.Job: Running job: job_1720306872127_0554
+2024-07-14 21:35:17,745 INFO mapreduce.Job: Job job_1720306872127_0554 running in uber mode : false
+2024-07-14 21:35:17,748 INFO mapreduce.Job:  map 0% reduce 0%
+2024-07-14 21:35:23,835 INFO mapreduce.Job:  map 100% reduce 0%
+2024-07-14 21:35:28,891 INFO mapreduce.Job:  map 100% reduce 50%
+2024-07-14 21:35:29,899 INFO mapreduce.Job:  map 100% reduce 100%
+2024-07-14 21:35:29,918 INFO mapreduce.Job: Job job_1720306872127_0554 completed successfully
+2024-07-14 21:35:29,987 INFO mapreduce.Job: Counters: 53
+	File System Counters
+		FILE: Number of bytes read=324
+		FILE: Number of bytes written=655048
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=3215104
+		HDFS: Number of bytes written=584
+		HDFS: Number of read operations=13
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=4
+	Job Counters 
+		Launched map tasks=1
+		Launched reduce tasks=2
+		Data-local map tasks=1
+		Total time spent by all maps in occupied slots (ms)=55808
+		Total time spent by all reduces in occupied slots (ms)=111568
+		Total time spent by all map tasks (ms)=3488
+		Total time spent by all reduce tasks (ms)=6973
+		Total vcore-milliseconds taken by all map tasks=3488
+		Total vcore-milliseconds taken by all reduce tasks=6973
+		Total megabyte-milliseconds taken by all map tasks=7143424
+		Total megabyte-milliseconds taken by all reduce tasks=14280704
+	Map-Reduce Framework
+		Map input records=48386
+		Map output records=26
+		Map output bytes=260
+		Map output materialized bytes=324
+		Input split bytes=153
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=26
+		Reduce shuffle bytes=324
+		Reduce input records=26
+		Reduce output records=26
+		Spilled Records=52
+		Shuffled Maps =2
+		Failed Shuffles=0
+		Merged Map outputs=2
+		GC time elapsed (ms)=249
+		CPU time spent (ms)=3310
+		Physical memory (bytes) snapshot=909877248
+		Virtual memory (bytes) snapshot=10281381888
+		Total committed heap usage (bytes)=872415232
+		Peak Map Physical memory (bytes)=483553280
+		Peak Map Virtual memory (bytes)=3421159424
+		Peak Reduce Physical memory (bytes)=215310336
+		Peak Reduce Virtual memory (bytes)=3430342656
+	Shuffle Errors
+		BAD_ID=0
+		CONNECTION=0
+		IO_ERROR=0
+		WRONG_LENGTH=0
+		WRONG_MAP=0
+		WRONG_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=3214951
+	File Output Format Counters 
+		Bytes Written=584
+Letter Frequency job completed successfully
+2024-07-14 21:35:29,998 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+2024-07-14 21:35:30,012 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
