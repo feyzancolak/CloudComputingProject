@@ -6,7 +6,7 @@
 /.idea/
 
 ### LATEX ###
-/documentation/auxil
+/documentation/auxil/*
 /documentation/documentation.toc
 /documentation/documentation.synctex.gz
 /documentation/documentation.log
